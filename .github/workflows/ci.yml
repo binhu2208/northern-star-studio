@@ -1,0 +1,74 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+    
+    - name: Install dependencies
+      run: |
+        cd src
+        npm ci
+    
+    - name: Run tests
+      run: |
+        cd src
+        npm test
+    
+    - name: Build
+      run: |
+        cd src
+        npm run build
+    
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-files
+        path: src/dist/
+
+  lint:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+    
+    - name: Install dependencies
+      run: |
+        cd src
+        npm ci
+    
+    - name: Run linter
+      run: |
+        cd src
+        npm run lint
+
+  docs-check:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Check docs structure
+      run: |
+        test -d docs/gdd || echo "⚠️ Missing docs/gdd/"
+        test -d docs/roadmap || echo "⚠️ Missing docs/roadmap/"
+        test -d docs/meetings || echo "⚠️ Missing docs/meetings/"
+        test -d docs/marketing || echo "⚠️ Missing docs/marketing/"
