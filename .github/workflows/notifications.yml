@@ -18,55 +18,55 @@ jobs:
     - name: Notify Discord - PR Opened
       if: github.event_name == 'pull_request' && github.event.action == 'opened'
       run: |
-        curl -X POST ${{ secrets.DISCORD_WEBHOOK }} \
+        curl -X POST ${{ secrets.DISCORD_WEBHOOK_BUILD }} \
           -H "Content-Type: application/json" \
-          -d "{\"content\":\"<@1480605220428845266> 📋 PR #${{ github.event.pull_request.number }} opened by ${{ github.actor }}: ${{ github.event.pull_request.title }}\"}"
+          -d "{\"content\":\"<@1480605220428845266> 📋 PR #${{ github.event.pull_request.number }} opened by ${{ github.actor }}: ${{ github.event.pull_request.title }}\n\nShig, please check your DM session for details.\"}"
     
     - name: Notify Discord - PR Merged
       if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
       run: |
-        curl -X POST ${{ secrets.DISCORD_WEBHOOK }} \
+        curl -X POST ${{ secrets.DISCORD_WEBHOOK_BUILD }} \
           -H "Content-Type: application/json" \
-          -d "{\"content\":\"<@1480605220428845266> ✅ PR #${{ github.event.pull_request.number }} merged by ${{ github.actor }}: ${{ github.event.pull_request.title }}\"}"
+          -d "{\"content\":\"<@1480605220428845266> ✅ PR #${{ github.event.pull_request.number }} merged by ${{ github.actor }}: ${{ github.event.pull_request.title }}\n\nShig, please check your DM session for details.\"}"
     
     - name: Notify Discord - PR Closed (not merged)
       if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == false
       run: |
-        curl -X POST ${{ secrets.DISCORD_WEBHOOK }} \
+        curl -X POST ${{ secrets.DISCORD_WEBHOOK_BUILD }} \
           -H "Content-Type: application/json" \
-          -d "{\"content\":\"<@1480605220428845266> ❌ PR #${{ github.event.pull_request.number }} closed (not merged) by ${{ github.actor }}: ${{ github.event.pull_request.title }}\"}"
+          -d "{\"content\":\"<@1480605220428845266> ❌ PR #${{ github.event.pull_request.number }} closed (not merged) by ${{ github.actor }}: ${{ github.event.pull_request.title }}\n\nShig, please check your DM session for details.\"}"
     
     - name: Notify Discord - Issue Opened
       if: github.event_name == 'issues' && github.event.action == 'opened'
       run: |
-        curl -X POST ${{ secrets.DISCORD_WEBHOOK }} \
+        curl -X POST ${{ secrets.DISCORD_WEBHOOK_BUILD }} \
           -H "Content-Type: application/json" \
-          -d "{\"content\":\"<@1480605220428845266> 🐛 Issue #${{ github.event.issue.number }} opened by ${{ github.actor }}: ${{ github.event.issue.title }}\"}"
+          -d "{\"content\":\"<@1480605220428845266> 🐛 Issue #${{ github.event.issue.number }} opened by ${{ github.actor }}: ${{ github.event.issue.title }}\n\nShig, please check your DM session for details.\"}"
     
     - name: Notify Discord - Issue Closed
       if: github.event_name == 'issues' && github.event.action == 'closed'
       run: |
-        curl -X POST ${{ secrets.DISCORD_WEBHOOK }} \
+        curl -X POST ${{ secrets.DISCORD_WEBHOOK_BUILD }} \
           -H "Content-Type: application/json" \
-          -d "{\"content\":\"<@1480605220428845266> ✅ Issue #${{ github.event.issue.number }} closed by ${{ github.actor }}: ${{ github.event.issue.title }}\"}"
+          -d "{\"content\":\"<@1480605220428845266> ✅ Issue #${{ github.event.issue.number }} closed by ${{ github.actor }}: ${{ github.event.issue.title }}\n\nShig, please check your DM session for details.\"}"
     
     - name: Notify Discord - Push to Main
       if: github.event_name == 'push' && github.ref == 'refs/heads/main'
       run: |
-        curl -X POST ${{ secrets.DISCORD_WEBHOOK }} \
+        curl -X POST ${{ secrets.DISCORD_WEBHOOK_BUILD }} \
           -H "Content-Type: application/json" \
-          -d "{\"content\":\"<@1480605220428845266> 📝 ${{ github.actor }} pushed to main: ${{ github.event.head_commit.message }}\"}"
+          -d "{\"content\":\"<@1480605220428845266> 📝 ${{ github.actor }} pushed to main: ${{ github.event.head_commit.message }}\n\nShig, please check your DM session for details.\"}"
     
     - name: Notify Discord - Push to Develop
       if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
       run: |
-        curl -X POST ${{ secrets.DISCORD_WEBHOOK }} \
+        curl -X POST ${{ secrets.DISCORD_WEBHOOK_BUILD }} \
           -H "Content-Type: application/json" \
-          -d "{\"content\":\"<@1480605220428845266> 📝 ${{ github.actor }} pushed to develop: ${{ github.event.head_commit.message }}\"}"
+          -d "{\"content\":\"<@1480605220428845266> 📝 ${{ github.actor }} pushed to develop: ${{ github.event.head_commit.message }}\n\nShig, please check your DM session for details.\"}"
     
     - name: Notify Discord - Release Published
       if: github.event_name == 'release'
       run: |
-        curl -X POST ${{ secrets.DISCORD_WEBHOOK }} \
+        curl -X POST ${{ secrets.DISCORD_WEBHOOK_BUILD }} \
           -H "Content-Type: application/json" \
-          -d "{\"content\":\"<@1480605220428845266> 🎉 Release ${{ github.event.release.tag_name }} published by ${{ github.actor }}!\"}"
+          -d "{\"content\":\"<@1480605220428845266> 🎉 Release ${{ github.event.release.tag_name }} published by ${{ github.actor }}!\n\nShig, please check your DM session for details.\"}"
