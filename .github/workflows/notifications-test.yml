@@ -1,0 +1,16 @@
+name: Discord Notifications - No Mention Test
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Notify Discord - Issue Opened (No Mention)
+      run: |
+        curl -X POST ${{ secrets.DISCORD_WEBHOOK }} \
+          -H "Content-Type: application/json" \
+          -d "{\"content\":\"🐛 Issue #${{ github.event.issue.number }} opened by ${{ github.actor }}: ${{ github.event.issue.title }}\"}"
