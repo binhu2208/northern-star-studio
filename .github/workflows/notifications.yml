@@ -6,7 +6,10 @@ on:
   issues:
     types: [opened, closed, reopened, assigned]
   push:
-    branches: [main, develop, 'release/**']
+    branches:
+      - main
+      - develop
+      - 'release/**'
   release:
     types: [published]
 
