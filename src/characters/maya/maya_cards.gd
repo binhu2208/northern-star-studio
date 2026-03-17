@@ -365,17 +365,30 @@ static func get_special_cards() -> Array[Card]:
 ## ============================================================
 
 ## Get all starting cards (for initialization)
+## Maya starts in Resentment phase with Shadow-dominant deck
+## Includes some Fire (conflict) and Warmth (path to healing) cards
 static func get_starting_deck() -> Array[Card]:
 	var cards: Array[Card] = []
 	
-	## Add Shadow cards (4 + 3 + 3 + 2 + 2 + 1 = 15 total)
-	cards.append_array(get_shadow_cards().slice(0, 4))  ## 4x Unfair Burden
-	cards.append_array(get_shadow_cards().slice(1, 4))  ## 3x What He Said
-	cards.append_array(get_shadow_cards().slice(2, 5)) ## 3x Should Have Been Different
-	cards.append_array(get_shadow_cards().slice(3, 5)) ## 2x I Was Right (Fire but in starting deck)
-	cards.append_array(get_shadow_cards().slice(4, 6)) ## 2x Empty Studio
-	cards.append(get_warmth_cards()[0])                  ## 1x Grandmother's Hands
+	## Add all Shadow cards (6 cards) - the core of Resentment
+	cards.append_array(get_shadow_cards())
 	
+	## Add Fire cards (2 cards) - represents the conflict path
+	cards.append(get_fire_cards()[0])  ## I Was Right
+	cards.append(get_fire_cards()[1])  ## Burning Resentment
+	
+	## Add Warmth cards (2 cards) - represents path toward healing
+	cards.append(get_warmth_cards()[0])  ## Grandmother's Hands
+	cards.append(get_warmth_cards()[1])  ## Twinge of Hope
+	
+	## Add 5 more Shadow cards (duplicates for deck variety)
+	cards.append(get_shadow_cards()[0])  ## Unfair Burden
+	cards.append(get_shadow_cards()[0])  ## Unfair Burden
+	cards.append(get_shadow_cards()[1])  ## What He Said
+	cards.append(get_shadow_cards()[2])  ## Should Have Been Different
+	cards.append(get_shadow_cards()[3])  ## Empty Studio
+	
+	## Total: 6 + 2 + 2 + 5 = 15 cards
 	return cards
 
 ## Get card by ID
