@@ -134,6 +134,29 @@ func get_enemy_count() -> int:
 func get_primary_enemy() -> EnemySetup:
 	return enemy_setups[0] if not enemy_setups.is_empty() else null
 
+func create_progress_state() -> EncounterProgressState:
+	var state := EncounterProgressState.new()
+	state.encounter_id = encounter_id
+	state.objective_progress = _build_objective_progress_template()
+	state.metadata = {
+		"title": title,
+		"difficulty": difficulty,
+		"biome": biome
+	}
+	return state
+
+func _build_objective_progress_template() -> Dictionary:
+	var progress := {}
+	for objective in objectives:
+		var objective_id = str(objective.get("id", "objective_%d" % progress.size()))
+		progress[objective_id] = {
+			"complete": false,
+			"target": objective.get("target", 0),
+			"current": 0,
+			"metadata": objective.duplicate(true)
+		}
+	return progress
+
 static func _to_string_array(values: Variant) -> Array[String]:
 	var result: Array[String] = []
 	if values is Array:

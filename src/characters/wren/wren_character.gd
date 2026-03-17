@@ -95,7 +95,7 @@ func _phase_advance() -> void:
 	if phase_index < Phase.size() - 1:
 		phase_index += 1
 		current_phase = phase_index
-		_phase_changed.emit(current_phase)
+		phase_changed.emit(current_phase)
 
 ## Signal for phase changes
 signal phase_changed(new_phase: Phase)
@@ -239,3 +239,35 @@ func get_available_card_indices() -> Array[int]:
 			for i in range(20):
 				available.append(i)
 	return available
+
+func get_persistent_progression_state() -> Dictionary:
+	var state = super.get_persistent_progression_state()
+	state["memory_tokens"] = memory_tokens
+	state["phase_index"] = phase_index
+	state["current_phase"] = int(current_phase)
+	return state
+
+func apply_persistent_progression_state(state: Dictionary) -> void:
+	super.apply_persistent_progression_state(state)
+	memory_tokens = clampi(int(state.get("memory_tokens", memory_tokens)), 0, max_memory_tokens)
+	phase_index = clampi(int(state.get("phase_index", phase_index)), 0, Phase.size() - 1)
+	current_phase = int(state.get("current_phase", phase_index))
+
+func get_run_progression_state() -> Dictionary:
+	var state = super.get_run_progression_state()
+	state["memory_tokens"] = memory_tokens
+	state["grief_counter"] = grief_counter
+	state["cards_played_this_combat"] = cards_played_this_combat
+	state["phase_index"] = phase_index
+	state["current_phase"] = int(current_phase)
+	state["last_card_effect"] = last_card_effect.duplicate(true)
+	return state
+
+func apply_run_progression_state(state: Dictionary) -> void:
+	super.apply_run_progression_state(state)
+	memory_tokens = clampi(int(state.get("memory_tokens", memory_tokens)), 0, max_memory_tokens)
+	grief_counter = max(int(state.get("grief_counter", grief_counter)), 0)
+	cards_played_this_combat = max(int(state.get("cards_played_this_combat", cards_played_this_combat)), 0)
+	phase_index = clampi(int(state.get("phase_index", phase_index)), 0, Phase.size() - 1)
+	current_phase = int(state.get("current_phase", phase_index))
+	last_card_effect = state.get("last_card_effect", {}).duplicate(true)

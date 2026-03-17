@@ -215,6 +215,9 @@ func _get_emotion_dominance() -> Dictionary:
 		"STORM": 0.0
 	}
 
+func get_emotion_dominance() -> Dictionary:
+	return _get_emotion_dominance()
+
 ## Get emotional state name
 func get_emotional_state_name() -> String:
 	return EmotionalState.keys()[current_emotional_state]
@@ -234,7 +237,54 @@ func get_debug_state() -> Dictionary:
 		}
 	}
 
+func get_emotion_counts() -> Dictionary:
+	return _count_emotions_in_hand()
+
+func check_and_apply_resonance() -> bool:
+	return _check_resonance()
+
 ## Signals
 signal emotional_state_changed(from_state: EmotionalState, to_state: EmotionalState)
 signal resonance_triggered(family: int)
 signal story_flag_changed(flag: String, value: bool)
+
+func get_persistent_progression_state() -> Dictionary:
+	var state = super.get_persistent_progression_state()
+	state["current_emotional_state"] = int(current_emotional_state)
+	state["emotional_state_index"] = emotional_state_index
+	state["story_flags"] = {
+		"memory_orb_1": has_seen_memory_orb_1,
+		"read_letter": has_read_letter,
+		"confrontation": has_confrontation_occurred,
+		"knows_truth": knows_full_truth,
+		"confrontation_path": confrontation_path
+	}
+	return state
+
+func apply_persistent_progression_state(state: Dictionary) -> void:
+	super.apply_persistent_progression_state(state)
+	current_emotional_state = int(state.get("current_emotional_state", current_emotional_state))
+	emotional_state_index = int(state.get("emotional_state_index", current_emotional_state))
+	var story_flags = state.get("story_flags", {})
+	has_seen_memory_orb_1 = bool(story_flags.get("memory_orb_1", has_seen_memory_orb_1))
+	has_read_letter = bool(story_flags.get("read_letter", has_read_letter))
+	has_confrontation_occurred = bool(story_flags.get("confrontation", has_confrontation_occurred))
+	knows_full_truth = bool(story_flags.get("knows_truth", knows_full_truth))
+	confrontation_path = str(story_flags.get("confrontation_path", confrontation_path))
+
+func get_run_progression_state() -> Dictionary:
+	var state = super.get_run_progression_state()
+	state["current_emotional_state"] = int(current_emotional_state)
+	state["emotional_state_index"] = emotional_state_index
+	state["resonance_bonus_active"] = resonance_bonus_active
+	state["last_resonance_family"] = last_resonance_family
+	state["cards_played_this_turn"] = cards_played_this_turn
+	state["story_flags"] = get_persistent_progression_state().get("story_flags", {}).duplicate(true)
+	return state
+
+func apply_run_progression_state(state: Dictionary) -> void:
+	super.apply_run_progression_state(state)
+	apply_persistent_progression_state(state)
+	resonance_bonus_active = bool(state.get("resonance_bonus_active", resonance_bonus_active))
+	last_resonance_family = int(state.get("last_resonance_family", last_resonance_family))
+	cards_played_this_turn = int(state.get("cards_played_this_turn", cards_played_this_turn))

@@ -178,3 +178,44 @@ func _on_turn_start() -> void:
 ## Virtual method for character-specific mechanics
 func _on_turn_end() -> void:
 	pass
+
+func reset_combat() -> void:
+	current_health = max_health
+	current_plays = emotional_capacity
+	current_energy = max_energy
+	_status_effects.clear()
+	_active_cards.clear()
+
+func get_persistent_progression_state() -> Dictionary:
+	return {
+		"character_id": character_id
+	}
+
+func apply_persistent_progression_state(state: Dictionary) -> void:
+	if state.is_empty():
+		return
+
+func get_run_progression_state() -> Dictionary:
+	return {
+		"character_id": character_id,
+		"current_health": current_health,
+		"current_plays": current_plays,
+		"current_energy": current_energy,
+		"status_effects": _status_effects.duplicate(true),
+		"active_card_ids": _serialize_card_ids(_active_cards)
+	}
+
+func apply_run_progression_state(state: Dictionary) -> void:
+	if state.is_empty():
+		return
+	current_health = int(state.get("current_health", current_health))
+	current_plays = int(state.get("current_plays", current_plays))
+	current_energy = int(state.get("current_energy", current_energy))
+	_status_effects = state.get("status_effects", {}).duplicate(true)
+
+func _serialize_card_ids(cards: Array) -> Array[String]:
+	var ids: Array[String] = []
+	for card in cards:
+		if card is Card:
+			ids.append(card.id)
+	return ids
