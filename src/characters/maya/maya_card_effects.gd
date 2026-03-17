@@ -8,20 +8,20 @@ extends Node
 ## Reference to damage engine
 var damage_engine: DamageEngine
 ## Reference to Maya character
-var maya: Maya
+var maya: MayaCharacter
 ## Reference to turn system
 var turn_system: TurnSystem
 
 ## Card effect signals
 signal card_effect_triggered(card_id: String, effect_type: String)
-signal resonance_active(family: Character.EmotionFamily)
+signal resonance_active(family: int)
 signal emotional_shift_occurred(from_state: int, to_state: int)
 
 func _init() -> void:
 	pass
 
 ## Initialize with required references
-func initialize(maya_ref: Maya, damage: DamageEngine, turn_sys: TurnSystem) -> void:
+func initialize(maya_ref: MayaCharacter, damage: DamageEngine, turn_sys: TurnSystem) -> void:
 	maya = maya_ref
 	damage_engine = damage
 	turn_system = turn_sys

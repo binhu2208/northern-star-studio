@@ -23,7 +23,7 @@ var encounter_number: int = 0
 var choice_history: Array[String] = []
 
 ## References
-var maya_character: Maya
+var maya_character: MayaCharacter
 var turn_system: TurnSystem
 
 ## Signals
@@ -36,7 +36,7 @@ func _init() -> void:
 	pass
 
 ## Initialize with Maya character reference
-func initialize(maya: Maya, turn_sys: TurnSystem) -> void:
+func initialize(maya: MayaCharacter, turn_sys: TurnSystem) -> void:
 	maya_character = maya
 	turn_system = turn_sys
 
@@ -100,7 +100,7 @@ func _process_encounter_choice(choice_id: String, data: Dictionary) -> Dictionar
 			result["state_change"] = true
 			result["narrative"] = "You chose to look closer. Something shifts."
 			if maya_character:
-				maya_character.update_emotional_state(Maya.EmotionalState.CURIOSITY)
+				maya_character.update_emotional_state(MayaCharacter.EmotionalState.CURIOSITY)
 				maya_character.set_story_flag("memory_orb_1", true)
 		
 		"avoidance_path":
@@ -128,19 +128,19 @@ func _process_memory_choice(choice_id: String, data: Dictionary) -> Dictionary:
 			result["narrative"] = "You see Leo was there more than you remembered."
 			result["state_change"] = true
 			if maya_character:
-				maya_character.update_emotional_state(Maya.EmotionalState.CURIOSITY)
+				maya_character.update_emotional_state(MayaCharacter.EmotionalState.CURIOSITY)
 		
 		"skip_memory":
 			result["narrative"] = "You couldn't bear to watch. The resentment hardens."
 			if maya_character:
-				maya_character.update_emotional_state(Maya.EmotionalState.RESENTMENT)
+				maya_character.update_emotional_state(MayaCharacter.EmotionalState.RESENTMENT)
 		
 		"watch_with_curiosity":
 			result["cards_added"].append("conflicting_memory")
 			result["narrative"] = "You see Leo crying. A crack forms in your certainties."
 			result["state_change"] = true
 			if maya_character:
-				maya_character.update_emotional_state(Maya.EmotionalState.CURIOSITY)
+				maya_character.update_emotional_state(MayaCharacter.EmotionalState.CURIOSITY)
 	
 	_change_phase(ProgressionPhase.ENCOUNTER)
 	return result
@@ -156,7 +156,7 @@ func _process_letter_choice(choice_id: String, data: Dictionary) -> Dictionary:
 			result["narrative"] = "The letter confirms what you believed. Leo wanted to sell."
 			if maya_character:
 				maya_character.set_story_flag("read_letter", true)
-				maya_character.update_emotional_state(Maya.EmotionalState.CONFLICT)
+				maya_character.update_emotional_state(MayaCharacter.EmotionalState.CONFLICT)
 		
 		"read_with_pain":
 			result["cards_added"].append("his_words_hurt")
@@ -164,7 +164,7 @@ func _process_letter_choice(choice_id: String, data: Dictionary) -> Dictionary:
 			result["state_change"] = true
 			if maya_character:
 				maya_character.set_story_flag("read_letter", true)
-				maya_character.update_emotional_state(Maya.EmotionalState.CURIOSITY)
+				maya_character.update_emotional_state(MayaCharacter.EmotionalState.CURIOSITY)
 		
 		"cant_read_yet":
 			result["narrative"] = "Not yet. The letter waits."
@@ -179,7 +179,7 @@ func _process_letter_choice(choice_id: String, data: Dictionary) -> Dictionary:
 			if maya_character:
 				maya_character.set_story_flag("read_letter", true)
 				maya_character.set_story_flag("knows_truth", true)
-				maya_character.update_emotional_state(Maya.EmotionalState.VULNERABILITY)
+				maya_character.update_emotional_state(MayaCharacter.EmotionalState.VULNERABILITY)
 	
 	_change_phase(ProgressionPhase.ENCOUNTER)
 	return result
@@ -194,13 +194,13 @@ func _process_confrontation_choice(choice_id: String, data: Dictionary) -> Dicti
 			result["narrative"] = "The argument escalates. Leo's echo becomes defensive."
 			if maya_character:
 				maya_character.confrontation_path = "argument"
-				maya_character.update_emotional_state(Maya.EmotionalState.CONFLICT)
+				maya_character.update_emotional_state(MayaCharacter.EmotionalState.CONFLICT)
 		
 		"i_did_everything_alone":
 			result["narrative"] = "You state your case. Leo's echo apologizes but feels distant."
 			if maya_character:
 				maya_character.confrontation_path = "victim"
-				maya_character.update_emotional_state(Maya.EmotionalState.CONFLICT)
+				maya_character.update_emotional_state(MayaCharacter.EmotionalState.CONFLICT)
 		
 		"i_miss_him":
 			result["narrative"] = "Vulnerability opens the door. Leo's echo opens up."
@@ -208,7 +208,7 @@ func _process_confrontation_choice(choice_id: String, data: Dictionary) -> Dicti
 			if maya_character:
 				maya_character.confrontation_path = "vulnerability"
 				maya_character.set_story_flag("confrontation", true)
-				maya_character.update_emotional_state(Maya.EmotionalState.VULNERABILITY)
+				maya_character.update_emotional_state(MayaCharacter.EmotionalState.VULNERABILITY)
 		
 		"grandmother_would_want":
 			result["narrative"] = "Shared grief brings connection. A path forward appears."
@@ -216,28 +216,28 @@ func _process_confrontation_choice(choice_id: String, data: Dictionary) -> Dicti
 			if maya_character:
 				maya_character.confrontation_path = "legacy"
 				maya_character.set_story_flag("confrontation", true)
-				maya_character.update_emotional_state(Maya.EmotionalState.VULNERABILITY)
+				maya_character.update_emotional_state(MayaCharacter.EmotionalState.VULNERABILITY)
 		
 		"need_to_settle":
 			result["narrative"] = "Direct approach. Intense but potentially productive."
 			if maya_character:
 				maya_character.confrontation_path = "direct"
 				maya_character.set_story_flag("confrontation", true)
-				maya_character.update_emotional_state(Maya.EmotionalState.CONFLICT)
+				maya_character.update_emotional_state(MayaCharacter.EmotionalState.CONFLICT)
 		
 		"anger_is_okay":
 			result["narrative"] = "Honesty breeds honesty. Leo's echo mirrors your candor."
 			if maya_character:
 				maya_character.confrontation_path = "honest"
 				maya_character.set_story_flag("confrontation", true)
-				maya_character.update_emotional_state(Maya.EmotionalState.CONFLICT)
+				maya_character.update_emotional_state(MayaCharacter.EmotionalState.CONFLICT)
 		
 		"dont_know_how":
 			result["narrative"] = "Uncertainty. Leo's echo admits the same."
 			if maya_character:
 				maya_character.confrontation_path = "uncertainty"
 				maya_character.set_story_flag("confrontation", true)
-				maya_character.update_emotional_state(Maya.EmotionalState.CURIOSITY)
+				maya_character.update_emotional_state(MayaCharacter.EmotionalState.CURIOSITY)
 		
 		"can_we_start_over":
 			result["cards_added"].append("open_question")
@@ -245,7 +245,7 @@ func _process_confrontation_choice(choice_id: String, data: Dictionary) -> Dicti
 			if maya_character:
 				maya_character.confrontation_path = "reset"
 				maya_character.set_story_flag("confrontation", true)
-				maya_character.update_emotional_state(Maya.EmotionalState.UNDERSTANDING)
+				maya_character.update_emotional_state(MayaCharacter.EmotionalState.UNDERSTANDING)
 	
 	_change_phase(ProgressionPhase.TRUTH)
 	return result
@@ -259,7 +259,7 @@ func _process_truth_choice(choice_id: String, data: Dictionary) -> Dictionary:
 			result["narrative"] = "Both were trying to honor Grandmother. A misunderstanding destroyed everything."
 			if maya_character:
 				maya_character.set_story_flag("knows_truth", true)
-				maya_character.update_emotional_state(Maya.EmotionalState.UNDERSTANDING)
+				maya_character.update_emotional_state(MayaCharacter.EmotionalState.UNDERSTANDING)
 		
 		"accept_partial_truth":
 			result["narrative"] = "You see what supports your current feelings."
@@ -270,7 +270,7 @@ func _process_truth_choice(choice_id: String, data: Dictionary) -> Dictionary:
 			result["cards_added"].append("acceptance")
 			result["narrative"] = "Peace matters more than answers. You focus on the future."
 			if maya_character:
-				maya_character.update_emotional_state(Maya.EmotionalState.RESOLUTION)
+				maya_character.update_emotional_state(MayaCharacter.EmotionalState.RESOLUTION)
 	
 	## Check for ending availability
 	_check_for_ending()

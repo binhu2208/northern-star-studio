@@ -308,7 +308,7 @@ static func get_special_cards() -> Array[Card]:
 		"unexpected_detail",
 		"Unexpected Detail",
 		"Something you didn't see before.\n\nDraw 2 cards. Reveal a hidden truth.",
-		Card.CardType.MEMORY,
+		Card.CardType.EMOTION,
 		Card.EmotionType.JOY,
 		2,
 		0

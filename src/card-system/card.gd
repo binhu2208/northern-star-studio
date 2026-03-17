@@ -16,4 +16,4 @@ enum EmotionType { JOY, SADNESS, ANGER, FEAR, LOVE, CONFUSION }
 func _init(p_id: String = "", p_name: String = "", p_description: String = ""):
 	id = p_id
 	name = p_name
-	_description = p_description
+	description = p_description

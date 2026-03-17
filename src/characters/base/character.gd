@@ -6,6 +6,14 @@
 class_name Character
 extends Node
 
+enum EmotionFamily {
+	NONE,
+	WARMTH,
+	SHADOW,
+	FIRE,
+	STORM
+}
+
 ## Signals
 signal health_changed(current: int, max: int)
 signal died
@@ -60,6 +68,9 @@ func get_health_percent() -> float:
 	if max_health <= 0:
 		return 0.0
 	return float(current_health) / float(max_health)
+
+func get_health_percentage() -> float:
+	return get_health_percent()
 
 ## Take damage
 func take_damage(amount: int, source: Node = null) -> void:

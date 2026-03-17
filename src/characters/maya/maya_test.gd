@@ -3,7 +3,7 @@
 
 extends Node
 
-var maya: Maya
+var maya: MayaCharacter
 var damage_engine: DamageEngine
 var turn_system: TurnSystem
 var maya_phase_system: MayaPhaseSystem
@@ -24,7 +24,7 @@ func _setup_test() -> void:
 	add_child(turn_system)
 	
 	## Create Maya
-	maya = Maya.new()
+	maya = MayaCharacter.new()
 	add_child(maya)
 	maya.initialize_maya()
 	
@@ -65,7 +65,7 @@ func _test_starting_state() -> void:
 	assert(maya.deck.size() == 15, "Starting deck should have 15 cards")
 	
 	## Check emotional state
-	assert(maya.current_emotional_state == Maya.EmotionalState.RESENTMENT, "Initial state should be RESENTMENT")
+	assert(maya.current_emotional_state == MayaCharacter.EmotionalState.RESENTMENT, "Initial state should be RESENTMENT")
 	
 	print("Starting state tests PASSED")
 
