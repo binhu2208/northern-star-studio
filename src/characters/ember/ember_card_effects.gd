@@ -55,6 +55,43 @@ func execute_card_effect(card: Card, target: Node = null, _source: Node = null) 
 	if int(card_info.get("draw", 0)) > 0:
 		result["cards_drawn"] = int(card_info.get("draw", 0))
 
+	## Handle heat reduction (Cooling Embers)
+	if card_info.has("heat_reduction"):
+		ember_character.remove_heat(card_info.get("heat_reduction"))
+	
+	## Handle heal on kill (Regret)
+	if card_info.has("heal_on_kill"):
+		result["heal_on_kill"] = card_info.get("heal_on_kill")
+	
+	## Handle low heat bonus (Trembling Spark)
+	if card_info.has("low_heat_bonus"):
+		var threshold = card_info.get("low_heat_threshold", 2)
+		if ember_character.get_heat() <= threshold:
+			result["low_heat_bonus"] = card_info.get("low_heat_bonus")
+	
+	## Handle wanting buff (Wanting to Change)
+	if card_info.has("apply_wanting"):
+		ember_character.add_status("wanting", 1)
+		result["special_effects"].append("wanting")
+	
+	## Handle vulnerable (Cautious Flame)
+	if card_info.has("apply_vulnerable"):
+		result["apply_vulnerable"] = true
+		result["first_attack_only"] = card_info.get("first_attack_only", false)
+	
+	## Handle damage reduction (What Have I Done)
+	if card_info.has("damage_reduction"):
+		result["damage_reduction"] = card_info.get("damage_reduction")
+	
+	## Handle self damage
+	if card_info.has("self_damage"):
+		result["self_damage"] = card_info.get("self_damage")
+	
+	## Handle soot debuff (Ash Fall)
+	if card_info.has("apply_soot"):
+		result["apply_soot"] = true
+		result["soot_stacks"] = 1
+
 	return result
 
 ## Execute a card effect
@@ -95,6 +132,12 @@ func _execute_attack(card_info: Dictionary, target: Node, all_targets: Array[Nod
 	## Calculate final damage with heat bonus
 	var final_damage = ember_character.calculate_fire_damage(base_damage)
 	
+	## Apply low heat bonus (Trembling Spark)
+	if card_info.has("low_heat_bonus"):
+		var threshold = card_info.get("low_heat_threshold", 2)
+		if ember_character.get_heat() <= threshold:
+			final_damage += card_info.get("low_heat_bonus", 0)
+	
 	## Apply phase bonus
 	var phase_bonus = ember_character.get_phase_bonus()
 	final_damage = int(final_damage * phase_bonus.damage_mult)
@@ -105,9 +148,13 @@ func _execute_attack(card_info: Dictionary, target: Node, all_targets: Array[Nod
 			if is_instance_valid(aoe_target):
 				_apply_damage_to_target(final_damage, damage_type, aoe_target)
 				_apply_burn_effect(card_info, aoe_target)
+				_apply_soot_effect(card_info, aoe_target)
+				_apply_vulnerable_effect(card_info, aoe_target)
 	else:
 		_apply_damage_to_target(final_damage, damage_type, target)
 		_apply_burn_effect(card_info, target)
+		_apply_soot_effect(card_info, target)
+		_apply_vulnerable_effect(card_info, target)
 	
 	## Handle heat gain on damage
 	if card_info.get("heat_gain_on_damage", false):
@@ -117,17 +164,34 @@ func _execute_attack(card_info: Dictionary, target: Node, all_targets: Array[Nod
 	if card_info.get("heat_immunity", false):
 		ember_character.apply_status("heat_immunity", 1)
 	
+	## Handle heal on kill (Regret) - check if target is dead after damage
+	if card_info.has("heal_on_kill"):
+		_handle_heal_on_kill(card_info, target, final_damage)
+	
+	## Handle wanting buff (heal ally on damage)
+	if card_info.has("apply_wanting") == false and ember_character.has_status("wanting"):
+		_handle_wanting_heal(final_damage)
+	
 	## Handle draw
 	_draw_cards(card_info.get("draw", 0))
 
 ## Execute defense card effect
 func _execute_defense(card_info: Dictionary) -> void:
 	ember_character.set_defending(true)
-	# Future: Shield creation via damage_engine.create_shield()
 	
-	## Some defense cards also give heat
+	## Handle shield (Scars, Cooling Embers)
+	if card_info.has("shield"):
+		var shield_amount = card_info.get("shield", 0)
+		if damage_engine:
+			damage_engine.create_shield(ember_character, shield_amount)
+	
+	## Some defense cards also give heat (Scars)
 	if card_info.has("heat_gain"):
 		ember_character.add_heat(card_info.get("heat_gain"))
+	
+	## Some defense cards reduce heat (Cooling Embers)
+	if card_info.has("heat_reduction"):
+		ember_character.remove_heat(card_info.get("heat_reduction"))
 
 ## Execute skill card effect
 func _execute_skill(card_info: Dictionary) -> void:
@@ -172,6 +236,42 @@ func _apply_burn_effect(card_info: Dictionary, target: Node) -> void:
 			## Also set burn damage value
 			if target.has_method("set_burn_damage"):
 				target.set_burn_damage(burn_damage)
+
+## Apply soot effect to target (Ash Fall)
+func _apply_soot_effect(card_info: Dictionary, target: Node) -> void:
+	if card_info.has("apply_soot"):
+		var soot_stacks = card_info.get("soot_stacks", 1)
+		if target.has_method("add_status"):
+			## Soot reduces healing received by 3 per stack
+			target.add_status("soot", 999, soot_stacks * 3)  ## Lasts rest of combat
+
+## Apply vulnerable effect to target (Cautious Flame)
+func _apply_vulnerable_effect(card_info: Dictionary, target: Node) -> void:
+	if card_info.has("apply_vulnerable"):
+		var is_first_attack = card_info.get("first_attack_only", false)
+		## For now, always apply if the card has it
+		## In full implementation, track attacks this turn
+		if target.has_method("add_status"):
+			target.add_status("vulnerable", 1)  ## Next hit takes +50%
+
+## Handle heal on kill (Regret)
+func _handle_heal_on_kill(card_info: Dictionary, target: Node, damage: int) -> void:
+	## Check if target is dead (no health remaining)
+	## This is a simplified check - in full implementation, check target's current_health
+	var heal_amount = card_info.get("heal_on_kill", 0)
+	if heal_amount > 0 and target.has_method("is_dead") and target.is_dead():
+		ember_character.heal(heal_amount)
+
+## Handle wanting buff - heal ally for 50% of damage dealt
+func _handle_wanting_heal(damage_dealt: int) -> void:
+	var heal_amount = int(damage_dealt * 0.5)
+	if heal_amount > 0:
+		## Remove the wanting status after use
+		ember_character.remove_status("wanting")
+		## In full implementation, this would heal an ally
+		## For now, self-heal as fallback
+		if ember_character.has_method("heal"):
+			ember_character.heal(heal_amount)
 
 ## Draw cards (integration point with CardManager)
 func _draw_cards(amount: int) -> void:

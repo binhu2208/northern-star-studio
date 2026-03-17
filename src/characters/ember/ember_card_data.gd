@@ -98,74 +98,98 @@ const CARDS: Array[Dictionary] = [
 	},
 	
 	## ============ PHASE 3: SCORCHED EARTH (Cards 9-12) ============
+	## Phase 3: Scorched Earth - The fire has burned out. What's left is ash and acknowledgment.
 	{
-		"id": "ember_immolate",
-		"name": "Immolate",
-		"description": "Burn everything to ash. Deal 8 fire damage and apply 3 burn.",
+		"id": "ember_ash_fall",
+		"name": "Ash Fall",
+		"description": "The fallout doesn't care who was right.\n\nDeal 5 fire damage. Apply 1 Soot (reduces healing by 3 this combat).",
 		"type": Card.CardType.ATTACK,
-		"cost": 3,
-		"value": 8,
+		"cost": 2,
+		"value": 5,
 		"phase": 3,
-		"burn_damage": 3,
-		"burn_turns": 3,
-		"damage_type": "FIRE"
+		"damage_type": "FIRE",
+		"apply_soot": true
 	},
 	{
-		"id": "ember_thermal_strike",
-		"name": "Thermal Strike",
-		"description": "Extreme heat strikes. Deal 10 fire damage.",
-		"type": Card.CardType.ATTACK,
-		"cost": 3,
-		"value": 10,
-		"phase": 3,
-		"damage_type": "FIRE"
-	},
-	{
-		"id": "ember_rain_of_fire",
-		"name": "Rain of Fire",
-		"description": "Fire falls from above. Deal 7 damage to all enemies and apply 2 burn.",
-		"type": Card.CardType.ATTACK,
-		"cost": 3,
-		"value": 7,
-		"phase": 3,
-		"aoe": true,
-		"burn_damage": 2,
-		"burn_turns": 2,
-		"damage_type": "FIRE"
-	},
-	{
-		"id": "ember_combustion",
-		"name": "Combustion",
-		"description": "Explosive chain reaction. Deal 6 damage and gain Heat equal to damage dealt.",
-		"type": Card.CardType.ATTACK,
+		"id": "ember_scars",
+		"name": "Scars",
+		"description": "The fire taught me what survives.\n\nGain 6 Shield. Gain 1 Heat.",
+		"type": Card.CardType.DEFENSE,
 		"cost": 2,
 		"value": 6,
 		"phase": 3,
+		"shield": 6,
+		"heat_gain": 1
+	},
+	{
+		"id": "ember_regret",
+		"name": "Regret",
+		"description": "I can't take back what I did. But I can stop.\n\nDeal 3 damage. If this kills an enemy, heal 5 HP.",
+		"type": Card.CardType.ATTACK,
+		"cost": 2,
+		"value": 3,
+		"phase": 3,
 		"damage_type": "FIRE",
-		"heat_gain_on_damage": true
+		"heal_on_kill": 5
+	},
+	{
+		"id": "ember_cooling_embers",
+		"name": "Cooling Embers",
+		"description": "The fire's still there. I'm learning to tend it.\n\nReduce Heat by 2. Gain 4 Shield.",
+		"type": Card.CardType.DEFENSE,
+		"cost": 1,
+		"value": 4,
+		"phase": 3,
+		"shield": 4,
+		"heat_reduction": 2
 	},
 	
-	## ============ PHASE 4: SMOLDERING (Cards 13-14) ============
+	## ============ PHASE 4: SMOLDERING (Cards 13-16) ============
+	## Phase 4: Smoldering - The anger hasn't gone. It's quieter now — and ashamed.
 	{
-		"id": "ember_smolder",
-		"name": "Smolder",
-		"description": "Low flames that persist. Deal 3 damage and gain 5 Heat.",
+		"id": "ember_trembling_spark",
+		"name": "Trembling Spark",
+		"description": "My hands shake now. They never used to.\n\nDeal 3 damage. If you have 0-2 Heat, deal +2 damage.",
 		"type": Card.CardType.ATTACK,
 		"cost": 1,
 		"value": 3,
 		"phase": 4,
 		"damage_type": "FIRE",
-		"heat_gain": 5
+		"low_heat_bonus": 2,
+		"low_heat_threshold": 2
 	},
 	{
-		"id": "ember_coals",
-		"name": "Coals",
-		"description": "Banked embers grow stronger. Gain 12 Heat. If Heat is below 30, gain double.",
-		"type": "SKILL",
-		"cost": 1,
+		"id": "ember_what_have_i_done",
+		"name": "What Have I Done",
+		"description": "I see their face. I see what I became.\n\nReaction: When you take damage, reduce it by 3. Then gain 1 Heat and lose 1 HP.",
+		"type": Card.CardType.SKILL,
+		"cost": 0,
 		"phase": 4,
-		"heat_gain": 12,
-		"heat_boost_low": true
+		"damage_reduction": 3,
+		"heat_gain": 1,
+		"self_damage": 1,
+		"reaction": true
+	},
+	{
+		"id": "ember_wanting_to_change",
+		"name": "Wanting to Change",
+		"description": "What if I could be different? What if I didn't have to burn?\n\nGain \"Wanting\" — your next Fire card that deals damage also heals your ally for half damage dealt.",
+		"type": Card.CardType.SKILL,
+		"cost": 2,
+		"phase": 4,
+		"apply_wanting": true
+	},
+	{
+		"id": "ember_cautious_flame",
+		"name": "Cautious Flame",
+		"description": "A small fire. Careful. Controlled.\n\nDeal 4 damage. If this is your first attack this turn, apply 1 Vulnerable (takes +50% damage next hit).",
+		"type": Card.CardType.ATTACK,
+		"cost": 2,
+		"value": 4,
+		"phase": 4,
+		"damage_type": "FIRE",
+		"apply_vulnerable": true,
+		"first_attack_only": true
 	},
 	
 	## ============ PHASE 5: CONTROLLED BURN (Cards 15-17) ============
