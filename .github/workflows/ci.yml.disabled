@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'src/**'
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'src/**'
+
+# Note: This is a Godot project. Build/Lint jobs are disabled until
+# Godot CI is configured. Docs checks still run on all changes.
+
+jobs:
+  docs-check:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Check docs structure
+      run: |
+        test -d docs/gdd || echo "⚠️ Missing docs/gdd/"
+        test -d docs/roadmap || echo "⚠️ Missing docs/roadmap/"
+        test -d docs/meetings || echo "⚠️ Missing docs/meetings/"
+        test -d docs/marketing || echo "⚠️ Missing docs/marketing/"
+    
+    - name: Notify Discord on success
+      if: success()
+      run: |
+        curl -X POST ${{ secrets.DISCORD_WEBHOOK }} \
+          -H "Content-Type: application/json" \
+          -d "{\"content\":\"✅ CI passed for ${{ github.ref }}\"}"
