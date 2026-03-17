@@ -21,6 +21,9 @@ func _ready():
 	add_child(hand)
 
 func initialize_deck(cards: Array[Card]) -> void:
+	draw_pile.cards.clear()
+	discard_pile.cards.clear()
+	hand.clear_hand()
 	for card in cards:
 		draw_pile.add_card(card)
 	draw_pile.shuffle()

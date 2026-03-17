@@ -263,7 +263,7 @@ func _process_storm_card(card: Card, target: Node, source: Node,
 		"doubt":
 			## Conditional draw
 			var cards_to_draw = 1
-			if maya and maya.hand.size() >= 3:
+			if maya and maya.card_manager and maya.card_manager.hand and maya.card_manager.hand.get_hand_size() >= 3:
 				cards_to_draw = 2
 			_deal_emotional_damage(damage, DamageEngine.DamageType.EMOTIONAL, source, target)
 			result["damage_dealt"] = damage

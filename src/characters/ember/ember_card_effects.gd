@@ -22,6 +22,41 @@ func initialize(p_damage_engine: DamageEngine, p_ember_character: EmberCharacter
 	damage_engine = p_damage_engine
 	ember_character = p_ember_character
 
+func execute_card_effect(card: Card, target: Node = null, _source: Node = null) -> Dictionary:
+	var result := {
+		"damage_dealt": 0,
+		"healing": 0,
+		"shield": 0,
+		"cards_drawn": 0,
+		"energy_change": 0,
+		"special_effects": []
+	}
+	if card == null or ember_character == null:
+		return result
+
+	var card_info = EmberCardData.get_card_by_id(card.id)
+	if card.card_type == Card.CardType.ATTACK and target != null:
+		var damage = ember_character.calculate_fire_damage(card.value + ember_character.get_attack_power())
+		var damage_result = damage_engine.deal_damage(damage, target, ember_character, DamageEngine.DamageType.FIRE)
+		result["damage_dealt"] = damage_result.final_damage
+		if card_info.get("burn_damage", 0) > 0 and target is Character:
+			ember_character.apply_burn(target, int(card_info.get("burn_damage", 0)), int(card_info.get("burn_turns", 0)))
+			result["special_effects"].append("burn")
+	elif card.card_type == Card.CardType.DEFENSE:
+		damage_engine.create_shield(ember_character, card.value)
+		result["shield"] = card.value
+	else:
+		result["special_effects"].append("heat")
+
+	if int(card_info.get("heat_gain", 0)) > 0:
+		ember_character.add_heat(int(card_info.get("heat_gain", 0)))
+	if bool(card_info.get("heat_gain_on_damage", false)) and result["damage_dealt"] > 0:
+		ember_character.add_heat(int(result["damage_dealt"]))
+	if int(card_info.get("draw", 0)) > 0:
+		result["cards_drawn"] = int(card_info.get("draw", 0))
+
+	return result
+
 ## Execute a card effect
 ## [code]card_info[/code] - Dictionary containing card data
 ## [code]target[/code] - Target node (enemy)

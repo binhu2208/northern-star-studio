@@ -42,7 +42,7 @@ const CARDS: Array[Dictionary] = [
 		"heat_gain": 15
 	},
 	{
-		"id": "ember_ Kindle",
+		"id": "ember_kindle",
 		"name": "Kindle",
 		"description": "Build the foundation for fire. Gain 8 Heat and draw 1 card.",
 		"type": "SKILL",

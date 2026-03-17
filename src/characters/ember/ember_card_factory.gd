@@ -17,16 +17,19 @@ static func create_card(card_info: Dictionary) -> Card:
 	card.emotion_type = Card.EmotionType.ANGER  ## Fire = Anger
 	
 	## Set card type
-	var type_str = card_info.get("type", "ATTACK")
-	match type_str:
-		"ATTACK":
-			card.card_type = Card.CardType.ATTACK
-		"DEFENSE":
-			card.card_type = Card.CardType.DEFENSE
-		"SKILL":
-			card.card_type = Card.CardType.EMOTION
-		_:
-			card.card_type = Card.CardType.ATTACK
+	var card_type_value = card_info.get("type", Card.CardType.ATTACK)
+	if card_type_value is String:
+		match card_type_value:
+			"ATTACK":
+				card.card_type = Card.CardType.ATTACK
+			"DEFENSE":
+				card.card_type = Card.CardType.DEFENSE
+			"SKILL":
+				card.card_type = Card.CardType.EMOTION
+			_:
+				card.card_type = Card.CardType.ATTACK
+	else:
+		card.card_type = int(card_type_value)
 	
 	## Set art path (placeholder for now)
 	card.art_path = "res://assets/cards/ember/" + card.id + ".png"

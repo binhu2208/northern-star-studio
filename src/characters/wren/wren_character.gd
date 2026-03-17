@@ -205,7 +205,12 @@ func embrace_grief() -> int:
 
 ## Reset after combat
 func reset_combat() -> void:
+	super.reset_combat()
 	reset_grief()
+	memory_tokens = 0
+	phase_index = 0
+	current_phase = Phase.DENIAL
+	last_card_effect.clear()
 	attack_power = 8
 	defense_power = 8
 

@@ -68,8 +68,7 @@ func start_combat(player_package: CombatantPackage, enemy_package: CombatantPack
 	combat_state_machine.reset_combat()
 	turn_system._start_game()
 	damage_engine.reset()
-	win_conditions.combat_state_machine = combat_state_machine
-	win_conditions.turn_system = turn_system
+	win_conditions.configure_runtime_dependencies(combat_state_machine, turn_system)
 	win_conditions.clear_conditions()
 	win_conditions.add_defeat_all_enemies_condition()
 	_initialize_handler(player_effect_handler, player_character, player_manager)
@@ -80,6 +79,16 @@ func start_combat(player_package: CombatantPackage, enemy_package: CombatantPack
 	enemy_manager.draw_cards(opening_hand_size)
 	combat_started.emit(player_character, enemy_character)
 	_start_player_turn()
+
+func start_encounter_combat(player_character_id: String, encounter_payload: Dictionary) -> bool:
+	var packages = GameplayFactory.create_packages_for_encounter(player_character_id, encounter_payload)
+	if packages.is_empty():
+		return false
+	start_combat(packages.get("player"), packages.get("enemy"))
+	var encounter = encounter_payload.get("definition")
+	if encounter and encounter is EncounterDefinition:
+		EncounterLoader.new().apply_objectives_to_win_conditions(encounter, win_conditions)
+	return true
 
 func play_player_card(hand_index: int, target: Node = null) -> Dictionary:
 	if combat_state_machine == null or not combat_state_machine.is_player_turn() or combat_state_machine.is_combat_ended():
@@ -266,6 +275,8 @@ func _initialize_handler(handler: Node, owner: Character, manager: CardManager) 
 		handler.initialize(owner, damage_engine, manager)
 	elif handler is MayaCardEffects:
 		handler.initialize(owner, damage_engine, turn_system)
+	elif handler is EmberCardEffectHandler:
+		handler.initialize(damage_engine, owner)
 
 func _prepare_character(character: Character, manager: CardManager) -> void:
 	character.reset_combat()

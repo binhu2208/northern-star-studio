@@ -64,13 +64,31 @@ var _current_score: int = 0
 func _ready() -> void:
 	_setup_connections()
 
+func configure_runtime_dependencies(p_combat_state_machine: CombatStateMachine, p_turn_system: TurnSystem) -> void:
+	_disconnect_runtime_dependencies()
+	combat_state_machine = p_combat_state_machine
+	turn_system = p_turn_system
+	_setup_connections()
+
 func _setup_connections() -> void:
 	if combat_state_machine:
-		combat_state_machine.player_turn_ended.connect(_on_turn_ended)
-		combat_state_machine.enemy_turn_ended.connect(_on_turn_ended)
+		if not combat_state_machine.player_turn_ended.is_connected(_on_turn_ended):
+			combat_state_machine.player_turn_ended.connect(_on_turn_ended)
+		if not combat_state_machine.enemy_turn_ended.is_connected(_on_turn_ended):
+			combat_state_machine.enemy_turn_ended.connect(_on_turn_ended)
 	
 	if turn_system:
-		turn_system.round_ended.connect(_on_round_ended)
+		if not turn_system.round_ended.is_connected(_on_round_ended):
+			turn_system.round_ended.connect(_on_round_ended)
+
+func _disconnect_runtime_dependencies() -> void:
+	if combat_state_machine:
+		if combat_state_machine.player_turn_ended.is_connected(_on_turn_ended):
+			combat_state_machine.player_turn_ended.disconnect(_on_turn_ended)
+		if combat_state_machine.enemy_turn_ended.is_connected(_on_turn_ended):
+			combat_state_machine.enemy_turn_ended.disconnect(_on_turn_ended)
+	if turn_system and turn_system.round_ended.is_connected(_on_round_ended):
+		turn_system.round_ended.disconnect(_on_round_ended)
 
 ## Add a win condition
 func add_condition(condition: WinCondition) -> void:
