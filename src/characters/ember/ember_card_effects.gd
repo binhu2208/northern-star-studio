@@ -14,6 +14,10 @@ var ember_character: EmberCharacter
 ## Phase card access
 var card_data: EmberCardData
 
+## Lightweight launch hotfix controls.
+@export var feature_toggles: Dictionary = {}
+@export var card_overrides: Dictionary = {}
+
 func _init() -> void:
 	card_data = EmberCardData.new()
 
@@ -21,6 +25,22 @@ func _init() -> void:
 func initialize(p_damage_engine: DamageEngine, p_ember_character: EmberCharacter) -> void:
 	damage_engine = p_damage_engine
 	ember_character = p_ember_character
+
+func is_card_enabled(card_id: String) -> bool:
+	var override_value = card_overrides.get(card_id, {})
+	return not bool(override_value.get("disabled", false))
+
+func get_card_override(card_id: String) -> Dictionary:
+	var override_value = card_overrides.get(card_id, {})
+	if override_value is Dictionary:
+		return override_value
+	return {}
+
+func apply_effect_scalar(card_id: String, base_value: int, field_name: String) -> int:
+	var override_value = get_card_override(card_id)
+	var adjusted = base_value + int(override_value.get("%s_delta" % field_name, 0))
+	adjusted = int(round(float(adjusted) * float(override_value.get("%s_scalar" % field_name, 1.0))))
+	return maxi(0, adjusted)
 
 func execute_card_effect(card: Card, target: Node = null, _source: Node = null) -> Dictionary:
 	var result := {
@@ -31,20 +51,23 @@ func execute_card_effect(card: Card, target: Node = null, _source: Node = null) 
 		"energy_change": 0,
 		"special_effects": []
 	}
-	if card == null or ember_character == null:
+	if card == null or ember_character == null or not is_card_enabled(card.id):
+		result["cancelled"] = card != null and not is_card_enabled(card.id)
 		return result
 
 	var card_info = EmberCardData.get_card_by_id(card.id)
 	if card.card_type == Card.CardType.ATTACK and target != null:
-		var damage = ember_character.calculate_fire_damage(card.value + ember_character.get_attack_power())
+		var tuned_base_damage = apply_effect_scalar(card.id, card.value + ember_character.get_attack_power(), "damage")
+		var damage = ember_character.calculate_fire_damage(tuned_base_damage)
 		var damage_result = damage_engine.deal_damage(damage, target, ember_character, DamageEngine.DamageType.FIRE)
 		result["damage_dealt"] = damage_result.final_damage
 		if card_info.get("burn_damage", 0) > 0 and target is Character:
 			ember_character.apply_burn(target, int(card_info.get("burn_damage", 0)), int(card_info.get("burn_turns", 0)))
 			result["special_effects"].append("burn")
 	elif card.card_type == Card.CardType.DEFENSE:
-		damage_engine.create_shield(ember_character, card.value)
-		result["shield"] = card.value
+		var shield_amount = apply_effect_scalar(card.id, card.value, "shield")
+		damage_engine.create_shield(ember_character, shield_amount)
+		result["shield"] = shield_amount
 	else:
 		result["special_effects"].append("heat")
 

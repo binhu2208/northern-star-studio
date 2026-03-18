@@ -9,10 +9,24 @@ signal hand_full
 @export var discard_pile: CardDeck
 @export var hand: CardHand
 
+## Hotfix-friendly knobs for post-launch deck tuning.
+@export var feature_toggles: Dictionary = {}
+@export var draw_count_overrides: Dictionary = {}
+
 var starting_hand_size: int = 5
 
 func apply_config(config: GameConfig) -> void:
 	starting_hand_size = config.starting_hand_size
+	feature_toggles = config.feature_toggles.duplicate(true)
+
+func is_feature_enabled(feature_name: String, default_value: bool = true) -> bool:
+	return bool(feature_toggles.get(feature_name, default_value))
+
+func get_card_override(card_id: String) -> Dictionary:
+	var override_value = draw_count_overrides.get(card_id, {})
+	if override_value is Dictionary:
+		return override_value
+	return {}
 
 func _ready():
 	draw_pile = CardDeck.new()
@@ -31,12 +45,16 @@ func initialize_deck(cards: Array[Card]) -> void:
 
 func draw_cards(count: int) -> int:
 	var drawn = 0
-	for i in range(count):
+	var requested_count = maxi(0, count)
+	var draw_limit = requested_count
+	if not is_feature_enabled("card_draw_enabled", true):
+		return 0
+	for i in range(draw_limit):
 		if hand.get_hand_size() >= hand.max_hand_size:
 			hand_full.emit()
 			break
 		
-		if draw_pile.is_empty():
+		if draw_pile.is_empty() and is_feature_enabled("discard_reshuffle_enabled", true):
 			_reshuffle_discard()
 		
 		if draw_pile.is_empty():
@@ -44,6 +62,10 @@ func draw_cards(count: int) -> int:
 		
 		var card = draw_pile.draw()
 		if card:
+			var card_override = get_card_override(card.id)
+			if bool(card_override.get("skip_draw", false)):
+				discard_pile.add_card(card)
+				continue
 			hand.add_card(card)
 			card_drawn.emit(card)
 			drawn += 1

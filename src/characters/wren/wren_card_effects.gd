@@ -15,6 +15,10 @@ var damage_engine: DamageEngine
 ## Reference to the card manager
 var card_manager: CardManager
 
+## Lightweight launch hotfix controls.
+@export var feature_toggles: Dictionary = {}
+@export var card_overrides: Dictionary = {}
+
 func _init() -> void:
 	pass
 
@@ -23,6 +27,22 @@ func initialize(p_wren: WrenCharacter, p_damage_engine: DamageEngine, p_card_man
 	wren = p_wren
 	damage_engine = p_damage_engine
 	card_manager = p_card_manager
+
+func is_card_enabled(card_id: String) -> bool:
+	var override_value = card_overrides.get(card_id, {})
+	return not bool(override_value.get("disabled", false))
+
+func get_card_override(card_id: String) -> Dictionary:
+	var override_value = card_overrides.get(card_id, {})
+	if override_value is Dictionary:
+		return override_value
+	return {}
+
+func apply_effect_scalar(card_id: String, base_value: int, field_name: String) -> int:
+	var override_value = get_card_override(card_id)
+	var adjusted = base_value + int(override_value.get("%s_delta" % field_name, 0))
+	adjusted = int(round(float(adjusted) * float(override_value.get("%s_scalar" % field_name, 1.0))))
+	return maxi(0, adjusted)
 
 ## Execute card effect based on card ID
 ## Returns: Dictionary with effect results
@@ -38,7 +58,8 @@ func execute_card_effect(card: Card, target: Node = null) -> Dictionary:
 		"special": ""
 	}
 	
-	if card == null:
+	if card == null or not is_card_enabled(card.id):
+		result["special"] = "Card disabled" if card != null else result["special"]
 		return result
 	
 	match card.id:
@@ -63,10 +84,11 @@ func execute_card_effect(card: Card, target: Node = null) -> Dictionary:
 		
 		"wren_photo_album":
 			# Draw cards
+			var draw_amount = apply_effect_scalar(card.id, card.value, "draw")
 			if card_manager:
-				result["cards_drawn"] = card_manager.draw_cards(card.value)
+				result["cards_drawn"] = card_manager.draw_cards(draw_amount)
 			else:
-				result["cards_drawn"] = card.value
+				result["cards_drawn"] = draw_amount
 			wren.add_memory_token(1)  # Gather memory
 			result["memory_tokens"] = 1
 			result["special"] = "Memories gathered"
@@ -118,8 +140,9 @@ func execute_card_effect(card: Card, target: Node = null) -> Dictionary:
 		
 		"wren_gravity":
 			# Damage target, self damage
+			var tuned_damage = apply_effect_scalar(card.id, card.value, "damage")
 			if target and damage_engine:
-				var damage_result = damage_engine.deal_damage(card.value, target, wren, DamageEngine.DamageType.SHADOW)
+				var damage_result = damage_engine.deal_damage(tuned_damage, target, wren, DamageEngine.DamageType.SHADOW)
 				result["damage"] = damage_result.final_damage
 			# Self damage
 			wren.take_damage(2)

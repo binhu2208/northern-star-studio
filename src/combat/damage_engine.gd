@@ -111,12 +111,24 @@ class DamageResult:
 @export var base_critical_multiplier: float = 1.5  ## 1.5x damage on crit
 @export var minimum_damage: int = 0  ## Minimum damage after all calculations
 
+## Hotfix patch points for late-stage balance fixes.
+## Keys can be broad ("global", "fire") or card-specific ("card:burning_resentment").
+@export var feature_toggles: Dictionary = {}
+@export var damage_scalars: Dictionary = {}
+
 ## Active damage modifiers indexed by target node.
 var _modifiers: Dictionary = {}  ## Node -> Array[DamageModifier]
 ## Active shields indexed by target node.
 var _shields: Dictionary = {}  ## Node -> Array[Shield]
 ## Current turn number for shield expiration.
 var current_turn: int = 0
+
+func apply_config(config: GameConfig) -> void:
+	feature_toggles = config.feature_toggles.duplicate(true)
+	for key in config.damage_overrides.keys():
+		var override_value = config.damage_overrides[key]
+		if override_value is Dictionary and override_value.has("scalar"):
+			damage_scalars[key] = float(override_value.get("scalar", 1.0))
 
 func _ready() -> void:
 	pass
@@ -152,6 +164,7 @@ func calculate_final_damage(
 	
 	## Start with base damage
 	var damage: float = float(base_damage)
+	damage = _apply_hotfix_scalars(damage, damage_type, source)
 	
 	## Apply target's damage modifiers
 	damage = _apply_target_modifiers(damage, damage_type, target, result)
@@ -345,10 +358,22 @@ func _apply_type_effectiveness(damage: float, damage_type: DamageType, target: N
 
 func _get_critical_chance(source: Node, target: Node) -> float:
 	## Future: Add crit chance modifiers from cards/abilities
+	if not bool(feature_toggles.get("critical_hits_enabled", enable_critical_hits)):
+		return 0.0
 	var chance = base_critical_chance
 	if source.has_method("get_critical_chance"):
 		chance += source.get_critical_chance()
 	return clampf(chance, 0.0, 1.0)
+
+func _apply_hotfix_scalars(damage: float, damage_type: DamageType, source: Node) -> float:
+	var adjusted_damage = damage
+	adjusted_damage *= float(damage_scalars.get("global", 1.0))
+	adjusted_damage *= float(damage_scalars.get(String(DamageType.keys()[damage_type]).to_lower(), 1.0))
+	if source != null and source.has_method("get_damage_hotfix_key"):
+		var source_key = str(source.get_damage_hotfix_key())
+		if not source_key.is_empty():
+			adjusted_damage *= float(damage_scalars.get(source_key, 1.0))
+	return adjusted_damage
 
 func _apply_card_effects(
 	damage: float,

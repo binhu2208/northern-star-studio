@@ -12,6 +12,15 @@ var maya: MayaCharacter
 ## Reference to turn system
 var turn_system: TurnSystem
 
+## Lightweight post-launch hotfix scaffolding.
+## card_overrides format example:
+## {
+##   "burning_resentment": {"damage_delta": 1},
+##   "open_question": {"disabled": true}
+## }
+@export var feature_toggles: Dictionary = {}
+@export var card_overrides: Dictionary = {}
+
 ## Card effect signals
 signal card_effect_triggered(card_id: String, effect_type: String)
 signal resonance_active(family: int)
@@ -26,6 +35,24 @@ func initialize(maya_ref: MayaCharacter, damage: DamageEngine, turn_sys: TurnSys
 	damage_engine = damage
 	turn_system = turn_sys
 
+func is_card_enabled(card_id: String) -> bool:
+	var override_value = card_overrides.get(card_id, {})
+	return not bool(override_value.get("disabled", false))
+
+func get_card_override(card_id: String) -> Dictionary:
+	var override_value = card_overrides.get(card_id, {})
+	if override_value is Dictionary:
+		return override_value
+	return {}
+
+func apply_effect_scalar(card_id: String, base_value: int, field_name: String) -> int:
+	var override_value = get_card_override(card_id)
+	var delta_key = "%s_delta" % field_name
+	var scalar_key = "%s_scalar" % field_name
+	var adjusted = base_value + int(override_value.get(delta_key, 0))
+	adjusted = int(round(float(adjusted) * float(override_value.get(scalar_key, 1.0))))
+	return maxi(0, adjusted)
+
 ## Execute a card effect and return results
 ## [code]card[/code] - The card being played
 ## [code]target[/code] - Target node (can be enemy or self)
@@ -35,6 +62,7 @@ func execute_card_effect(card: Card, target: Node, source: Node = null) -> Dicti
 		source = maya
 	
 	var result = {
+		"cancelled": false,
 		"damage_dealt": 0,
 		"healing": 0,
 		"shield": 0,
@@ -44,6 +72,11 @@ func execute_card_effect(card: Card, target: Node, source: Node = null) -> Dicti
 		"special_effects": [],
 		"narrative_text": ""
 	}
+	
+	if card == null or not is_card_enabled(card.id):
+		result["cancelled"] = true
+		result["special_effects"].append("card_disabled")
+		return result
 	
 	## Get resonance bonus
 	var resonance_bonus = 0
@@ -79,7 +112,7 @@ func execute_card_effect(card: Card, target: Node, source: Node = null) -> Dicti
 ## Process Shadow (Sadness) cards
 func _process_shadow_card(card: Card, target: Node, source: Node, 
 						  bonus: int, result: Dictionary) -> Dictionary:
-	var damage = card.value + bonus
+	var damage = apply_effect_scalar(card.id, card.value + bonus, "damage")
 	
 	match card.id:
 		"unfair_burden":
@@ -141,7 +174,7 @@ func _process_shadow_card(card: Card, target: Node, source: Node,
 ## Process Fire (Anger) cards
 func _process_fire_card(card: Card, target: Node, source: Node, 
 						bonus: int, result: Dictionary) -> Dictionary:
-	var damage = card.value + bonus
+	var damage = apply_effect_scalar(card.id, card.value + bonus, "damage")
 	
 	match card.id:
 		"i_was_right":
@@ -193,42 +226,42 @@ func _process_warmth_card(card: Card, target: Node, source: Node,
 	match card.id:
 		"grandmothers_hands":
 			## Basic healing
-			result["healing"] = card.value + bonus
+			result["healing"] = apply_effect_scalar(card.id, card.value + bonus, "healing")
 			result["narrative_text"] = "Her legacy guides you."
 		
 		"twinge_of_hope":
 			## Heal + draw
-			result["healing"] = card.value + bonus - 2
-			result["cards_drawn"] = 1
+			result["healing"] = apply_effect_scalar(card.id, card.value + bonus - 2, "healing")
+			result["cards_drawn"] = apply_effect_scalar(card.id, 1, "draw")
 			result["narrative_text"] = "Maybe things could be different."
 		
 		"gratitude":
 			## Heal + boost
-			result["healing"] = card.value + bonus
+			result["healing"] = apply_effect_scalar(card.id, card.value + bonus, "healing")
 			result["special_effects"].append("value_boost")
 			result["narrative_text"] = "For what was. For what remains."
 		
 		"warm_embrace":
 			## Shield + heal
-			result["healing"] = 2
-			result["shield"] = card.value + bonus
+			result["healing"] = apply_effect_scalar(card.id, 2, "healing")
+			result["shield"] = apply_effect_scalar(card.id, card.value + bonus, "shield")
 			result["narrative_text"] = "The comfort of being understood."
 		
 		"family_love":
 			## Shield + cost reduction
-			result["shield"] = card.value + bonus
+			result["shield"] = apply_effect_scalar(card.id, card.value + bonus, "shield")
 			result["special_effects"].append("cost_reduction")
 			result["narrative_text"] = "Blood is thicker than water."
 		
 		"hopeful_heart":
 			## Big heal + draw
-			result["healing"] = card.value + bonus
-			result["cards_drawn"] = 2
+			result["healing"] = apply_effect_scalar(card.id, card.value + bonus, "healing")
+			result["cards_drawn"] = apply_effect_scalar(card.id, 2, "draw")
 			result["special_effects"].append("ending_preparation")
 			result["narrative_text"] = "The door is open."
 		
 		_:
-			result["healing"] = card.value + bonus
+			result["healing"] = apply_effect_scalar(card.id, card.value + bonus, "healing")
 	
 	## Apply healing
 	if result["healing"] > 0 and maya:
@@ -243,7 +276,7 @@ func _process_warmth_card(card: Card, target: Node, source: Node,
 ## Process Storm (Fear) cards
 func _process_storm_card(card: Card, target: Node, source: Node, 
 						bonus: int, result: Dictionary) -> Dictionary:
-	var damage = card.value + bonus
+	var damage = apply_effect_scalar(card.id, card.value + bonus, "damage")
 	
 	match card.id:
 		"uncertain_future":
