@@ -28,6 +28,10 @@ func initialize(p_wren: WrenCharacter, p_damage_engine: DamageEngine, p_card_man
 	damage_engine = p_damage_engine
 	card_manager = p_card_manager
 
+func apply_config(config: GameConfig) -> void:
+	feature_toggles = config.feature_toggles.duplicate(true)
+	card_overrides = config.card_overrides.duplicate(true)
+
 func is_card_enabled(card_id: String) -> bool:
 	var override_value = card_overrides.get(card_id, {})
 	return not bool(override_value.get("disabled", false))

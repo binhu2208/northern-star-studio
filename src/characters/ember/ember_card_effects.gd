@@ -26,6 +26,10 @@ func initialize(p_damage_engine: DamageEngine, p_ember_character: EmberCharacter
 	damage_engine = p_damage_engine
 	ember_character = p_ember_character
 
+func apply_config(config: GameConfig) -> void:
+	feature_toggles = config.feature_toggles.duplicate(true)
+	card_overrides = config.card_overrides.duplicate(true)
+
 func is_card_enabled(card_id: String) -> bool:
 	var override_value = card_overrides.get(card_id, {})
 	return not bool(override_value.get("disabled", false))

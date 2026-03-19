@@ -18,6 +18,7 @@ var starting_hand_size: int = 5
 func apply_config(config: GameConfig) -> void:
 	starting_hand_size = config.starting_hand_size
 	feature_toggles = config.feature_toggles.duplicate(true)
+	draw_count_overrides = config.card_overrides.duplicate(true)
 
 func is_feature_enabled(feature_name: String, default_value: bool = true) -> bool:
 	return bool(feature_toggles.get(feature_name, default_value))

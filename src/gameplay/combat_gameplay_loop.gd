@@ -22,6 +22,7 @@ var enemy_character: Character
 var enemy_ai: EnemyAI
 var player_effect_handler: Node
 var enemy_effect_handler: Node
+var _applied_config: GameConfig
 
 func _ready() -> void:
 	_ensure_systems()
@@ -52,6 +53,19 @@ func _ensure_systems() -> void:
 	if not combat_state_machine.combat_draw.is_connected(_on_combat_draw):
 		combat_state_machine.combat_draw.connect(_on_combat_draw)
 
+func apply_config(config: GameConfig) -> void:
+	if config == null:
+		return
+	_applied_config = config
+	opening_hand_size = config.starting_hand_size
+	_ensure_systems()
+	player_manager.apply_config(config)
+	enemy_manager.apply_config(config)
+	damage_engine.apply_config(config)
+	turn_system.apply_config(config)
+	_apply_handler_config(player_effect_handler, config)
+	_apply_handler_config(enemy_effect_handler, config)
+
 func start_combat(player_package: CombatantPackage, enemy_package: CombatantPackage) -> void:
 	_ensure_systems()
 	player_character = player_package.character
@@ -73,6 +87,8 @@ func start_combat(player_package: CombatantPackage, enemy_package: CombatantPack
 	win_conditions.add_defeat_all_enemies_condition()
 	_initialize_handler(player_effect_handler, player_character, player_manager)
 	_initialize_handler(enemy_effect_handler, enemy_character, enemy_manager)
+	_apply_handler_config(player_effect_handler, _applied_config)
+	_apply_handler_config(enemy_effect_handler, _applied_config)
 	player_manager.initialize_deck(player_package.deck)
 	enemy_manager.initialize_deck(enemy_package.deck)
 	player_manager.draw_cards(opening_hand_size)
@@ -277,6 +293,10 @@ func _initialize_handler(handler: Node, owner: Character, manager: CardManager) 
 		handler.initialize(owner, damage_engine, turn_system)
 	elif handler is EmberCardEffectHandler:
 		handler.initialize(damage_engine, owner)
+
+func _apply_handler_config(handler: Node, config: GameConfig) -> void:
+	if handler != null and config != null and handler.has_method("apply_config"):
+		handler.apply_config(config)
 
 func _prepare_character(character: Character, manager: CardManager) -> void:
 	character.reset_combat()

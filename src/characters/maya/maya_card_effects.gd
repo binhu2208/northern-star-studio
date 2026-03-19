@@ -35,6 +35,10 @@ func initialize(maya_ref: MayaCharacter, damage: DamageEngine, turn_sys: TurnSys
 	damage_engine = damage
 	turn_system = turn_sys
 
+func apply_config(config: GameConfig) -> void:
+	feature_toggles = config.feature_toggles.duplicate(true)
+	card_overrides = config.card_overrides.duplicate(true)
+
 func is_card_enabled(card_id: String) -> bool:
 	var override_value = card_overrides.get(card_id, {})
 	return not bool(override_value.get("disabled", false))
