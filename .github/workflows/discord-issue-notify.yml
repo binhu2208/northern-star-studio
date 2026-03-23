@@ -1,0 +1,32 @@
+name: Discord Issue Notifications
+
+on:
+  issues:
+    types: [opened, closed, reopened, edited]
+  issue_comment:
+    types: [created, edited, deleted]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify Discord
+        uses: slackapi/slack-github-action@v1.25.0
+        with:
+          payload: |
+            {
+              "content": "${{ github.event_name == 'issues' && github.event.action == 'opened' && '🆕 New Issue' || '' }}$${{ github.event_name == 'issues' && github.event.action == 'closed' && '✅ Issue Closed' || '' }}$${{ github.event_name == 'issues' && github.event.action == 'reopened' && '🔄 Issue Reopened' || '' }}$${{ github.event_name == 'issue_comment' && '💬 Issue Comment' || '' }}",
+              "embeds": [{
+                "title": "${{ github.event.issue.title }}",
+                "url": "${{ github.event.issue.html_url }}",
+                "color": "${{ github.event_name == 'issues' && github.event.action == 'opened' && '15158332' || '3066993' }}",
+                "fields": [
+                  { "name": "Repo", "value": "${{ github.repository }}", "inline": true },
+                  { "name": "Issue #", "value": "${{ github.event.issue.number }}", "inline": true },
+                  { "name": "Author", "value": "${{ github.event.issue.user.login }}", "inline": true }
+                ],
+                "footer": { "text": "NorthernStar Studio" }
+              }]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK }}
