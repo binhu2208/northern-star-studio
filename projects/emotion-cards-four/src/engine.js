@@ -25,6 +25,155 @@ import {
 } from './data.js'
 
 // ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
+// Vocabulary validation
+// ---------------------------------------------------------------------------
+import {
+  VOCAB,
+  CATEGORIES,
+  CATEGORY_LIST,
+  DECK_ROLES,
+  DECK_ROLE_LIST,
+  CARD_TAGS,
+  RESPONSE_WINDOWS,
+  ENCOUNTER_KEYWORDS,
+  PHASES,
+  STATS,
+  OUTCOME_RESULT,
+  MODIFIER_IDS,
+} from './vocabulary.js'
+
+const EFFECT_TYPES = new Set([
+  'modify_stat',
+  'open_response_window',
+  'close_response_window',
+  'add_modifier',
+  'remove_keyword',
+  'remove_keyword_one_of',
+  'set_breakthrough_ready',
+  'upgrade_outcome',
+  'carry_forward',
+])
+
+const CONDITION_KEYS = new Set([
+  'packageHasCategory',
+  'packageHasTag',
+  'primaryCardId',
+  'supportCardId',
+  'primaryIntentTagIn',
+  'primaryToneTagIn',
+  'statGte',
+  'statLte',
+  'encounterHasKeyword',
+  'encounterHasKeywordIn',
+  'breakthroughReady',
+  'runHasPositiveCarryForward',
+  'runHasNegativeCarryForward',
+])
+
+function validateConditionBlock(path, condition, errors, ctx) {
+  const addError = (severity, subPath, message) =>
+    errors.push({ severity, path: `${path}.${subPath}`, message, cardId: ctx.cardId, encounterId: ctx.encounterId })
+  if (!condition || typeof condition !== 'object') return
+  for (const key of Object.keys(condition)) {
+    if (!CONDITION_KEYS.has(key))
+      addError('warning', key, `Unknown condition key "${key}"`)
+  }
+  if (condition.packageHasCategory && !CATEGORY_LIST.includes(condition.packageHasCategory))
+    addError('error', 'packageHasCategory', `Invalid category "${condition.packageHasCategory}"`)
+  if (condition.packageHasTag && !VOCAB.intentTags.includes(condition.packageHasTag))
+    addError('error', 'packageHasTag', `Invalid intent tag "${condition.packageHasTag}"`)
+  if (condition.primaryIntentTagIn) {
+    for (let i = 0; i < condition.primaryIntentTagIn.length; i++) {
+      if (!VOCAB.intentTags.includes(condition.primaryIntentTagIn[i]))
+        addError('error', `primaryIntentTagIn[${i}]`, `Invalid intent tag "${condition.primaryIntentTagIn[i]}"`)
+    }
+  }
+  if (condition.primaryToneTagIn) {
+    for (let i = 0; i < condition.primaryToneTagIn.length; i++) {
+      if (!VOCAB.toneTags.includes(condition.primaryToneTagIn[i]))
+        addError('error', `primaryToneTagIn[${i}]`, `Invalid tone tag "${condition.primaryToneTagIn[i]}"`)
+    }
+  }
+  if (condition.encounterHasKeyword && !ENCOUNTER_KEYWORDS.includes(condition.encounterHasKeyword))
+    addError('error', 'encounterHasKeyword', `Invalid keyword "${condition.encounterHasKeyword}"`)
+  if (condition.encounterHasKeywordIn) {
+    for (let i = 0; i < condition.encounterHasKeywordIn.length; i++) {
+      if (!ENCOUNTER_KEYWORDS.includes(condition.encounterHasKeywordIn[i]))
+        addError('error', `encounterHasKeywordIn[${i}]`, `Invalid keyword "${condition.encounterHasKeywordIn[i]}"`)
+    }
+  }
+}
+
+export function validateVocabulary() {
+  const errors = []
+  const addError = (severity, path, message, cardId, encounterId) =>
+    errors.push({ severity, path, message, cardId: cardId || undefined, encounterId: encounterId || undefined })
+
+  // Validate cards
+  for (const card of CARD_DEFINITIONS) {
+    const ctx = { cardId: card.id }
+    if (!CATEGORY_LIST.includes(card.category))
+      addError('error', `${card.id}.category`, `Invalid category "${card.category}"`, card.id)
+    if (!DECK_ROLE_LIST.includes(card.deckRole))
+      addError('error', `${card.id}.deckRole`, `Invalid deckRole "${card.deckRole}"`, card.id)
+    if (!VOCAB.intentTags.includes(card.intentTag))
+      addError('error', `${card.id}.intentTag`, `Invalid intentTag "${card.intentTag}"`, card.id)
+    if (card.toneTag && !VOCAB.toneTags.includes(card.toneTag))
+      addError('error', `${card.id}.toneTag`, `Invalid toneTag "${card.toneTag}"`, card.id)
+    if (card.riskTag && !VOCAB.riskTags.includes(card.riskTag))
+      addError('warning', `${card.id}.riskTag`, `Invalid riskTag "${card.riskTag}"`, card.id)
+    for (const tag of (card.tags || [])) {
+      if (!VOCAB.cardTags.includes(tag))
+        addError('warning', `${card.id}.tags`, `Unknown tag "${tag}"`, card.id)
+    }
+    for (const effect of (card.effects || [])) {
+      if (!EFFECT_TYPES.has(effect.type))
+        addError('warning', `${card.id}.effects`, `Unknown effect type "${effect.type}"`, card.id)
+    }
+    for (let ci = 0; ci < (card.conditionalEffects || []).length; ci++) {
+      const block = card.conditionalEffects[ci]
+      if (block.if) validateConditionBlock(`${card.id}.conditionalEffects[${ci}].if`, block.if, errors, ctx)
+    }
+    for (const rule of (card.synergyRules || [])) {
+      if (rule.if) validateConditionBlock(`${card.id}.synergyRules.${rule.id}.if`, rule.if, errors, ctx)
+    }
+    for (const rule of (card.riskRules || [])) {
+      if (rule.if) validateConditionBlock(`${card.id}.riskRules.${rule.id}.if`, rule.if, errors, ctx)
+    }
+    for (const rule of (card.unlockRules || [])) {
+      if (rule.if) validateConditionBlock(`${card.id}.unlockRules.${rule.id}.if`, rule.if, errors, ctx)
+    }
+  }
+
+  // Validate encounters
+  for (const enc of ENCOUNTER_TEMPLATES) {
+    const ctx = { encounterId: enc.id }
+    for (const keyword of (enc.keywords || [])) {
+      if (!ENCOUNTER_KEYWORDS.includes(keyword))
+        addError('warning', `${enc.id}.keywords`, `Unknown keyword "${keyword}"`, null, enc.id)
+    }
+    for (const window of (enc.startingWindows || [])) {
+      if (!RESPONSE_WINDOWS.includes(window))
+        addError('error', `${enc.id}.startingWindows`, `Invalid window "${window}"`, null, enc.id)
+    }
+    for (const rule of (enc.reactionRules || [])) {
+      if (rule.if) validateConditionBlock(`${enc.id}.reactionRules.${rule.id}.if`, rule.if, errors, ctx)
+    }
+  }
+
+  return errors
+}
+
+const _vocabErrors = validateVocabulary()
+if (_vocabErrors.length > 0) {
+  console.error('[Vocabulary] Validation errors found:')
+  for (const e of _vocabErrors) {
+    console.error(`  [${e.severity}] ${e.path}: ${e.message}${e.cardId ? ` (card: ${e.cardId})` : ''}${e.encounterId ? ` (encounter: ${e.encounterId})` : ''}`)
+  }
+  throw new Error(`[Vocabulary] ${_vocabErrors.filter((e) => e.severity === 'error').length} error(s), ${_vocabErrors.filter((e) => e.severity === 'warning').length} warning(s) — fix before proceeding`)
+}
+
 // Constants
 // ---------------------------------------------------------------------------
 
