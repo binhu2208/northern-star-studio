@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Emotion Cards Four — Prototype Slice</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Emotion Cards Four</p>
+        <h1>Minimum Playable Prototype Slice</h1>
+        <p class="subtitle">Deterministic run of 3 encounters with draw/play/discard, reactive opposition, carry-forward state, autosave, and debug visibility.</p>
+      </div>
+      <div class="header-actions">
+        <button id="new-run-btn">Start New Run</button>
+        <button id="resume-run-btn">Resume Saved Run</button>
+        <button id="clear-save-btn" class="secondary">Clear Save</button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="panel run-panel">
+        <div class="panel-header">
+          <h2>Run</h2>
+          <span id="run-status-pill" class="pill">No run loaded</span>
+        </div>
+        <div id="run-overview"></div>
+        <div id="carry-forward"></div>
+        <div id="result-history"></div>
+      </section>
+
+      <section class="panel encounter-panel">
+        <div class="panel-header">
+          <h2>Encounter</h2>
+          <span id="phase-pill" class="pill accent">-</span>
+        </div>
+        <div id="encounter-overview"></div>
+        <div id="visible-cues"></div>
+        <div id="response-windows"></div>
+        <div id="last-resolution"></div>
+      </section>
+
+      <section class="panel hand-panel">
+        <div class="panel-header">
+          <h2>Hand & Play</h2>
+          <span id="hand-meta" class="pill muted">0 cards</span>
+        </div>
+        <div id="selection-state" class="selection-state"></div>
+        <div id="hand-cards" class="card-grid"></div>
+        <div class="play-actions">
+          <button id="submit-play-btn">Play Selected Cards</button>
+          <button id="advance-btn" class="secondary">Advance Phase</button>
+        </div>
+        <div id="play-feedback" class="feedback"></div>
+      </section>
+
+      <section class="panel debug-panel">
+        <div class="panel-header">
+          <h2>Debug & Save</h2>
+          <span class="pill muted">Inspectable state</span>
+        </div>
+        <div class="debug-actions">
+          <button id="export-save-btn" class="secondary">Export Save JSON</button>
+        </div>
+        <textarea id="save-output" rows="8" readonly></textarea>
+        <details open>
+          <summary>Structured Event Log</summary>
+          <div id="event-log" class="log"></div>
+        </details>
+        <details>
+          <summary>Raw State Snapshot</summary>
+          <pre id="state-dump" class="dump"></pre>
+        </details>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
