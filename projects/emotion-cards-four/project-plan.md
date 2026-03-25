@@ -25,7 +25,7 @@
 | ART-001 | Create art scope sheet covering unique art count, portrait states, UI targets, VFX scope, localization constraints, and production assumptions | Yoshi (Artist) | DES-001, DES-002 | Y | Completed |
 | ART-002 | Run one style exploration pass with concrete outputs: 1-3 visual directions, frame roughs, typography pairing, icon language sample, and one sample card mockup | Yoshi (Artist) | ART-001 | N | Completed |
 | ART-003 | Build UI readability prototype targets for card size, hand size, keyword density, text load, safe areas, and controller/readability constraints | Yoshi (Artist) | ART-001, DES-002 | Y | Completed |
-| ART-004 | Define reusable card frame / icon / UI component system requirements after style direction is selected | Yoshi (Artist) | ART-002, ART-003 | N | In Progress |
+| ART-004 | Define reusable card frame / icon / UI component system requirements after style direction is selected | Yoshi (Artist) | ART-002, ART-003 | N | Completed |
 | DEV-001A | Define prototype architecture baseline: encounter/opposition behavior, state flow, save assumptions, instrumentation needs, and implementation boundaries from flagship mode rules | John (Developer) | DES-001 | Y | Completed |
 | DEV-001B | Define card schema / content integration requirements based on initial card taxonomy and prototype card list | John (Developer) | DEV-001A, DES-002 | Y | In Progress |
 | DEV-002 | Implement minimum playable prototype slice in `projects/emotion-cards-four/src/`: draw/play/discard loop, encounter state transitions, resolution handling, opposition behavior, and basic progression/save behavior | John (Developer) | DEV-001B | Y | Pending |
@@ -93,3 +93,4 @@ Tasks intentionally parallelized to reduce waiting:
 - ART-003 completed on 2026-03-25; ART-004 remains gated only by ART-002 completion.
 - ART-002 completed on 2026-03-25; ART-004 unlocked and activated immediately after style-pass check-in.
 - DEV-001A completed on 2026-03-25; DEV-001B unlocked and activated immediately after architecture-baseline check-in. PROD-001 is now active because all required planning inputs are complete.
+- ART-004 completed on 2026-03-25; the art planning lane is fully complete for the current planning baseline.
