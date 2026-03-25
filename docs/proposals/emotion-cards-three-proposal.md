@@ -1,71 +1,220 @@
-# Game Proposal - Emotion Cards Three
+# Project Proposal — Emotion Cards Three
 
-## Overview
-- **Project:** Emotion Cards Three
-- **Genre:** Narrative roguelike deckbuilder / strategy card game
-- **Target Platform:** PC first (Steam), with console and mobile evaluation after core scope is validated
-- **Target Audience:** Existing Emotion Cards players, indie deckbuilder fans, and players who enjoy emotionally driven narrative strategy games
+## 1. Executive Summary
 
-## Unique Selling Point
-Emotion Cards Three positions itself as the biggest and most refined entry in the Emotion Cards line: deeper emotional mechanics, stronger narrative payoff, and a clearer long-term progression loop. The franchise hook remains strong because emotions are both theme and system — not cosmetic flavor.
+**Project:** Emotion Cards Three  
+**Genre:** Narrative roguelike deckbuilder / strategy card game  
+**Target Platform:** PC first (Steam), with console/mobile evaluation after core scope validation  
+**Project Stage:** Proposal / greenlight candidate  
+**Proposal Owner:** Gabe (Marketing)
 
-## Core Gameplay
-The core loop builds on earlier Emotion Cards foundations:
-1. Start a run with a character or emotional archetype
-2. Build and evolve a deck around emotional states, reactions, and relationship dynamics
-3. Progress through branching encounters, tactical battles, and narrative decisions
-4. Unlock new cards, synergies, and story outcomes across repeated runs
-5. Master combinations of emotion-driven strategy and character progression
+**One-line pitch:**  
+A character-driven roguelike deckbuilder where emotions are not flavor — they are the strategy.
 
-The goal is to make each run feel strategically rich while maintaining strong emotional identity and narrative continuity.
+**Summary:**  
+Emotion Cards Three is a proposed next entry in the Emotion Cards line, designed as the studio’s strongest expression of the “emotion-as-system” concept. The project would target the proven indie deckbuilder audience while differentiating through emotional mechanics, relationship-driven narrative context, and sharper franchise positioning. The business case is strongest if the game is scoped PC-first, validated via a marketable vertical slice, and positioned as a meaningful step up rather than just “more cards.”
 
-## Market Research
-- **Primary comparable games:** Slay the Spire, Griftlands, Monster Train, Wildfrost, Inscryption
-- **Secondary/adjacent comps:** Across the Obelisk, narrative indies with strong character framing, cozy-strategy hybrids
-- **Opportunity:** The deckbuilder space remains crowded, but there is still room for games with a distinct thematic identity and memorable presentation. Emotion Cards Three can differentiate by doubling down on emotional strategy and franchise continuity.
-- **Franchise advantage:** A third entry can market itself as the most complete version of the formula, giving both returning players and new players a clear reason to pay attention.
+---
 
-## Business Requirement Analysis
-- The project needs a clear marketable pitch in one sentence
-- It should preserve the recognizable Emotion Cards identity while feeling like a meaningful step up
-- Scope should stay controlled: PC-first, polished core loop, strong wishlist conversion assets
-- The proposal should support future marketing beats such as reveal trailer, Steam page copy, and creator outreach
-- Visual readability and deck clarity must remain strong enough for screenshots and quick trailer comprehension
+## 2. Problem / Opportunity
 
-## Market Trends Analysis
-- Strategy deckbuilders remain commercially viable when they introduce a sharp hook rather than just “more cards”
-- Players increasingly respond to genre hybrids that combine strong mechanics with emotionally resonant storytelling
-- Discoverability is difficult in the indie strategy market, so clear visual identity and concise positioning are critical
-- Franchise continuation can help reduce market risk if the third entry is presented as a refinement, not just repetition
+The roguelike deckbuilder market is crowded, but it is still commercially active when a game presents a clear, instantly understandable hook. Many games in the category compete on pure mechanics or generic fantasy framing. Emotion Cards Three has an opening if it can own a more memorable identity:
 
-## User Experience Analysis
-- Players should understand quickly how emotional states affect mechanics
-- The onboarding must explain emotional strategy with minimal friction
-- Narrative pacing must support the run loop rather than slow it down
-- UI should make emotional conditions, card effects, and synergies readable at a glance
-- The strongest UX target is: strategically satisfying, emotionally distinctive, and easy to pitch in one screenshot or clip
+- **Emotions as mechanics, not decoration**
+- **Character and narrative context that strengthens replayability**
+- **Franchise continuity that reduces concept risk**
 
-## Estimated Timeline
-- **Phase 1: Concept + systems validation** — test new mechanics, progression hooks, and positioning
-- **Phase 2: Vertical slice** — lock art direction, core UX, character framing, and sample narrative content
-- **Phase 3: Production + launch prep** — expand content, polish balance, produce marketing assets, and prepare release
+This project is a fit if the studio wants a proposal with:
+- recognizable market demand
+- strong trailer/store-page pitch potential
+- a concept that can be validated early without full-scale production commitment
 
-## Budget Estimate
-- **Lean-to-mid indie scope:** Low-to-mid six figures depending on content volume and art ambition
-- Main cost drivers:
-  - game systems and implementation
-  - content production (cards, encounters, writing)
-  - character/art/UI polish
-  - QA and balancing
-  - launch marketing materials
+---
 
-## Recommendation
-Proceed if the team can validate three things early:
-1. Emotion Cards Three offers a clearly improved hook over prior entries
-2. The emotional mechanics remain readable and fun at scale
-3. The presentation is distinct enough to stand out in a saturated deckbuilder market
+## 3. Product Vision
 
-A **PC-first vertical slice** is the right next step before broader platform commitments.
+Emotion Cards Three should feel like the most complete and pitchable version of the formula so far.
 
-## Status
-- Draft
+### Vision pillars
+1. **Emotion is gameplay**  
+   Emotional states change card value, encounter outcomes, and strategic choices.
+2. **Narrative supports the run loop**  
+   Story and character framing should amplify tension and meaning without slowing the game down.
+3. **Readable depth**  
+   The system should be easy to grasp in screenshots, clips, and first-time play, while still rewarding mastery.
+4. **Franchise evolution**  
+   The project should feel like a clear upgrade over prior Emotion Cards work, not a lateral repeat.
+
+---
+
+## 4. Core Gameplay Proposal
+
+### Core loop
+1. Choose a character or emotional archetype
+2. Start a run with a themed starting deck and a defined emotional profile
+3. Progress through branching encounters that combine combat, choice events, and deck growth
+4. Use emotion-based cards to attack, defend, trigger reactions, manipulate states, and build synergy
+5. Unlock cards, modifiers, relationships, and story fragments across repeated runs
+6. Adapt strategy based on emotional momentum, encounter pacing, and evolving deck identity
+
+### Core mechanical promise
+The emotional system must create decisions players actually feel:
+- whether to stabilize or escalate a mood state
+- whether to build around volatility, restraint, empathy, conflict, etc.
+- whether narrative choices support short-term tactical value or long-term progression
+
+---
+
+## 5. Audience & Market Fit
+
+### Primary audience
+- indie deckbuilder players who want depth and replayability
+- players of games like Slay the Spire, Monster Train, Wildfrost, and Griftlands
+
+### Secondary audience
+- players who like strategy games with stronger character framing and story context
+- adjacent players who may find traditional system-heavy deckbuilders too dry or impersonal
+
+### Why this can work
+- deckbuilders still sell when the pitch is sharp
+- emotional strategy is a clearer differentiator than “more cards” or “more content”
+- the concept has strong store-page and trailer language potential
+- franchise naming gives returning players an immediate reason to look
+
+### Major market caution
+The genre is saturated. If Emotion Cards Three cannot communicate its hook in one sentence and one screenshot, it risks being ignored regardless of system quality.
+
+---
+
+## 6. Competitive Positioning
+
+### Primary comparables
+- **Slay the Spire** — benchmark for clarity, structure, and strategic depth
+- **Griftlands** — strong reference for combining narrative framing with card combat
+- **Monster Train** — benchmark for powerful synergies and run variety
+- **Wildfrost** — useful visual/readability comparison for stylish deckbuilder presentation
+- **Inscryption** — reminder that strong identity and presentation can outperform genre sameness
+
+### Positioning takeaway
+Emotion Cards Three should not try to out-Slay-the-Spire Slay the Spire. It should instead position around:
+- emotional states as the tactical layer
+- character-driven runs with stronger narrative meaning
+- a cleaner franchise identity than generic fantasy card battlers
+
+---
+
+## 7. Product Requirements
+
+For the project to be greenlight-worthy, it should aim to satisfy these requirements:
+
+### Design requirements
+- a clearly defined emotional-state system that affects gameplay in obvious ways
+- enough card/deck variety to show replayability without exploding scope
+- branching encounters that reinforce the project’s emotional identity
+
+### UX requirements
+- emotional states must be readable at a glance
+- card text must remain understandable under stacked modifiers
+- the first run must teach the core system quickly
+
+### Production requirements
+- PC-first scope
+- vertical slice capable of generating marketing materials
+- disciplined content pipeline for cards, encounters, and narrative beats
+
+### Marketing requirements
+- one-line pitch that is instantly legible
+- distinct visual identity in store capsules and screenshots
+- enough differentiation to earn creator, wishlist, and press interest
+
+---
+
+## 8. Risks
+
+### 1) Genre saturation
+**Risk:** Another deckbuilder may struggle to break through.  
+**Mitigation:** lead with a sharp hook, readable presentation, and strong capsule/trailer positioning.
+
+### 2) Theme-mechanics mismatch
+**Risk:** Emotions could feel cosmetic instead of systemic.  
+**Mitigation:** validate that emotional states materially alter decisions and outcomes in the prototype.
+
+### 3) Content sprawl
+**Risk:** Narrative + cards + characters can create production bloat.  
+**Mitigation:** keep first-release scope narrow and prove one polished emotional archetype path first.
+
+### 4) Readability failure
+**Risk:** Emotional systems may become hard to parse in combat.  
+**Mitigation:** treat UI clarity and effect readability as first-class design constraints.
+
+---
+
+## 9. Recommended Validation Plan
+
+### Phase 1 — Concept validation (2-4 weeks)
+- finalize one-line pitch
+- define emotional-state model
+- identify 1-2 prototype-worthy character/archetype concepts
+- sharpen competitive positioning
+
+### Phase 2 — Prototype (4-8 weeks)
+- playable combat loop
+- starter card pool
+- placeholder UI for emotional states
+- first branching encounter structure
+
+### Phase 3 — Vertical slice (6-10 weeks)
+- one polished character path
+- stronger art direction and readability pass
+- short marketing-ready footage
+- enough content to test player comprehension and pitch clarity
+
+### Phase 4 — Production planning (2-3 weeks)
+- full scope estimate
+- staffing / tool requirements
+- milestone planning
+- launch-path recommendation
+
+---
+
+## 10. Budget Direction
+
+This should be treated as a **lean-to-mid indie scope** project until the vertical slice proves the hook.
+
+### Likely cost drivers
+- combat systems and tools
+- UI/UX and readability work
+- art direction and card presentation
+- writing / narrative implementation
+- QA and balance iteration
+
+### Budget recommendation
+Do **not** commit to a large production budget until the team proves:
+1. the hook is easy to market
+2. the mechanics are strategically satisfying
+3. the game reads well in screenshots, short clips, and first-session play
+
+---
+
+## 11. Recommendation
+
+**Recommendation: Proceed as a PC-first vertical-slice candidate.**
+
+Emotion Cards Three is worth exploring because it aligns with both market reality and studio strengths:
+- the genre still has demand
+- the concept has a real differentiation angle
+- the proposal can be validated in a controlled scope
+
+The project should move forward only if early testing proves three things:
+1. emotions create meaningful strategic decisions
+2. the game is immediately readable and pitchable
+3. the production plan stays disciplined enough to avoid content overload
+
+If those checks land, Emotion Cards Three has a credible chance to stand out as a distinctive narrative deckbuilder rather than another interchangeable indie card game.
+
+---
+
+## 12. Status
+
+**Status:** Draft proposal complete  
+**Suggested next step:** approve a concept-validation / prototype brief
