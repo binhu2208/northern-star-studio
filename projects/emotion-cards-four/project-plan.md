@@ -133,3 +133,11 @@ Tasks intentionally parallelized to reduce waiting:
 - PROD-002 completed on 2026-03-25 by assigning the next implementation/build tasks off the baseline as dependencies cleared.
 - PROD-003 completed on 2026-03-25 by updating the project plan and critical-path status after first prototype submissions.
 - Producer follow-up rule strengthened: when work has enough material to land, expected owner response is either completed with path + commit or blocked with exact blocker.
+- v1 implementation scope approved by Lead on 2026-03-25.
+- DEV-V1-003 and DEV-V1-004 noted as running in parallel on 2026-03-25.
+- John flagged DEV-V1-006 (RunSummaryGenerator) gates MKT-V1-002 data pipeline — added to critical path as supporting task between DEV-V1-003 and DEV-V1-007.
+- Yoshi flagged ART-V1-002 depends on Joint NAC Signal Spec with John before full execution — added as inline dependency.
+- DES-V1-004 split into early doc pass (DES-V1-004a, no DEV dep) and post-impl confirmation (DES-V1-004b) to keep design unblocked.
+- MKT-V1-002 output format: validation report shaped for store-page/pitch downstream use per Gabe.
+- QA-V1-003 scope: browser-level + headless engine tests via GameEngine; tooling needs to confirm with John before execution.
+- ART slip risk: ART-V1-002/ART-V1-005 on QA critical path — monitor closely.
