@@ -31,6 +31,7 @@
 | DEV-002 | Implement minimum playable prototype slice in `projects/emotion-cards-four/src/`: draw/play/discard loop, encounter state transitions, resolution handling, opposition behavior, and basic progression/save behavior | John (Developer) | DEV-001B | Y | Completed |
 | QA-001 | Create prototype validation plan for comprehension, replay intent, audience fit, readability, and tone acceptance | Sakura (QA) | MKT-002, MKT-003, DES-001 | Y | Completed |
 | QA-002 | Create state-transition, usability, and validation test cases for the prototype loop and task status readiness checks | Sakura (QA) | DEV-001B, QA-001 | Y | Completed |
+| QA-003 | Execute prototype validation against the playable slice, record pass/fail results, log issues, and report findings | Sakura (QA) | DEV-002, QA-002 | Y | In Progress |
 | PROD-001 | Consolidate approved planning inputs into v1 planning baseline | Shig (Producer) | MKT-002, MKT-003, DES-001, ART-001, DEV-001A, QA-001 | Y | Completed |
 | PROD-002 | Assign implementation tasks for prototype build | Shig (Producer) | PROD-001 | Y | Completed |
 | PROD-003 | Review project critical path and update plan after first planning submissions | Shig (Producer) | PROD-001 | Y | Completed |
@@ -97,6 +98,7 @@ Tasks intentionally parallelized to reduce waiting:
 - DEV-001B completed on 2026-03-25; DEV-002 and QA-002 unlocked and activated immediately after schema/integration check-in.
 - QA-002 completed on 2026-03-25; executable prototype test cases are now in place for implementation follow-up and readiness checks.
 - DEV-002 completed on 2026-03-25; the minimum playable prototype slice is now checked into the repo and ready for producer consolidation and next-step review.
+- QA-003 added on 2026-03-25 to execute the actual prototype validation against the landed slice and report findings.
 - PROD-001 completed on 2026-03-25 with `projects/emotion-cards-four/production/v1-planning-baseline.md` as the consolidated producer baseline.
 - PROD-002 completed on 2026-03-25 by assigning the next implementation/build tasks off the baseline as dependencies cleared.
 - PROD-003 completed on 2026-03-25 by updating the project plan and critical-path status after first prototype submissions.
