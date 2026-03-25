@@ -24,7 +24,7 @@
 | DES-002 | Create initial card taxonomy and first 20-30 card prototype list | Hideo (Designer) | DES-001 | Y | Completed |
 | ART-001 | Create art scope sheet covering unique art count, portrait states, UI targets, VFX scope, localization constraints, and production assumptions | Yoshi (Artist) | DES-001, DES-002 | Y | Completed |
 | ART-002 | Run one style exploration pass with concrete outputs: 1-3 visual directions, frame roughs, typography pairing, icon language sample, and one sample card mockup | Yoshi (Artist) | ART-001 | N | In Progress |
-| ART-003 | Build UI readability prototype targets for card size, hand size, keyword density, text load, safe areas, and controller/readability constraints | Yoshi (Artist) | ART-001, DES-002 | Y | In Progress |
+| ART-003 | Build UI readability prototype targets for card size, hand size, keyword density, text load, safe areas, and controller/readability constraints | Yoshi (Artist) | ART-001, DES-002 | Y | Completed |
 | ART-004 | Define reusable card frame / icon / UI component system requirements after style direction is selected | Yoshi (Artist) | ART-002, ART-003 | N | Pending |
 | DEV-001A | Define prototype architecture baseline: encounter/opposition behavior, state flow, save assumptions, instrumentation needs, and implementation boundaries from flagship mode rules | John (Developer) | DES-001 | Y | In Progress |
 | DEV-001B | Define card schema / content integration requirements based on initial card taxonomy and prototype card list | John (Developer) | DEV-001A, DES-002 | Y | Pending |
@@ -90,3 +90,4 @@ Tasks intentionally parallelized to reduce waiting:
 - MKT-003 completed on 2026-03-25; QA-001 unlocked and activated immediately after messaging-plan check-in.
 - QA-001 completed on 2026-03-25; QA-002 remains pending on DEV-001B, and PROD-001 remains gated by ART-001 and DEV-001A completion.
 - ART-001 completed on 2026-03-25; ART-002 and ART-003 unlocked and activated immediately after art scope check-in. PROD-001 is now gated only by DEV-001A completion.
+- ART-003 completed on 2026-03-25; ART-004 remains gated only by ART-002 completion.
