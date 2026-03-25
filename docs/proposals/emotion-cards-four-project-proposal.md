@@ -1,327 +1,379 @@
-# Project Proposal — Emotion Cards Four
-
-## 1. Executive Summary
-
-**Project:** Emotion Cards Four  
-**Genre:** Social card game / empathy-driven party game  
-**Target Platform:** PC first (Steam), with Switch and physical adaptation evaluation after validation  
-**Project Stage:** Proposal / concept validation candidate  
-**Proposal Owner:** Gabe (Analyst)
-
-**One-line pitch:**  
-A stylish social card game where players score by reading the room, interpreting emotional reactions, and predicting each other better than anyone else.
-
-**Summary:**  
-Emotion Cards Four should not be positioned as a classroom product or a heavy strategy deckbuilder. The strongest commercial direction is a replayable social card game built around emotional intuition, conversation, and group dynamics. The opportunity sits between party games that are fun but shallow and emotional-literacy tools that are useful but often too clinical for mainstream players. If NorthernStar can make the rules instantly understandable, keep the tone human and sharp, and present the game with a strong visual identity, Emotion Cards Four has real market potential as a distinctive social indie title.
+# Project Proposal: Emotion Cards Four
+**Studio:** NorthernStar Studio  
+**Date:** March 25, 2026  
+**Prepared by:** Shig 📋 (Producer, consolidating team review)  
+**Status:** Revised Draft for Review Before Approval
 
 ---
 
-## 2. Problem / Opportunity
+## Executive Summary
 
-There are plenty of party card games, but most compete on humor, bluffing, or chaos. There are also emotion-focused card products, but many skew educational, therapeutic, or youth-oriented. That leaves a useful gap:
+**Emotion Cards Four** is a proposed **social-empathy card game** with a clear flagship mode: players use emotion, memory, and reaction cards to interpret situations, influence outcomes, and reveal how different emotional approaches change the experience.
 
-- a social game about **reading people**, not just reading cards
-- a game that builds emotional insight through play without feeling like homework
-- a concept that works for friend groups, couples, creators, and cozy-social audiences
+The concept is strongest when pitched as a **social-empathy game with strong replayability and readable emotional interactions**, rather than as a broad educational/tooling product. The immediate goal is not timeline lock; it is to approve a sharper concept direction and a prototype scope that is concrete enough for design, engineering, QA, marketing, and art to evaluate honestly.
 
-Emotion Cards Four has a better chance if it is framed as:
-- **social first**
-- **emotionally intelligent second**
-- **educational only as a side benefit, not the headline**
+This revision incorporates team feedback and recommends:
+- keeping **one flagship mode** front and center,
+- making the gameplay loop more concrete,
+- separating **assumptions / targets** from facts,
+- adding explicit **validation criteria**,
+- adding enough **art and technical scope definition** to support realistic planning.
 
-That positioning broadens the audience and avoids the trust/tone problems that come with trying to sell a “therapy-adjacent” product as entertainment.
-
----
-
-## 3. Product Vision
-
-Emotion Cards Four should feel like a premium, modern social card game where emotional interpretation is the core skill.
-
-### Vision pillars
-1. **Reading people is the mechanic**  
-   Players win by predicting, interpreting, or influencing emotional responses.
-2. **Fun before instruction**  
-   The game should create laughs, surprises, and strong table talk before it tries to teach anything.
-3. **Emotion nuance matters**  
-   The vocabulary should go beyond basic happy/sad/angry into more interesting shades like relieved, conflicted, suspicious, embarrassed, wistful, or overwhelmed.
-4. **Strong aesthetic identity**  
-   The presentation needs to feel stylish and expressive, not generic, clinical, or school-like.
-5. **Flexible social depth**  
-   It should work as both a light party game and a more reflective social experience depending on mode and group.
+**Recommendation:** Proceed to one approved prototype plan after this revised proposal is accepted.  
+**Important note:** Concept support is strong, but **timeline lock should wait** until asset and implementation scope are better defined.
 
 ---
 
-## 4. Core Gameplay Proposal
+## One-Line Hook
 
-### Recommended core loop
-1. Present a scenario, prompt, or social situation
-2. Players secretly choose an emotion/reaction card, predict another player’s response, or vote on the emotional tone of the room
-3. Reveal choices and score based on alignment, insight, bluff success, or group consensus
-4. Trigger follow-up effects, social modifiers, or combo rounds based on what was revealed
-5. Repeat across multiple short rounds with escalating variety and stronger player reads
-
-### Three promising prototype directions
-NorthernStar should paper-test three variations quickly:
-
-#### A. Guess the reaction
-Players predict how a target player will feel or respond to a prompt.  
-**Strength:** easiest to explain, naturally social, high replay value across groups.
-
-#### B. Emotional sync co-op
-Players try to align around the same emotional reading with limited communication.  
-**Strength:** cozy, accessible, lower confrontation, good for couples/friends.
-
-#### C. Bluff and persuade
-Players use emotion cards to sell a reaction, mislead the table, or manipulate social expectations.  
-**Strength:** stronger streamer/party energy, more dramatic reveals.
-
-### Design recommendation
-Lead with **Guess the reaction** as the clearest flagship mode, then layer in co-op or bluff variants if testing proves they improve replayability.
-
-### Core mechanical promise
-Emotion cards cannot just label feelings. They need to create a legible game loop where players are rewarded for:
-- knowing each other
-- reading tone and context
-- making smart predictions
-- adapting to how specific groups actually behave
-
-That turns emotional intelligence into gameplay rather than flavor text.
+> A replayable social-empathy card game where emotion, memory, and reaction cards change not just what happens, but how players understand the situation.
 
 ---
 
-## 5. Online Market Analysis
+## Project Vision
 
-### Discoverability realities
-Social games live or die on first-impression clarity. For Emotion Cards Four to work online, the pitch must read instantly in:
-- one sentence
-- one screenshot
-- one short clip of a reveal moment
+Create a card-driven experience that turns emotional interpretation into play: readable enough for first-session understanding, expressive enough to generate memorable social moments, and structured enough to support replay, creator visibility, and future expansion.
 
-The strongest discoverability hook is not “emotion cards” by itself. It is something closer to:
-- **read the room to win**
-- **guess how your friends actually feel**
-- **a party card game about emotional intuition**
-
-### Online demand signals
-- Social and party games remain highly shareable when they create strong reactions, surprise reveals, or “that is so you” moments.
-- Cozy-positive and emotionally intelligent game spaces have a real audience, but they need approachable framing.
-- Stream-friendly social mechanics travel well online if the reveal moments are fast and visible.
-- Emotion-focused games are underrepresented in polished teen/adult-facing party formats.
-
-### Market opportunity
-Emotion Cards Four can carve out space if it avoids two traps:
-1. looking like a generic educational tool
-2. looking too vague to understand as a game
-
-If the game clearly sells emotional insight as social play, it has a more distinct lane than many interchangeable party card concepts.
+The project should feel:
+- emotionally legible,
+- socially engaging,
+- strategically light-to-medium rather than opaque,
+- visually distinctive without requiring runaway asset cost,
+- replayable through different emotional approaches.
 
 ---
 
-## 6. Audience & Market Fit
+## Flagship Mode
 
-### Primary audience
-- Ages 16–35
-- Friend groups, couples, socially curious players
-- Party game fans who like reading people, conversation prompts, and surprising reveals
-- Stream and creator-friendly social gaming audiences
+### Primary Mode: Social Empathy Play
+The proposal should lead with **one flagship mode**: a social card experience where players respond to prompts, scenarios, or encounters using emotional cards, then resolve outcomes through interpretation, combination, and consequence.
 
-### Secondary audience
-- Families with teens and older kids
-- Cozy/social indie players
-- Facilitators, educators, and counselors looking for an emotionally safe but genuinely playable format
+This keeps the pitch focused and avoids sounding like it is trying to be all of these at once:
+- party game,
+- educational product,
+- therapeutic tool,
+- hardcore deckbuilder,
+- narrative sim.
 
-### Why this can work
-- It has a clear emotional hook without requiring heavy strategic mastery.
-- Different friend groups create different experiences, which supports replayability.
-- The concept is broad enough for digital, tabletop, and creator content extensions.
-- It can stand apart from “funny chaos only” party games by offering stronger human insight and more memorable conversation.
+Those may inform the design language, but the flagship pitch should stay sharp.
 
-### Major caution
-The game needs one clear lead audience in messaging. My recommendation is:
-**teens/adults who want a stylish social game about reading each other better**
-
-That is a cleaner commercial lane than “for therapists,” “for families,” or “for classroom emotional learning.”
+### Why this framing
+This direction tested strongest in team feedback because it gives the project:
+- a clearer player fantasy,
+- stronger social readability,
+- easier creator/stream explanation,
+- more immediate differentiation,
+- lower risk of an overbroad product pitch.
 
 ---
 
-## 7. Competitive Positioning
+## Why This Project
 
-### Useful comparables
-- **Dixit** — proof that interpretation and projection can drive memorable table play
-- **The Mind** — proof that emotion, tension, and social attunement can be gameplay
-- **Kind Words** — proof that emotionally warm framing has real audience appeal
-- **Jackbox Party Pack** titles — strong reference for readability, fast onboarding, and social reveal moments
-- **Feelinks / empathy-focused card games** — validates the category, but most products skew younger or more educational
+### 1. Strong concept differentiation
+Most card games either lead with pure mechanics or use emotion only as theme dressing. Emotion Cards Four is more interesting when emotion is the actual play language.
 
-### Positioning takeaway
-Emotion Cards Four should not compete as:
-- a hardcore strategy card battler
-- a wellness app in disguise
-- a kids-first teaching product
+### 2. Good fit for small-team production
+Compared with large action or online projects, this direction supports:
+- modular content creation,
+- iterative balancing,
+- prototype-first validation,
+- templated UI and card systems,
+- narrower implementation risk.
 
-It should position as:
-- a **social-empathy party game**
-- with premium presentation
-- and stronger emotional nuance than most party card games
+### 3. Strong replay potential
+Different emotional responses, card combinations, and interpretation paths can create repeat play value without requiring massive world-building.
 
----
-
-## 8. Business Requirements Analysis
-
-For the project to be commercially viable, it should satisfy these business-facing requirements:
-
-- the concept must be pitchable in one sentence
-- the rules must be teachable in under 2–3 minutes
-- the game must produce strong trailer, screenshot, and creator-clip moments early
-- the target audience must stay focused on mainstream social players first
-- the product must be scoped tightly enough to validate the core loop before expanding modes
-- the presentation must avoid educational or therapeutic visual language unless intentionally used in a secondary channel
+### 4. Useful marketing angle
+A social-empathy card experience with readable emotional stakes is easier to describe, test, and pitch than a broad “emotion platform” concept.
 
 ---
 
-## 9. Product Requirements
+## Market Positioning
 
-### Design requirements
-- one clearly defined core loop centered on emotional prediction, interpretation, or bluffing
-- short rounds with frequent reveals and social payoff
-- emotion vocabulary that feels nuanced and interesting
-- enough scenario and card variety to support repeat sessions
+### Positioning Statement
+Emotion Cards Four sits between:
+- social/party card play,
+- empathy-driven narrative play,
+- replayable card-based interpretation systems.
 
-### UX requirements
-- players must understand what they are trying to do immediately
-- card text and reveal flow must stay readable in both local and stream-view contexts
-- scoring must be simple enough to not kill social momentum
-- prompts and emotional categories must feel natural, not stiff or clinical
-- the emotional tone must remain safe and playful without becoming bland
+### Competitive Opportunity
+The opportunity is less about “out-deckbuilding deckbuilders” and more about occupying a clearer space:
+- more emotionally legible than many strategy card games,
+- more replayable than one-and-done narrative empathy experiences,
+- more socially watchable than abstract emotional reflection tools.
 
-### Production requirements
-- PC-first scope for initial validation
-- paper prototype before full digital production commitment
-- visual direction defined early to prevent generic presentation
-- clear content pipeline for prompts, emotions, scenarios, and mode modifiers
+### Assumptions vs facts
+Some quantified market claims discussed in earlier drafts/reviews should be treated carefully.
 
-### Marketing requirements
-- a one-line pitch that instantly explains the game
-- at least one highly legible reveal moment for trailer and social clips
-- identity strong enough to stand out from generic party decks
-- creator-friendly structure that supports “play with friends” discovery
+For this proposal revision:
+- **use qualitative positioning where sources are not attached**,
+- treat revenue, conversion, and review projections as **future planning targets or assumptions**, not established facts,
+- only include hard numbers in the approval version if they are sourced clearly.
 
 ---
 
-## 10. Market Trends Analysis
+## Core Game Concept
 
-- Players continue to respond well to social games that create fast personal moments and clip-worthy reactions.
-- There is growing audience openness to emotionally positive and socially reflective games when they are framed as entertainment rather than self-help.
-- Strong tone and visual identity matter heavily in party/social categories because many concepts sound similar on paper.
-- Hybrid products that can extend into physical or creator-led formats have brand upside if the core rules are solid.
+### Card Categories
+- **Emotion Cards** — core feeling states like Joy, Fear, Anger, Sadness
+- **Memory Cards** — context, history, baggage, or supportive recall
+- **Reaction Cards** — defense, reframing, escalation, de-escalation
+- **Shift Cards** — change emotional state or reinterpret a scenario
+- **Breakthrough Cards** — special outcome cards unlocked by certain combinations or momentum
 
----
+### Core Gameplay Loop
+1. A situation, prompt, or encounter is presented.
+2. Players assess the emotional context.
+3. A player selects or combines cards to respond.
+4. The system or table resolves the emotional effect and resulting outcome.
+5. The state of the encounter shifts.
+6. Players continue until the encounter resolves in breakthrough, stalemate, collapse, or partial understanding.
+7. The session/run continues with changed emotional context, new cards, or altered interpretation.
 
-## 11. User Experience Analysis
+### Sample Turn
+**Scenario:** A player faces a tense reconciliation prompt.
 
-The best version of Emotion Cards Four should make players feel:
-- “I get this immediately.”
-- “This is funny/interesting because it’s about us.”
-- “That reveal was accurate or surprisingly wrong in a fun way.”
-- “I want another round because the group dynamic keeps changing.”
+- Current tension is high.
+- The player chooses **Guarded Honesty** (Reaction) and **Old Promise** (Memory).
+- The combination lowers escalation, reveals shared history, and opens a safer response path.
+- Instead of forcing confrontation, the encounter shifts into a fragile dialogue state.
+- On the next turn, different cards become viable because the emotional temperature changed.
 
-UX must protect flow. If players spend too much time parsing emotional categories, resolving exceptions, or debating scoring, the game loses energy.
+This kind of example makes the intended player fantasy clearer than abstract system language alone.
 
-The ideal outcome is:
-**easy to learn, emotionally smart, socially replayable**
-
----
-
-## 12. Risks
-
-### 1) Too educational, not fun enough
-**Risk:** The project feels like a school or wellness tool rather than a game.  
-**Mitigation:** prioritize playtesting for laughter, surprise, and replay requests over “learning outcomes.”
-
-### 2) Vague hook
-**Risk:** “Emotion cards” sounds like a theme, not a ruleset.  
-**Mitigation:** lock a single flagship mode and write the one-sentence pitch before expanding content.
-
-### 3) Tone mismatch
-**Risk:** Too jokey and the concept loses trust; too serious and it kills party energy.  
-**Mitigation:** test writing tone carefully across friend groups and couples.
-
-### 4) Replayability ceiling
-**Risk:** Prompt-driven content may burn out without enough variation.  
-**Mitigation:** design for social emergence, varied scenarios, and multiple modes before scaling content volume.
-
-### 5) Audience confusion
-**Risk:** Messaging tries to serve parties, couples, kids, classrooms, and wellness audiences all at once.  
-**Mitigation:** lead with social party positioning and let secondary use cases follow later.
+### Example Cards
+- **Guarded Honesty** — Reduce escalation by 1. If paired with a Memory card, reveal a safer dialogue option.
+- **Old Promise** — Recall a shared past moment. Increases trust if the current state is not hostile.
+- **Spiral of Doubt** — Increase uncertainty. Powerful for deflection, risky for resolution.
 
 ---
 
-## 13. Recommended Validation Plan
+## Mechanical Definitions
 
-### Phase 1 — Concept definition (1–2 weeks)
-- lock the one-line pitch
-- define the lead audience
-- select the flagship game mode
-- define the initial emotion vocabulary set
+To support design and implementation planning, the proposal should define these terms more concretely:
 
-### Phase 2 — Paper prototype testing (2–3 weeks)
-- build 3 fast prototype variants
-- test with friend groups, couples, and one facilitator-style group
-- measure clarity, laughs, replay demand, and hesitation points
+### Encounter Resolution
+An encounter ends when the current situation reaches a stable result state through card play, emotional momentum, and remaining response options.
 
-### Phase 3 — Digital prototype / vertical slice (3–6 weeks)
-- implement the strongest mode digitally
-- create one polished reveal flow
-- test readability in screenshots and short clips
-- establish visual identity and UI style
+### Breakthrough
+A positive or meaningful resolution where a player reaches clarity, understanding, connection, or earned progress through aligned play.
 
-### Phase 4 — Production planning (1–2 weeks)
-- estimate content scope
-- define launch platform priorities
-- determine whether physical, digital, or hybrid path is strongest
-- prepare greenlight recommendation
+### Collapse
+A negative or stalled resolution where emotional pressure, contradiction, or failed recovery closes off the best outcome and forces a different path or consequence.
+
+### Partial Resolution
+Not every encounter should end in full success or failure. Some should produce compromise, uncertainty, or altered future conditions.
 
 ---
 
-## 14. Budget Direction
+## Narrative Direction
 
-This should begin as a **small-scope validation project**.
+The narrative should avoid reducing emotions to “good” and “bad.” Instead, it should present them as signals, tools, defenses, burdens, and histories.
 
-### Likely cost drivers
-- interaction/UI polish
-- writing and prompt design
-- art direction and expressive card design
-- multiplayer/social play UX
-- playtesting and iteration
+### Narrative Principles
+- Emotional choices should reshape play, not just dialogue flavor.
+- Repeated play should reveal different interpretations of the same situation.
+- Emotional outcomes should feel grounded rather than preachy.
+- Writing should be specific enough to feel human, but modular enough to avoid repetition fatigue.
 
-### Budget recommendation
-Do not overbuild early. First prove:
-1. the rules are instantly understandable
-2. groups want to keep playing
-3. the presentation feels premium, not generic
-4. the concept works as a social product rather than only a niche emotional-literacy tool
+### Writing Risk
+A major content risk identified by engineering/design review: emotional writing can become repetitive, vague, or moralizing if card identity and outcomes are not distinct enough.
 
-If those checks land, the project can justify a broader digital release or cross-format expansion.
+**Mitigation:** define strong card identity, grounded scenario writing, and clearly differentiated emotional outcomes early.
 
 ---
 
-## 15. Recommendation
+## Audience
 
-**Recommendation: Proceed as a concept-validation candidate with a social party-game framing.**
+### Primary Audience
+- players who enjoy social card play with stronger emotional texture,
+- players interested in empathy, interpretation, and replayable scenario-based interaction,
+- creators/streamers who benefit from readable player decisions and socially legible outcomes.
 
-Emotion Cards Four has real potential if NorthernStar builds it around reading people rather than teaching emotions directly. The strongest version is a stylish, accessible, replayable social card game with emotional intelligence in its DNA.
+### Secondary Audience
+- players who like narrative games but want more replay structure,
+- players open to reflective themes if the format stays accessible,
+- groups looking for a fresh social play format beyond trivia or deception-only party games.
 
-The project should move forward only if early testing proves:
-1. players understand the rules almost immediately
-2. the reveal moments are genuinely fun and socially memorable
-3. the emotional layer feels distinctive without becoming awkward or preachy
-4. the game’s identity is strong enough to market in one sentence and one screenshot
-
-If those checks hit, Emotion Cards Four could become a differentiated indie social title with room for digital launch, creator discovery, and possible tabletop expansion.
+### Audience Fit Question to Validate
+One important review note: we should validate whether the game reads more strongly to:
+- party/social players,
+- facilitator/reflective-use audiences,
+- or a blended but still clearly defined core audience.
 
 ---
 
-## 16. Status
+## Validation Criteria
 
-**Status:** Draft proposal complete  
-**Suggested next step:** team review, feedback consolidation, and approval request
+The prototype should explicitly test:
+- **first-round comprehension** — do players understand what the cards mean and how to use them quickly?
+- **replay intent after one session** — do players want another round because outcomes feel varied?
+- **creator / stream readability** — can an observer understand the emotional stakes and choices?
+- **audience fit** — does the game land more naturally as social play, reflective play, or a mixed format?
+- **emotional clarity** — do players understand why a card worked or failed?
+- **tone acceptance** — does the experience feel emotionally engaging without becoming heavy-handed?
+
+---
+
+## Platform & Business Fit
+
+### Initial Platform Recommendation
+- **Primary:** PC / Steam-first evaluation path
+- **Secondary:** platform expansion only after the core concept and readability are validated
+
+### Business Framing
+This proposal revision avoids unsourced commercial claims. Any future targets for pricing, review goals, conversion, or platform performance should be treated as planning assumptions until supported by source-backed market analysis.
+
+---
+
+## Prototype Scope
+
+The revised prototype should be concrete enough for implementation review.
+
+### Minimum Design Slice
+- 1 flagship mode
+- 1 repeatable session loop
+- 1 small scenario set
+- 20–30 cards across core categories
+- 1–2 progression or state-shift systems
+- clear encounter resolution states
+
+### Minimum Technical Slice
+- card data structure
+- deck / hand / discard management
+- encounter state flow
+- opposition or scenario response logic
+- save/progression assumptions for test sessions
+- instrumentation for basic playtest observations
+
+### Minimum QA Slice
+- readable test cases for first-session comprehension
+- state transition verification
+- repeat-session sanity checks
+- usability checks around terminology and resolution clarity
+
+---
+
+## Art & UI Scope Definition Required Before Timeline Lock
+
+Art feedback was consistent: the pitch is strong, but the asset load is still too soft to schedule honestly.
+
+### Required additions before timeline lock
+1. **Art scope sheet**
+2. **UI readability prototype**
+3. **One style exploration pass**
+4. Defined **portrait state count per character**
+5. Defined **unique illustration count vs reusable motif split**
+6. Defined **VFX scope limits**
+7. Defined **target resolutions / aspect ratios / safe areas**
+8. Defined **localization constraints**
+9. Defined whether narrative beats require event illustrations or cutscene panels
+
+### Art production guidance
+The most realistic production direction from current feedback is:
+- templated card layouts,
+- reusable frame systems,
+- icon-first communication,
+- limited portrait state counts,
+- constrained VFX families,
+- a small number of premium showcase illustrations.
+
+### Art position summary
+- **Concept:** supported
+- **Revision pass:** no blocker
+- **Timeline lock:** not approved yet
+
+---
+
+## Risks & Mitigations
+
+| Risk | Severity | Mitigation |
+|---|---|---|
+| Pitch is too broad or fuzzy | High | Keep one flagship mode front and center |
+| Emotional mechanics feel abstract | High | Add sample turn, example cards, and concrete resolution states |
+| Writing becomes repetitive or preachy | Medium | Ground card identity and outcome writing in specific scenario design |
+| Asset scope balloons | High | Add art scope sheet, portrait limits, UI prototype, and VFX constraints before timeline lock |
+| UI readability fails on smaller screens | High | Prototype readability early and test with target resolutions |
+| Team reviews wrong document | Medium | Use one canonical repo path in all producer posts |
+| Unsourced market claims weaken credibility | Medium | label assumptions clearly and attach sources before final approval version |
+
+---
+
+## Proposed Milestones
+
+### Phase 1 — Proposal Revision Approval
+- align on concept framing
+- approve flagship mode
+- approve prototype validation criteria
+- approve canonical proposal path and working assumptions
+
+### Phase 2 — Pre-Production
+- create project plan
+- define card taxonomy
+- define initial scenario structure
+- define prototype technical slice
+- produce art scope sheet and style exploration brief
+
+### Phase 3 — Prototype
+- implement the playable loop
+- build encounter flow and state resolution
+- test comprehension, replay intent, and readability
+- validate tone, audience fit, and creator readability
+
+### Phase 4 — Vertical Slice Decision
+- evaluate prototype findings
+- decide whether to expand scope
+- only then discuss firmer schedule commitments and broader art production planning
+
+---
+
+## Team Review Summary
+
+### Marketing
+- no blocker
+- wants clearer social-empathy positioning
+- wants one flagship mode
+- wants explicit validation criteria
+
+### Design / Dev
+- concept is strong
+- mechanics need to be made more concrete
+- wants example cards, sample turn, and clearer system definitions
+- wants minimum technical slice defined
+
+### QA
+- one revision pass before approval
+- wants assumptions separated from targets/facts
+- wants cleaner document control and path consistency
+
+### Art
+- concept approved for revision and review
+- no blocker on pitch direction
+- **not ready for schedule/timeline lock** until scope-definition is added
+
+---
+
+## Recommendation
+
+**Proceed with a revision-approved proposal, then move into project planning and prototype definition.**
+
+This proposal is now in a stronger state conceptually, but the honest producer recommendation is:
+- approve the concept direction,
+- do **not** pretend schedule certainty exists yet,
+- require the next planning step to define implementation and asset scope properly.
+
+---
+
+## Immediate Next Steps
+
+1. Approve this revised proposal direction.
+2. Create the project plan from the approved flagship mode.
+3. Break out prototype tasks by role.
+4. Produce the art scope sheet and UI readability prototype requirements.
+5. Lock assumptions, validation criteria, and prototype success gates.
+
+---
+
+**Canonical file for review and approval:** `docs/proposals/emotion-cards-four-project-proposal.md`
+
+*Consolidated by Shig 📋 from team review feedback.*
