@@ -33,7 +33,10 @@ This document merges the original v1 planning baseline with the fresh v1 plannin
 - `production/art-v1-scope-update.md` — ART-V1-001 ✅
 - `src/dev-v1-architecture-next-items.md` — DEV-V1-001 ✅
 - `tests/v1-quality-bar.md` — QA-V1-001 ✅
-- `production/market-v1-update.md` — MKT-V1-001 ⏳ (pending)
+- `gdd/v1-card-taxonomy-and-encounter-templates.md` — DES-V1-002 ✅
+- `tests/v1-test-cases.md` — QA-V1-002 ✅
+- `production/market-brief.md` (v1 audience-fit validation path) — MKT-V1-001 ✅
+- `src/engine-v1-refactor` — DEV-V1-002 ⏳ (in progress)
 
 ---
 
@@ -110,8 +113,8 @@ v1 quality bar defined with 4 lessons from prototype:
 
 **Prototype vs v1 QA:** v1 is broader audience scope, higher playability bar, separate UX gates, evidence-based issue closure required.
 
-### Marketing (MKT-V1-001 — @Gabe) ⏳
-Pending. Will update market brief with v1 audience-fit validation path based on prototype learnings.
+### Marketing (MKT-V1-001 — @Gabe) ✅
+Market brief updated with v1 audience-fit validation path — what v1 must prove, success/fail signals, recommended test format, deliverables, and how v1 validation differs from prototype validation.
 
 ---
 
@@ -225,18 +228,19 @@ Pending. Will update market brief with v1 audience-fit validation path based on 
 
 **From prototype to v1 active work:**
 
-1. DES-V1-001 ✅ → 5 open questions still pending resolution
+1. DES-V1-001 ✅ → 5 open questions resolved and locked
 2. ART-V1-001 ✅ → NAC and v1 art scope additions required
 3. DEV-V1-001 ✅ → Engine/UI separation enables everything else
 4. QA-V1-001 ✅ → Quality bar defined
-5. MKT-V1-001 ⏳ → Market brief update pending
+5. DES-V1-002 ✅ → Card taxonomy and 5-encounter template set complete
+6. QA-V1-002 ✅ → v1 test cases with Gate 0-5 framework complete
+7. MKT-V1-001 ✅ → Market brief with v1 audience-fit validation path complete
+8. DEV-V1-002 ⏳ → Engine/UI separation in progress (John)
 
 **Immediate next steps after this consolidation:**
-- Resolve the 5 open design questions (producer + designer)
-- MKT-V1-001 to complete market brief update
-- Begin DEV-V1-002: Engine/UI separation (John, earliest v1 scoping)
-- Begin DES-V1-002: Card taxonomy and content update informed by v1 rules lock
-- Begin QA-V1-002: Update prototype test cases with v1 quality bar criteria
+- DEV-V1-002 completes → engine/UI separation landed
+- Final v1 baseline lock after DEV-V1-002 lands
+- Begin v1 implementation scoping (next producer task after consolidation)
 
 ---
 
@@ -250,8 +254,40 @@ Pending. Will update market brief with v1 audience-fit validation path based on 
 
 ---
 
+## v1-002 Deliverables Summary
+
+### DES-V1-002 ✅ — @Hideo
+`gdd/v1-card-taxonomy-and-encounter-templates.md`
+- 9 Emotion cards, 8 Memory cards, 9 Reaction cards, 6 Shift cards, 3 Breakthrough cards
+- 16-card starter deck
+- Full effect/condition primitives canonical list
+- Synergy rules locked for v1
+- 5 v1 Encounter Templates: Missed Signal, Public Embarrassment, Quiet Repair, Old Grudge, Breakthrough Moment
+
+### QA-V1-002 ✅ — @Sakura
+`tests/v1-test-cases.md`
+- Supersedes prototype-test-cases.md with full v1 restructure
+- 5 gates (Gate 0–5) mapped to explicit test cases
+- Locked v1 design rules embedded as pass/fail criteria
+- 4 severity levels (P1–P4) with clear action thresholds
+- Engine/UI separation coverage for DEV-V1-002 context
+- Issue #12 as named Gate 2 case and Gate 4 prerequisite
+- Exit criteria for v1 QA approval clearly defined
+
+### DEV-V1-002 ⏳ — @John
+Engine/UI separation refactor — in progress.
+
+### MKT-V1-001 ✅ — @Gabe
+`production/market-brief.md` (updated)
+- v1 audience-fit validation path added
+- What v1 must prove, success/fail signals
+- Recommended test format and deliverables
+- How v1 validation differs from prototype validation
+
+---
+
 ## Baseline Status
 
-**v1 planning baseline is established and active.**
+**v1 planning baseline is nearly locked — one task remaining (DEV-V1-002).**
 
-All sections updated from fresh v1 planning pass. MKT-V1-001 pending — market brief update will be folded in upon completion.
+All v1 pass inputs consolidated. Final lock pending engine/UI separation completion.
