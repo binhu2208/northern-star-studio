@@ -10,7 +10,7 @@
 
 | ID | Task | Owner | Dependencies | Critical | Status |
 |----|------|------|--------------|----------|--------|
-| MKT-004 | Create concept-validation / prototype brief with success criteria | Gabe | None | Y | ⚪ Ready |
+| MKT-004 | Create concept-validation / prototype brief with success criteria | Gabe | None | Y | 🟡 In Progress |
 | DES-001 | Define core emotional-state model with one concrete gameplay loop and screenshot-form emotion-state examples | Hideo | MKT-004 | Y | 🔴 Pending |
 | ART-001 | Create early visual readability guide: card rules, icon draft, state color/shape system, screenshot legibility checklist | Yoshi | DES-001 | Y | 🔴 Pending |
 | DEV-001 | Prototype one playable combat scenario with emotional state system | John | DES-001 | Y | 🔴 Pending |
