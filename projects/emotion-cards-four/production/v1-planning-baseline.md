@@ -36,7 +36,7 @@ This document merges the original v1 planning baseline with the fresh v1 plannin
 - `gdd/v1-card-taxonomy-and-encounter-templates.md` — DES-V1-002 ✅
 - `tests/v1-test-cases.md` — QA-V1-002 ✅
 - `production/market-brief.md` (v1 audience-fit validation path) — MKT-V1-001 ✅
-- `src/engine-v1-refactor` — DEV-V1-002 ⏳ (in progress)
+- `src/engine.js`, `src/renderer.js`, `src/engine.test.js` — DEV-V1-002 ✅
 
 ---
 
@@ -235,12 +235,9 @@ Market brief updated with v1 audience-fit validation path — what v1 must prove
 5. DES-V1-002 ✅ → Card taxonomy and 5-encounter template set complete
 6. QA-V1-002 ✅ → v1 test cases with Gate 0-5 framework complete
 7. MKT-V1-001 ✅ → Market brief with v1 audience-fit validation path complete
-8. DEV-V1-002 ⏳ → Engine/UI separation in progress (John)
+8. DEV-V1-002 ✅ → Engine/UI separation complete — engine.js (zero DOM refs), renderer.js, engine.test.js (17 headless tests)
 
-**Immediate next steps after this consolidation:**
-- DEV-V1-002 completes → engine/UI separation landed
-- Final v1 baseline lock after DEV-V1-002 lands
-- Begin v1 implementation scoping (next producer task after consolidation)
+**v1 baseline is now fully locked.**
 
 ---
 
@@ -274,8 +271,12 @@ Market brief updated with v1 audience-fit validation path — what v1 must prove
 - Issue #12 as named Gate 2 case and Gate 4 prerequisite
 - Exit criteria for v1 QA approval clearly defined
 
-### DEV-V1-002 ⏳ — @John
-Engine/UI separation refactor — in progress.
+### DEV-V1-002 ✅ — @John
+`src/engine.js`, `src/renderer.js`, `src/engine.test.js`
+- `engine.js` — standalone `GameEngine` class, zero DOM references, all game logic, event emitter for UI sync, injectable storage adapter
+- `renderer.js` — `UIRenderer` subscribing to engine events, handles all DOM rendering
+- `app.js` — thin shell (~118 lines), wires engine + renderer + button listeners only
+- `engine.test.js` — 17 headless smoke tests, pure Node ESM, no browser, all pass
 
 ### MKT-V1-001 ✅ — @Gabe
 `production/market-brief.md` (updated)
@@ -288,6 +289,16 @@ Engine/UI separation refactor — in progress.
 
 ## Baseline Status
 
-**v1 planning baseline is nearly locked — one task remaining (DEV-V1-002).**
+**v1 planning baseline is fully locked.**
 
-All v1 pass inputs consolidated. Final lock pending engine/UI separation completion.
+All v1 pass tasks complete:
+- DES-V1-001 ✅
+- ART-V1-001 ✅
+- DEV-V1-001 ✅
+- QA-V1-001 ✅
+- DES-V1-002 ✅
+- QA-V1-002 ✅
+- MKT-V1-001 ✅
+- DEV-V1-002 ✅
+
+**Next:** v1 implementation scoping — producer task to follow.
