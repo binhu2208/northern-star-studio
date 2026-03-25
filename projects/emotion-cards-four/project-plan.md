@@ -21,8 +21,8 @@
 | MKT-002 | Refine audience framing, flagship mode messaging, validation criteria, and product positioning into a short market brief | Gabe (Analyst) | None | Y | Completed |
 | MKT-003 | Define audience-fit testing, message testing, and pitch/hook refinement deliverables for prototype validation | Gabe (Analyst) | MKT-002 | Y | In Progress |
 | DES-001 | Define flagship mode rules, turn structure, scoring / resolution states, and sample session flow | Hideo (Designer) | None | Y | Completed |
-| DES-002 | Create initial card taxonomy and first 20-30 card prototype list | Hideo (Designer) | DES-001 | Y | In Progress |
-| ART-001 | Create art scope sheet covering unique art count, portrait states, UI targets, VFX scope, localization constraints, and production assumptions | Yoshi (Artist) | DES-001, DES-002 | Y | Pending |
+| DES-002 | Create initial card taxonomy and first 20-30 card prototype list | Hideo (Designer) | DES-001 | Y | Completed |
+| ART-001 | Create art scope sheet covering unique art count, portrait states, UI targets, VFX scope, localization constraints, and production assumptions | Yoshi (Artist) | DES-001, DES-002 | Y | In Progress |
 | ART-002 | Run one style exploration pass with concrete outputs: 1-3 visual directions, frame roughs, typography pairing, icon language sample, and one sample card mockup | Yoshi (Artist) | ART-001 | N | Pending |
 | ART-003 | Build UI readability prototype targets for card size, hand size, keyword density, text load, safe areas, and controller/readability constraints | Yoshi (Artist) | ART-001, DES-002 | Y | Pending |
 | ART-004 | Define reusable card frame / icon / UI component system requirements after style direction is selected | Yoshi (Artist) | ART-002, ART-003 | N | Pending |
@@ -86,3 +86,4 @@ Tasks intentionally parallelized to reduce waiting:
 - Producer activated execution by assigning MKT-002 and DES-001 and marking them In Progress on 2026-03-25.
 - MKT-002 completed on 2026-03-25; MKT-003 unlocked and activated immediately after market brief check-in.
 - DES-001 completed on 2026-03-25; DES-002 and DEV-001A unlocked and activated immediately after rules doc check-in.
+- DES-002 completed on 2026-03-25; ART-001 unlocked and activated immediately after taxonomy check-in. ART-003 remains pending on ART-001.
