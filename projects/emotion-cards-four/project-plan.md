@@ -4,7 +4,7 @@
 - **Project:** Emotion Cards Four
 - **Proposal:** `docs/proposals/emotion-cards-four-project-proposal.md`
 - **Created:** 2026-03-25
-- **Status:** Prototype baseline established
+- **Status:** v1 implementation phase active — scope approved, tasks assigned
 
 ## Planning Assumptions
 - Concept direction is approved.
@@ -35,8 +35,38 @@
 | PROD-001 | Consolidate approved planning inputs into v1 planning baseline | Shig (Producer) | MKT-002, MKT-003, DES-001, ART-001, DEV-001A, QA-001 | Y | Completed |
 | PROD-002 | Assign implementation tasks for prototype build | Shig (Producer) | PROD-001 | Y | Completed |
 | PROD-003 | Review project critical path and update plan after first planning submissions | Shig (Producer) | PROD-001 | Y | Completed |
+| DEV-V1-003 | Implement BreakthroughManager: real condition evaluation against live encounter state, unlock conditions checked during resolution not at draw | John (Developer) | DEV-V1-002 | Y | In Progress |
+| DEV-V1-004 | Create vocabulary.ts with all canonical constants + startup validation pass on card definitions and encounter templates | John (Developer) | DEV-V1-002 | Y | In Progress |
+| DEV-V1-005 | Implement encounter carry-forward with per-encounter rules, carry_forward effect type with encounter context, narrative flag hooks, reward choice UI support | John (Developer) | DEV-V1-003, DEV-V1-004 | Y | Pending |
+| DEV-V1-006 | Build RunSummaryGenerator: structured report from event log (result dist, avg turns/encounter, collapse freq, card play freq, poor-fit rate) for validation teams | John (Developer) | DEV-V1-003 | Y | Pending |
+| DEV-V1-007 | Full UI integration: wire breakthrough/NAC/carry-forward to production UI, HUD refresh with NAC slot, save/resume stability pass | John (Developer) | DEV-V1-003, DEV-V1-004, DEV-V1-006, ART-V1-002 | Y | Pending |
+| DES-V1-003 | Encounter template review: verify 5 templates from DES-V1-002 translate correctly to implementation, outcome evaluation logic verification | Hideo (Designer) | DEV-V1-005 | Y | Pending |
+| DES-V1-004a | Card balance pass (design doc): 35-card review against DES-V1-002 taxonomy, runs parallel to DEV implementation | Hideo (Designer) | DES-V1-003 | N | Pending |
+| DES-V1-004b | Card balance pass (post-implementation): confirm balance holds against actual engine behavior, only if needed after DES-V1-004a findings | Hideo (Designer) | DEV-V1-005 | N | Pending |
+| ART-V1-002 | NAC component: Next-Action Cue with 4 states (active rec, neutral, no signal, locked), Calm Diagnostic style, HUD placement below state meters | Yoshi (Artist) | DEV-V1-007, Joint NAC Signal Spec with @John | Y | Pending |
+| ART-V1-003 | Card frame variant expansion: v1 frame families beyond prototype, portrait/emotion overlay system rollout | Yoshi (Artist) | ART-V1-002 | N | Pending |
+| ART-V1-004 | Icon library expansion: new keyword/encounter state icons, consistent shape-first system | Yoshi (Artist) | ART-V1-003 | N | Pending |
+| ART-V1-005 | HUD shell + tutorial UI: v1 HUD shell with NAC slot accommodation, first-session intro/tutorial on-ramp | Yoshi (Artist) | ART-V1-002 | Y | Pending |
+| QA-V1-003 | v1 Gate 0-5 execution: browser-level validation mandatory, Issue #12 as named Gate 2 + Gate 4 pre-req, headless engine tests via GameEngine, evidence-based closure | Sakura (QA) | DEV-V1-007, ART-V1-005 | Y | Pending |
+| MKT-V1-002 | v1 audience-fit validation: execute per market-brief.md path, shape report for store-page/pitch downstream use, track success/fail signals | Gabe (Analyst) | DEV-V1-007, QA-V1-003 | Y | Pending |
 
-## Critical Path (current)
+## Critical Path (v1 implementation)
+v1 implementation critical path:
+
+**DEV-V1-003 → DEV-V1-004 → DEV-V1-005 → DEV-V1-007 → QA-V1-003 → MKT-V1-002**
+
+Supporting (can run in parallel):
+- **DEV-V1-006** (gated on DEV-V1-003, gates MKT data pipeline)
+- **DES-V1-003** (gated on DEV-V1-005)
+- **DES-V1-004a** (gated on DES-V1-003, no DEV dependency — runs early)
+- **ART-V1-002** (gated on DEV-V1-007 + Joint NAC Signal Spec)
+- **ART-V1-005** (gated on ART-V1-002)
+
+Art slip risk: ART-V1-002 and ART-V1-005 are explicit QA-V1-003 dependencies. If art slips, QA slips.
+
+---
+
+## Original Prototype Critical Path (completed)
 Initial planning/prototype critical path has now been completed:
 
 **DES-001 → DES-002 → DEV-001A → DEV-001B → DEV-002 → QA-002**
