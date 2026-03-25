@@ -22,7 +22,6 @@ import {
   ENCOUNTER_TEMPLATES,
   RESPONSE_WINDOWS,
   STARTER_DECK,
-  BREAKTHROUGH_SURFACES,
 } from './data.js'
 
 // ---------------------------------------------------------------------------
@@ -38,6 +37,220 @@ const MAX_TURNS = 6
 
 const cardMap = new Map(CARD_DEFINITIONS.map((card) => [card.id, card]))
 const encounterMap = new Map(ENCOUNTER_TEMPLATES.map((enc) => [enc.id, enc]))
+const breakthroughCardIds = CARD_DEFINITIONS.filter((c) => c.deckRole === 'breakthrough').map((c) => c.id)
+
+// ---------------------------------------------------------------------------
+// BreakthroughManager
+// ---------------------------------------------------------------------------
+
+/**
+ * BreakthroughManager evaluates breakthrough unlock conditions against live
+ * encounter state and surfaces breakthrough cards when conditions are met.
+ *
+ * Key rules (v1 flagship mode):
+ * - Breakthrough cards surface when unlock conditions are met during encounter
+ * - A surfaced breakthrough cannot be played until the NEXT turn after surfacing
+ *   (not the same turn it was surfaced)
+ * - Unlock conditions are evaluated dynamically against live encounter state,
+ *   not via a static map
+ */
+export class BreakthroughManager {
+  /**
+   * Evaluate breakthrough unlock conditions for the given encounter and surface
+   * a breakthrough card if conditions are met and no breakthrough is yet surfaced.
+   *
+   * @param {object} run
+   * @param {object} encounter
+   * @returns {{ surfaced: boolean, breakthroughId: string|null, reason: string }}
+   */
+  static evaluateAndSurface(run, encounter) {
+    // Already surfaced — nothing to do
+    if (encounter.surfacedBreakthroughId) {
+      return { surfaced: false, breakthroughId: encounter.surfacedBreakthroughId, reason: 'already_surfaced' }
+    }
+
+    // breakthroughReady must be true before any breakthrough can surface
+    if (!encounter.breakthroughReady) {
+      return { surfaced: false, breakthroughId: null, reason: 'breakthrough_not_ready' }
+    }
+
+    // Evaluate each breakthrough card's unlock rules against live encounter state
+    for (const breakthroughId of breakthroughCardIds) {
+      const unlocked = this._evaluateUnlockRules(breakthroughId, run, encounter)
+      if (unlocked) {
+        encounter.surfacedBreakthroughId = breakthroughId
+        encounter.breakthroughSurfaceTurn = encounter.turn
+        encounter.breakthroughPlayable = false // Cannot be played until next turn
+
+        // Open the breakthrough response window so the card can be played next turn
+        setWindowOpen(encounter, 'breakthrough', true)
+
+        // Register in carry-forward so the card is recognized as unlocked globally
+        if (!run.carryForward.unlockedBreakthroughCards.includes(breakthroughId)) {
+          run.carryForward.unlockedBreakthroughCards.push(breakthroughId)
+        }
+
+        logEvent(run, 'breakthrough_unlocked', {
+          encounterId: encounter.encounterId,
+          turn: encounter.turn,
+          breakthroughId,
+        })
+
+        return { surfaced: true, breakthroughId, reason: 'conditions_met' }
+      }
+    }
+
+    // breakthroughReady is true but no unlock rules matched — surface the default
+    // based on encounter id as a fallback (maintains backward compat for encounters
+    // without per-card unlock rules)
+    const defaultId = _breakthroughDefaults[encounter.encounterId] ?? null
+    if (defaultId && !encounter.surfacedBreakthroughId) {
+      encounter.surfacedBreakthroughId = defaultId
+      encounter.breakthroughSurfaceTurn = encounter.turn
+      encounter.breakthroughPlayable = false
+      setWindowOpen(encounter, 'breakthrough', true)
+      if (!run.carryForward.unlockedBreakthroughCards.includes(defaultId)) {
+        run.carryForward.unlockedBreakthroughCards.push(defaultId)
+      }
+      logEvent(run, 'breakthrough_unlocked', {
+        encounterId: encounter.encounterId,
+        turn: encounter.turn,
+        breakthroughId: defaultId,
+        fallback: true,
+      })
+      return { surfaced: true, breakthroughId: defaultId, reason: 'default_fallback' }
+    }
+
+    return { surfaced: false, breakthroughId: null, reason: 'no_conditions_met' }
+  }
+
+  /**
+   * Check if a specific breakthrough card instance can be played.
+   * Enforces: card must be surfaced, and it must be played on a turn AFTER
+   * the turn it was surfaced (next turn rule per v1 flagship mode rules).
+   *
+   * @param {object} encounter
+   * @param {string} breakthroughId
+   * @returns {{ canPlay: boolean, reason: string }}
+   */
+  static canPlayBreakthrough(encounter, breakthroughId) {
+    if (!encounter.surfacedBreakthroughId) {
+      return { canPlay: false, reason: 'no_breakthrough_surfaced' }
+    }
+    if (encounter.surfacedBreakthroughId !== breakthroughId) {
+      return { canPlay: false, reason: 'breakthrough_not_surfaced' }
+    }
+    // Next-turn rule: breakthrough can only be played on a turn AFTER the surface turn
+    if (encounter.turn <= encounter.breakthroughSurfaceTurn) {
+      return { canPlay: false, reason: 'breakthrough_not_yet_playable' }
+    }
+    return { canPlay: true, reason: 'ok' }
+  }
+
+  /**
+   * Called at the start of each new turn to update breakthrough playability.
+   * Once a surfaced breakthrough exists, it becomes playable from the turn
+   * AFTER it was surfaced.
+   *
+   * @param {object} encounter
+   */
+  static advanceBreakthroughPlayability(encounter) {
+    if (!encounter.surfacedBreakthroughId) return
+    if (encounter.turn > encounter.breakthroughSurfaceTurn) {
+      encounter.breakthroughPlayable = true
+    }
+  }
+
+  /**
+   * Evaluate a breakthrough card's unlock rules against live encounter state.
+   * Returns true if all conditions in at least one unlock rule are satisfied.
+   *
+   * @param {string} breakthroughId
+   * @param {object} run
+   * @param {object} encounter
+   * @returns {boolean}
+   */
+  static _evaluateUnlockRules(breakthroughId, run, encounter) {
+    const def = cardMap.get(breakthroughId)
+    if (!def || def.deckRole !== 'breakthrough') return false
+
+    const rules = def.unlockRules ?? []
+    if (rules.length === 0) return false
+
+    // Each rule's `if` conditions must all match (AND), and we need at least
+    // one rule to pass (OR between rules)
+    for (const rule of rules) {
+      if (matchesUnlockCondition(encounter, run, rule.if)) {
+        return true
+      }
+    }
+    return false
+  }
+}
+
+/**
+ * Match a single set of unlock conditions against encounter/run state.
+ * Extends the standard condition matching with breakthrough-specific fields.
+ */
+function matchesUnlockCondition(encounter, run, condition = {}) {
+  if (!condition || Object.keys(condition).length === 0) return true
+
+  // breakthroughReady must be true
+  if ('breakthroughReady' in condition) {
+    if (encounter.breakthroughReady !== condition.breakthroughReady) return false
+  }
+
+  // Stat threshold: statGte { stat, value }
+  if (condition.statGte) {
+    const { stat, value } = condition.statGte
+    if (encounter.stats[stat] < value) return false
+  }
+
+  // Stat threshold: statLte { stat, value }
+  if (condition.statLte) {
+    const { stat, value } = condition.statLte
+    if (encounter.stats[stat] > value) return false
+  }
+
+  // Stat threshold: statEq { stat, value }
+  if (condition.statEq) {
+    const { stat, value } = condition.statEq
+    if (encounter.stats[stat] !== value) return false
+  }
+
+  // Encounter has a specific keyword
+  if (condition.encounterHasKeyword) {
+    if (!encounter.keywords.includes(condition.encounterHasKeyword)) return false
+  }
+
+  // Encounter has any of a list of keywords
+  if (condition.encounterHasKeywordIn) {
+    if (!condition.encounterHasKeywordIn.some((k) => encounter.keywords.includes(k))) return false
+  }
+
+  // Encounter id matches (useful for encounter-specific breakthrough assignment)
+  if (condition.encounterId) {
+    if (encounter.encounterId !== condition.encounterId) return false
+  }
+
+  // Encounter result must be a specific value (for post-resolution upgrades)
+  if (condition.result) {
+    if (encounter.result !== condition.result) return false
+  }
+
+  return true
+}
+
+/**
+ * Fallback defaults for breakthrough surfacing — used only when no unlock rules
+ * match. This preserves backward compatibility during transition.
+ * @deprecated — remove once all encounters have per-card unlock rules
+ */
+const _breakthroughDefaults = {
+  missed_signal: 'B-001',
+  public_embarrassment: 'B-003',
+  quiet_repair: 'B-002',
+}
 
 // ---------------------------------------------------------------------------
 // GameEngine class
@@ -83,7 +296,6 @@ export class GameEngine {
         drawPile,
         hand: [],
         discardPile: [],
-        surfacedBreakthrough: null,
         maxHandSize: MAX_HAND_SIZE,
       },
       carryForward: {
@@ -299,10 +511,12 @@ function createEncounterInstance(encounterId, carryForward) {
     pressureLevel: 0,
     failedPlayCount: 0,
     breakthroughReady: false,
+    breakthroughPlayable: false,
     collapseArmed: false,
     lastPlayerAction: null,
     lastOppositionAction: null,
     surfacedBreakthroughId: null,
+    breakthroughSurfaceTurn: null,
   }
 }
 
@@ -355,6 +569,10 @@ function enterPhase(run, phase) {
 function handleStateRefresh(run) {
   const encounter = getCurrentEncounter(run)
   const turn = encounter.turn
+
+  // Advance breakthrough playability if a breakthrough is surfaced
+  BreakthroughManager.advanceBreakthroughPlayability(encounter)
+
   if (turn >= 4 && !hasModifier(encounter, 'no_tension_increase')) {
     applyStatDelta(encounter, 'tension', 1)
     encounter.pressureLevel += 1
@@ -371,8 +589,29 @@ function handleStateRefresh(run) {
 function handleDrawPrepare(run) {
   const encounter = getCurrentEncounter(run)
   drawToHand(run, run.deckState.maxHandSize)
+
+  // Inject surfaced breakthrough into hand if not already present
+  injectSurfacedBreakthrough(run)
+
   logEvent(run, 'cards_drawn', { encounterId: encounter.encounterId, turn: encounter.turn, hand: run.deckState.hand.map((card) => card.definitionId) })
   enterPhase(run, 'read_situation')
+}
+
+function injectSurfacedBreakthrough(run) {
+  const encounter = getCurrentEncounter(run)
+  if (!encounter.surfacedBreakthroughId) return
+  const alreadyInHand = run.deckState.hand.some(
+    (c) => c.definitionId === encounter.surfacedBreakthroughId
+  )
+  if (alreadyInHand) return
+  const breakthroughInstance = createCardInstance(encounter.surfacedBreakthroughId)
+  run.deckState.hand.push(breakthroughInstance)
+  logEvent(run, 'breakthrough_card_added_to_hand', {
+    encounterId: encounter.encounterId,
+    turn: encounter.turn,
+    breakthroughId: encounter.surfacedBreakthroughId,
+    instanceId: breakthroughInstance.instanceId,
+  })
 }
 
 function drawToHand(run, targetHandSize) {
@@ -384,6 +623,12 @@ function drawToHand(run, targetHandSize) {
     }
     const next = deckState.drawPile.shift()
     if (!next) break
+    // Skip breakthrough cards — they surface via BreakthroughManager, not draw
+    const def = getDefinition(next)
+    if (def.deckRole === 'breakthrough') {
+      run.deckState.discardPile.push(next)
+      continue
+    }
     deckState.hand.push(next)
   }
 }
@@ -396,13 +641,31 @@ function validatePlay(run, primary, support) {
   const encounter = getCurrentEncounter(run)
   if (!primary) return { ok: false, reason: 'A primary Emotion or Reaction card is required.' }
   const primaryDef = getDefinition(primary)
+
+  // Breakthrough cards cannot be played as primary
+  if (primaryDef.deckRole === 'breakthrough') {
+    return { ok: false, reason: 'Breakthrough cards cannot be played as primary cards.' }
+  }
+
   if (!['emotion', 'reaction'].includes(primaryDef.category)) return { ok: false, reason: 'Primary card must be an Emotion or Reaction card.' }
   if (support) {
     const supportDef = getDefinition(support)
+    if (supportDef.deckRole === 'breakthrough') {
+      return { ok: false, reason: 'Breakthrough cards cannot be used as support.' }
+    }
     if (!['memory', 'shift'].includes(supportDef.category)) return { ok: false, reason: 'Support card must be a Memory or Shift card.' }
   }
   const openWindows = encounter.responseWindows.filter((entry) => entry.open).map((entry) => entry.windowId)
-  if (!openWindows.includes(primaryDef.intentTag) && !openWindows.includes('repair') && primaryDef.intentTag !== 'protect') {
+
+  // Breakthrough card play — validate via BreakthroughManager
+  if (primaryDef.deckRole === 'breakthrough') {
+    const btCheck = BreakthroughManager.canPlayBreakthrough(encounter, primaryDef.id)
+    if (!btCheck.canPlay) {
+      encounter.failedPlayCount += 1
+      run.metrics.poorFitPlays += 1
+      return { ok: false, reason: `Breakthrough card cannot be played yet: ${btCheck.reason}.` }
+    }
+  } else if (!openWindows.includes(primaryDef.intentTag) && !openWindows.includes('repair') && primaryDef.intentTag !== 'protect') {
     encounter.failedPlayCount += 1
     run.metrics.poorFitPlays += 1
     return { ok: false, reason: `${primaryDef.name} does not fit the current open response windows.` }
@@ -566,6 +829,10 @@ function evaluateOutcome(run, encounter) {
   const template = encounterMap.get(encounter.templateId)
   enterPhase(run, 'check_outcome')
   const breakthroughThresholds = template.breakthroughThresholds
+
+  // Evaluate and surface breakthrough via BreakthroughManager (not static map)
+  BreakthroughManager.evaluateAndSurface(run, encounter)
+
   const collapse = encounter.stats.tension >= 10 && encounter.stats.trust <= 2 || encounter.failedPlayCount >= 3 && encounter.stats.tension >= 8
   const breakthrough = encounter.stats.trust >= breakthroughThresholds.trust && encounter.stats.clarity >= breakthroughThresholds.clarity && encounter.stats.momentum >= breakthroughThresholds.momentum && encounter.breakthroughReady
   const stalemate = encounter.turn >= MAX_TURNS && encounter.stats.momentum <= 0 && encounter.stats.trust < 6
@@ -578,12 +845,6 @@ function evaluateOutcome(run, encounter) {
   else if (partial) encounter.result = 'partial'
   else encounter.result = null
 
-  if (encounter.breakthroughReady && !encounter.surfacedBreakthroughId) {
-    encounter.surfacedBreakthroughId = BREAKTHROUGH_SURFACES[encounter.encounterId]
-    const surfacedId = encounter.surfacedBreakthroughId
-    if (!run.carryForward.unlockedBreakthroughCards.includes(surfacedId)) run.carryForward.unlockedBreakthroughCards.push(surfacedId)
-    logEvent(run, 'breakthrough_unlocked', { encounterId: encounter.encounterId, turn: encounter.turn, breakthroughId: surfacedId })
-  }
   if (collapse) logEvent(run, 'collapse_armed', { encounterId: encounter.encounterId, turn: encounter.turn })
 }
 
@@ -696,7 +957,7 @@ function updateEncounterFlags(encounter) {
 }
 
 // ---------------------------------------------------------------------------
-// Condition matching
+// Condition matching (for card package effects)
 // ---------------------------------------------------------------------------
 
 function matchesCondition(encounter, packageContext, condition = {}) {
