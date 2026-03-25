@@ -63,14 +63,14 @@ The v1 flagship mode rules lock explicit behavior that was ambiguous in the prot
 - Failed play tracking — new addition
 - Encounter keyword canonical list — now part of rules doc
 
-**5 open questions still needing resolution before v1 lock:**
-1. Encounter count per run — 3 as default or configurable?
-2. Breakthrough card play timing — same turn or next turn after surfacing?
-3. Hand size — keep at 4 or increase?
-4. Difficulty scaling — per-encounter variants or uniform?
-5. Encounter template count — how many needed for meaningful v1 content review?
+**5 open questions — NOW LOCKED (Bin confirmed 2026-03-25):**
+1. **Encounter count:** configurable per run, 3 as default minimum for testing ✅
+2. **Breakthrough timing:** next turn after surfacing — same turn cheapens reward feel ✅
+3. **Hand size:** keep at 4 — readability constraint, not limitation ✅
+4. **Difficulty scaling:** uniform for v1, variants post-validation ✅
+5. **Template count:** 5 minimum for meaningful content review (3 too thin) ✅
 
-These are tracked as **v1 design decisions pending** — must be resolved in DES-V1-002 or by producer decision.
+**These are locked as v1 design constants.**
 
 ### Art (ART-V1-001 — @Yoshi)
 Issue #12 UX requirement formally added to v1 art scope:
@@ -147,12 +147,7 @@ Pending. Will update market brief with v1 audience-fit validation path based on 
 - Max turns = 6 default
 - Failed play tracking
 
-**Pending decisions (must resolve before v1 lock):**
-- Encounter count per run
-- Breakthrough card play timing
-- Hand size
-- Difficulty scaling
-- Encounter template count
+**Pending decisions:** All 5 now locked — see section above.
 
 ---
 
@@ -251,7 +246,7 @@ Pending. Will update market brief with v1 audience-fit validation path based on 
 |-------|-------------|--------|
 | #11 | Play action blocker | Fixed ✅ |
 | #12 | Next-action guidance UX gap | v1 requirement — tracked in ART-V1-001 ✅ |
-| DES-V1-001 open questions (5) | Encounter count, breakthrough timing, hand size, difficulty scaling, template count | Pending resolution |
+| DES-V1-001 open questions (5) | All 5 locked (2026-03-25) | ✅ All resolved |
 
 ---
 
