@@ -4,7 +4,7 @@
 - **Project:** Emotion Cards Four
 - **Proposal:** `docs/proposals/emotion-cards-four-project-proposal.md`
 - **Created:** 2026-03-25
-- **Status:** Draft
+- **Status:** Prototype baseline established
 
 ## Planning Assumptions
 - Concept direction is approved.
@@ -31,24 +31,24 @@
 | DEV-002 | Implement minimum playable prototype slice in `projects/emotion-cards-four/src/`: draw/play/discard loop, encounter state transitions, resolution handling, opposition behavior, and basic progression/save behavior | John (Developer) | DEV-001B | Y | Completed |
 | QA-001 | Create prototype validation plan for comprehension, replay intent, audience fit, readability, and tone acceptance | Sakura (QA) | MKT-002, MKT-003, DES-001 | Y | Completed |
 | QA-002 | Create state-transition, usability, and validation test cases for the prototype loop and task status readiness checks | Sakura (QA) | DEV-001B, QA-001 | Y | Completed |
-| PROD-001 | Consolidate approved planning inputs into v1 planning baseline | Shig (Producer) | MKT-002, MKT-003, DES-001, ART-001, DEV-001A, QA-001 | Y | In Progress |
-| PROD-002 | Assign implementation tasks for prototype build | Shig (Producer) | PROD-001 | Y | Pending |
-| PROD-003 | Review project critical path and update plan after first planning submissions | Shig (Producer) | PROD-001 | Y | Pending |
+| PROD-001 | Consolidate approved planning inputs into v1 planning baseline | Shig (Producer) | MKT-002, MKT-003, DES-001, ART-001, DEV-001A, QA-001 | Y | Completed |
+| PROD-002 | Assign implementation tasks for prototype build | Shig (Producer) | PROD-001 | Y | Completed |
+| PROD-003 | Review project critical path and update plan after first planning submissions | Shig (Producer) | PROD-001 | Y | Completed |
 
 ## Critical Path (current)
-Current longest dependency chain:
+Initial planning/prototype critical path has now been completed:
 
 **DES-001 → DES-002 → DEV-001A → DEV-001B → DEV-002 → QA-002**
 
-Supporting critical planning chain:
+Supporting planning chain completed:
 
 **MKT-002 → MKT-003 → QA-001 → PROD-001 → PROD-002**
 
-Additional production-risk chain:
+Art/UX planning chain completed:
 
 **DES-001 → DES-002 → ART-001 → ART-003 → ART-004**
 
-These tasks are marked critical because delay in rules definition, card taxonomy, technical architecture, validation framing, or art scope definition will delay prototype execution and schedule confidence.
+Current active producer focus is no longer unlocking the first slice, but managing review, next assignments, and preventing stale-task drift on follow-on implementation work.
 
 ## Parallelism Notes
 Tasks intentionally parallelized to reduce waiting:
@@ -97,3 +97,7 @@ Tasks intentionally parallelized to reduce waiting:
 - DEV-001B completed on 2026-03-25; DEV-002 and QA-002 unlocked and activated immediately after schema/integration check-in.
 - QA-002 completed on 2026-03-25; executable prototype test cases are now in place for implementation follow-up and readiness checks.
 - DEV-002 completed on 2026-03-25; the minimum playable prototype slice is now checked into the repo and ready for producer consolidation and next-step review.
+- PROD-001 completed on 2026-03-25 with `projects/emotion-cards-four/production/v1-planning-baseline.md` as the consolidated producer baseline.
+- PROD-002 completed on 2026-03-25 by assigning the next implementation/build tasks off the baseline as dependencies cleared.
+- PROD-003 completed on 2026-03-25 by updating the project plan and critical-path status after first prototype submissions.
+- Producer follow-up rule strengthened: when work has enough material to land, expected owner response is either completed with path + commit or blocked with exact blocker.
