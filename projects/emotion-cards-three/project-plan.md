@@ -14,10 +14,10 @@
 | DES-001 | Define core emotional-state model with one concrete gameplay loop and screenshot-form emotion-state examples | Hideo | MKT-004 | Y | 🟢 Completed |
 | ART-001 | Create early visual readability guide: card rules, icon draft, state color/shape system, screenshot legibility checklist | Yoshi | DES-001 | Y | 🟢 Completed |
 | DEV-001 | Prototype one playable combat scenario with emotional state system | John | DES-001 | Y | 🟢 Completed |
-| DEV-002 | Implement placeholder state UI and readability support for the prototype scenario | John | DEV-001, ART-001 | Y | 🟡 In Progress |
+| DEV-002 | Implement placeholder state UI and readability support for the prototype scenario | John | DEV-001, ART-001 | Y | 🟢 Completed |
 | DES-002 | Define minimum vertical-slice scope and one polished archetype path | Hideo | DES-001, DEV-001 | Y | 🟡 In Progress |
 | QA-001 | Define first-session usability goals and readability test checks | Sakura | MKT-004 | Y | 🟢 Completed |
-| QA-002 | Validate prototype against tactical clarity, fast state recognition, likely gameplay impact recognition, readability, and onboarding criteria | Sakura | DEV-002, QA-001, ART-001 | Y | 🔴 Pending |
+| QA-002 | Validate prototype against tactical clarity, fast state recognition, likely gameplay impact recognition, readability, and onboarding criteria | Sakura | DEV-002, QA-001, ART-001 | Y | 🟡 In Progress |
 | FIX-001 | Address prototype validation findings and tighten scope/handoff gaps before greenlight review | John | QA-002, DES-002 | Y | 🔴 Pending |
 | MKT-005 | Prepare one-line pitch, screenshot hook target, and short combat clip criteria using readability outputs | Gabe | MKT-004, ART-001, DES-002 | N | 🔴 Pending |
 | PROD-001 | Consolidate prototype findings, critical path, and greenlight recommendation | Shig | FIX-001, MKT-005 | Y | 🔴 Pending |
