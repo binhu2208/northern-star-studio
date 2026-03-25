@@ -205,7 +205,9 @@ function submitPlay() {
   const run = state.run
   if (!run || run.status !== 'active') return
   const encounter = getCurrentEncounter(run)
-  if (encounter.phase !== 'play_response') {
+  if (encounter.phase === 'read_situation') {
+    enterPhase(run, 'play_response')
+  } else if (encounter.phase !== 'play_response') {
     setFeedback('You can only play cards during the play response phase.', true)
     return
   }
@@ -574,7 +576,7 @@ function render() {
   const run = state.run
   const encounter = getCurrentEncounter(run)
   els.resumeRunBtn.disabled = !localStorage.getItem(SAVE_KEY)
-  els.submitPlayBtn.disabled = !run || run.status !== 'active' || encounter.phase !== 'play_response'
+  els.submitPlayBtn.disabled = !run || run.status !== 'active' || !['read_situation', 'play_response'].includes(encounter.phase)
   els.advanceBtn.disabled = !run || run.status !== 'active' || !['read_situation'].includes(encounter.phase)
 
   if (!run) {
