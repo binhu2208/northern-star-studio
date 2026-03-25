@@ -189,6 +189,25 @@ textarea, pre {
 .run-state-surface p {
   margin: 0.35rem 0;
 }
+.next-action-callout {
+  display: grid;
+  gap: 0.25rem;
+  margin-bottom: 0.75rem;
+  padding: 0.8rem;
+  border-radius: 12px;
+  background: rgba(116, 192, 252, 0.12);
+  border: 1px solid rgba(116, 192, 252, 0.35);
+}
+.next-action-label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+.next-action-callout strong {
+  font-size: 1rem;
+  line-height: 1.4;
+}
 .result-good { color: var(--good); }
 .result-warn { color: var(--warn); }
 .result-bad { color: var(--bad); }

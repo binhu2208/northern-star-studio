@@ -574,24 +574,24 @@ function exportSave() {
 }
 
 function getPhaseInstruction(encounter) {
-  if (!encounter) return 'Start a run to see the current step.'
+  if (!encounter) return 'Start a new run.'
   switch (encounter.phase) {
     case 'state_refresh':
-      return 'Refreshing encounter state and applying pressure/modifiers.'
+      return 'Wait: the encounter is refreshing state and applying pressure.'
     case 'draw_prepare':
-      return 'Drawing back up to hand size for the current turn.'
+      return 'Wait: the game is drawing cards for this turn.'
     case 'read_situation':
-      return 'Read the situation, then select a legal primary card to respond.'
+      return 'Next action: review the situation and select 1 primary card.'
     case 'play_response':
-      return 'Submit a primary card, with optional support, to resolve your turn.'
+      return 'Next action: click Play Selected Cards to submit your turn.'
     case 'resolve_effects':
-      return 'Resolving your selected cards and applying state changes.'
+      return 'Wait: your selected cards are resolving now.'
     case 'encounter_reaction':
-      return 'The encounter is reacting to your play.'
+      return 'Wait: the encounter is reacting to your play.'
     case 'check_outcome':
-      return 'Checking for breakthrough, partial, stalemate, or collapse.'
+      return 'Wait: the game is checking the encounter result.'
     case 'cleanup':
-      return 'Discarding cards, saving state, and preparing the next turn.'
+      return 'Wait: cleanup is running before the next turn or encounter.'
     default:
       return 'Continue the current encounter.'
   }
@@ -619,10 +619,13 @@ function renderRunStateSurface(run, encounter) {
   els.runStateSurface.innerHTML = `
     <div class="info-block run-state-surface ${health.tone}">
       <h3>Readable Run State</h3>
+      <div class="next-action-callout">
+        <span class="next-action-label">Do this next</span>
+        <strong>${nextStep}</strong>
+      </div>
       <p><strong>Current encounter:</strong> ${encounter.name}</p>
       <p><strong>What’s happening:</strong> ${health.label}</p>
       <p><strong>Current step:</strong> ${encounter.phase}</p>
-      <p><strong>Next useful action:</strong> ${nextStep}</p>
       <p><strong>Open response windows:</strong> ${openWindows.join(', ') || 'none'}</p>
       <p><strong>Remaining encounters after this one:</strong> ${remainingEncounters}</p>
       <p><strong>Run history:</strong> ${historySummary}</p>
