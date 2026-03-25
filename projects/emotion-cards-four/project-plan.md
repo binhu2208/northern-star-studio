@@ -18,9 +18,9 @@
 
 | ID | Task | Owner | Dependencies | Critical | Status |
 |----|------|------|--------------|----------|--------|
-| MKT-002 | Refine audience framing, flagship mode messaging, validation criteria, and product positioning into a short market brief | Gabe (Analyst) | None | Y | Ready |
+| MKT-002 | Refine audience framing, flagship mode messaging, validation criteria, and product positioning into a short market brief | Gabe (Analyst) | None | Y | In Progress |
 | MKT-003 | Define audience-fit testing, message testing, and pitch/hook refinement deliverables for prototype validation | Gabe (Analyst) | MKT-002 | Y | Pending |
-| DES-001 | Define flagship mode rules, turn structure, scoring / resolution states, and sample session flow | Hideo (Designer) | None | Y | Ready |
+| DES-001 | Define flagship mode rules, turn structure, scoring / resolution states, and sample session flow | Hideo (Designer) | None | Y | In Progress |
 | DES-002 | Create initial card taxonomy and first 20-30 card prototype list | Hideo (Designer) | DES-001 | Y | Pending |
 | ART-001 | Create art scope sheet covering unique art count, portrait states, UI targets, VFX scope, localization constraints, and production assumptions | Yoshi (Artist) | DES-001, DES-002 | Y | Pending |
 | ART-002 | Run one style exploration pass with concrete outputs: 1-3 visual directions, frame roughs, typography pairing, icon language sample, and one sample card mockup | Yoshi (Artist) | ART-001 | N | Pending |
@@ -82,4 +82,5 @@ Tasks intentionally parallelized to reduce waiting:
 - Milestone 1 should prove the flagship mode before broad feature expansion.
 - Store/trailer preparation should not move forward until the concept-validation gate is passed.
 - No final schedule commitment should be made until art scope, rules clarity, and prototype architecture are defined.
-- Next producer action after plan review: check in the revised plan, then post the project plan approval request.
+- Lead approved the project on 2026-03-25.
+- Producer activated execution by assigning MKT-002 and DES-001 and marking them In Progress on 2026-03-25.
