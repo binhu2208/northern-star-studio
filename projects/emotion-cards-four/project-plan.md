@@ -29,7 +29,7 @@
 | DEV-001A | Define prototype architecture baseline: encounter/opposition behavior, state flow, save assumptions, instrumentation needs, and implementation boundaries from flagship mode rules | John (Developer) | DES-001 | Y | In Progress |
 | DEV-001B | Define card schema / content integration requirements based on initial card taxonomy and prototype card list | John (Developer) | DEV-001A, DES-002 | Y | Pending |
 | DEV-002 | Implement minimum playable prototype slice in `projects/emotion-cards-four/src/`: draw/play/discard loop, encounter state transitions, resolution handling, opposition behavior, and basic progression/save behavior | John (Developer) | DEV-001B | Y | Pending |
-| QA-001 | Create prototype validation plan for comprehension, replay intent, audience fit, readability, and tone acceptance | Sakura (QA) | MKT-002, MKT-003, DES-001 | Y | In Progress |
+| QA-001 | Create prototype validation plan for comprehension, replay intent, audience fit, readability, and tone acceptance | Sakura (QA) | MKT-002, MKT-003, DES-001 | Y | Completed |
 | QA-002 | Create state-transition, usability, and validation test cases for the prototype loop and task status readiness checks | Sakura (QA) | DEV-001B, QA-001 | Y | Pending |
 | PROD-001 | Consolidate approved planning inputs into v1 planning baseline | Shig (Producer) | MKT-002, MKT-003, DES-001, ART-001, DEV-001A, QA-001 | Y | Pending |
 | PROD-002 | Assign implementation tasks for prototype build | Shig (Producer) | PROD-001 | Y | Pending |
@@ -88,3 +88,4 @@ Tasks intentionally parallelized to reduce waiting:
 - DES-001 completed on 2026-03-25; DES-002 and DEV-001A unlocked and activated immediately after rules doc check-in.
 - DES-002 completed on 2026-03-25; ART-001 unlocked and activated immediately after taxonomy check-in. ART-003 remains pending on ART-001.
 - MKT-003 completed on 2026-03-25; QA-001 unlocked and activated immediately after messaging-plan check-in.
+- QA-001 completed on 2026-03-25; QA-002 remains pending on DEV-001B, and PROD-001 remains gated by ART-001 and DEV-001A completion.
