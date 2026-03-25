@@ -65,7 +65,24 @@ The emotional system must create decisions players actually feel:
 
 ---
 
-## 5. Audience & Market Fit
+## 5. Online Market Analysis
+
+### Discoverability realities
+- Steam and similar storefronts reward games with a sharp, legible hook in capsule art, screenshots, and short trailer beats.
+- Deckbuilders are highly browse-driven: players often decide to wishlist based on a few seconds of visual clarity plus one strong genre twist.
+- Emotion Cards Three has online market potential if its store presence immediately communicates both **deckbuilder strategy** and **emotional identity**.
+
+### Online demand signals
+- Roguelike deckbuilders remain one of the most visible and replayable indie strategy categories online, especially on Steam, YouTube, and creator-led discovery channels.
+- Games with strong visual readability and strong “what makes this different?” messaging perform better in clips, thumbnails, and streamer coverage.
+- A concept framed as **"emotions become strategy"** is more internet-legible than a generic fantasy combat hook.
+
+### Online market opportunity
+- There is room for a deckbuilder that feels more character-driven and emotionally distinctive without sacrificing tactical depth.
+- Emotion Cards Three can compete online by positioning itself as a strategy game first, with emotional mechanics as the differentiation layer.
+- Wishlist conversion will depend heavily on clear screenshots, strong card readability, and a short pitch line that instantly separates it from other card battlers.
+
+## 6. Audience & Market Fit
 
 ### Primary audience
 - indie deckbuilder players who want depth and replayability
@@ -86,7 +103,7 @@ The genre is saturated. If Emotion Cards Three cannot communicate its hook in on
 
 ---
 
-## 6. Competitive Positioning
+## 7. Competitive Positioning
 
 ### Primary comparables
 - **Slay the Spire** — benchmark for clarity, structure, and strategic depth
@@ -103,7 +120,17 @@ Emotion Cards Three should not try to out-Slay-the-Spire Slay the Spire. It shou
 
 ---
 
-## 7. Product Requirements
+## 8. Business Requirements Analysis
+
+For the project to be commercially and operationally viable, it should satisfy these business-facing requirements:
+
+- the concept must be marketable in a one-line pitch
+- the project must stay PC-first initially to reduce launch complexity
+- the game must generate strong Steam-facing assets early: capsule logic, screenshots, trailer hooks, and short-form pitch copy
+- production scope must be constrained enough to reach a vertical slice without content sprawl
+- the proposal should support future creator outreach, press positioning, and wishlist-focused marketing beats
+
+## 9. Product Requirements
 
 For the project to be greenlight-worthy, it should aim to satisfy these requirements:
 
@@ -129,7 +156,22 @@ For the project to be greenlight-worthy, it should aim to satisfy these requirem
 
 ---
 
-## 8. Risks
+## 10. Market Trends Analysis
+
+- The deckbuilder genre remains active, but breakout performance increasingly depends on a memorable hook rather than mechanical familiarity alone.
+- Players are showing continued interest in hybrids that mix strong systems with emotional or narrative framing.
+- Visual readability, streamer-friendliness, and fast pitch clarity matter more than ever for indie online discovery.
+- Sequels and follow-up projects can benefit from reduced concept risk, but only if the new entry clearly signals improvement rather than repetition.
+
+## 11. User Experience Analysis
+
+- The emotional-state system must be understandable quickly by new players and legible in screenshots and clips.
+- UX should minimize friction between narrative moments and tactical decision-making.
+- Combat readability must remain strong even when emotional modifiers stack.
+- The onboarding must teach the emotional strategy model fast enough to keep players from bouncing early.
+- The ideal experience is: easy to grasp, strategically rewarding, and emotionally memorable.
+
+## 12. Risks
 
 ### 1) Genre saturation
 **Risk:** Another deckbuilder may struggle to break through.  
@@ -149,7 +191,7 @@ For the project to be greenlight-worthy, it should aim to satisfy these requirem
 
 ---
 
-## 9. Recommended Validation Plan
+## 13. Recommended Validation Plan
 
 ### Phase 1 — Concept validation (2-4 weeks)
 - finalize one-line pitch
@@ -177,7 +219,7 @@ For the project to be greenlight-worthy, it should aim to satisfy these requirem
 
 ---
 
-## 10. Budget Direction
+## 14. Budget Direction
 
 This should be treated as a **lean-to-mid indie scope** project until the vertical slice proves the hook.
 
@@ -196,7 +238,7 @@ Do **not** commit to a large production budget until the team proves:
 
 ---
 
-## 11. Recommendation
+## 15. Recommendation
 
 **Recommendation: Proceed as a PC-first vertical-slice candidate.**
 
@@ -214,7 +256,7 @@ If those checks land, Emotion Cards Three has a credible chance to stand out as 
 
 ---
 
-## 12. Status
+## 16. Status
 
 **Status:** Draft proposal complete  
 **Suggested next step:** approve a concept-validation / prototype brief
