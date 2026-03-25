@@ -23,6 +23,7 @@ const els = {
   phasePill: document.getElementById('phase-pill'),
   handMeta: document.getElementById('hand-meta'),
   runOverview: document.getElementById('run-overview'),
+  runStateSurface: document.getElementById('run-state-surface'),
   carryForward: document.getElementById('carry-forward'),
   resultHistory: document.getElementById('result-history'),
   encounterOverview: document.getElementById('encounter-overview'),
@@ -572,6 +573,63 @@ function exportSave() {
   els.saveOutput.value = JSON.stringify(state.run, null, 2)
 }
 
+function getPhaseInstruction(encounter) {
+  if (!encounter) return 'Start a run to see the current step.'
+  switch (encounter.phase) {
+    case 'state_refresh':
+      return 'Refreshing encounter state and applying pressure/modifiers.'
+    case 'draw_prepare':
+      return 'Drawing back up to hand size for the current turn.'
+    case 'read_situation':
+      return 'Read the situation, then select a legal primary card to respond.'
+    case 'play_response':
+      return 'Submit a primary card, with optional support, to resolve your turn.'
+    case 'resolve_effects':
+      return 'Resolving your selected cards and applying state changes.'
+    case 'encounter_reaction':
+      return 'The encounter is reacting to your play.'
+    case 'check_outcome':
+      return 'Checking for breakthrough, partial, stalemate, or collapse.'
+    case 'cleanup':
+      return 'Discarding cards, saving state, and preparing the next turn.'
+    default:
+      return 'Continue the current encounter.'
+  }
+}
+
+function getRunHealthLabel(encounter) {
+  if (!encounter) return { label: 'No active run', tone: 'neutral' }
+  if (encounter.result) return { label: `Encounter resolved: ${encounter.result}`, tone: encounter.result === 'collapse' ? 'bad' : 'good' }
+  if (encounter.collapseArmed) return { label: 'High risk: collapse is armed', tone: 'bad' }
+  if (encounter.breakthroughReady) return { label: 'Opportunity: breakthrough is ready', tone: 'good' }
+  if (encounter.stats.tension >= 7) return { label: 'Pressure rising: tension is high', tone: 'warn' }
+  if (encounter.stats.trust >= 6 && encounter.stats.clarity >= 5) return { label: 'Stable: trust and clarity are strong', tone: 'good' }
+  return { label: 'Live encounter: state is still contested', tone: 'neutral' }
+}
+
+function renderRunStateSurface(run, encounter) {
+  const health = getRunHealthLabel(encounter)
+  const openWindows = encounter.responseWindows.filter((entry) => entry.open).map((entry) => entry.windowId)
+  const nextStep = getPhaseInstruction(encounter)
+  const remainingEncounters = run.encounterOrder.length - (run.encounterIndex + 1)
+  const historySummary = run.resultHistory.length
+    ? run.resultHistory.map((item) => `${item.name}: ${item.result}`).join(' • ')
+    : 'No encounters resolved yet.'
+
+  els.runStateSurface.innerHTML = `
+    <div class="info-block run-state-surface ${health.tone}">
+      <h3>Readable Run State</h3>
+      <p><strong>Current encounter:</strong> ${encounter.name}</p>
+      <p><strong>What’s happening:</strong> ${health.label}</p>
+      <p><strong>Current step:</strong> ${encounter.phase}</p>
+      <p><strong>Next useful action:</strong> ${nextStep}</p>
+      <p><strong>Open response windows:</strong> ${openWindows.join(', ') || 'none'}</p>
+      <p><strong>Remaining encounters after this one:</strong> ${remainingEncounters}</p>
+      <p><strong>Run history:</strong> ${historySummary}</p>
+    </div>
+  `
+}
+
 function render() {
   const run = state.run
   const encounter = getCurrentEncounter(run)
@@ -583,6 +641,7 @@ function render() {
     els.runStatusPill.textContent = 'No run loaded'
     els.phasePill.textContent = '-'
     els.runOverview.innerHTML = '<div class="info-block">Start a new run or resume a saved one.</div>'
+    els.runStateSurface.innerHTML = ''
     els.carryForward.innerHTML = ''
     els.resultHistory.innerHTML = ''
     els.encounterOverview.innerHTML = '<div class="info-block">No encounter active.</div>'
@@ -608,8 +667,12 @@ function render() {
       <div class="mini-card"><span>Status</span><strong>${run.status}</strong></div>
       <div class="mini-card"><span>Total turns</span><strong>${run.metrics.turnsTaken}</strong></div>
       <div class="mini-card"><span>Poor-fit plays</span><strong>${run.metrics.poorFitPlays}</strong></div>
+      <div class="mini-card"><span>Encounter</span><strong>${run.encounterIndex + 1}/${run.encounterOrder.length}</strong></div>
+      <div class="mini-card"><span>Phase</span><strong>${encounter.phase}</strong></div>
     </div>
   `
+
+  renderRunStateSurface(run, encounter)
 
   els.carryForward.innerHTML = `
     <div class="info-block">

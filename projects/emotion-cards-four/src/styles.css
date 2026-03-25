@@ -170,6 +170,25 @@ textarea, pre {
 .log-entry strong { color: var(--accent); }
 .dump { max-height: 420px; overflow: auto; }
 .info-block + .info-block { margin-top: 0.75rem; }
+.run-state-surface {
+  border-left: 4px solid var(--accent);
+}
+.run-state-surface.good {
+  border-left-color: var(--good);
+}
+.run-state-surface.warn {
+  border-left-color: var(--warn);
+}
+.run-state-surface.bad {
+  border-left-color: var(--bad);
+}
+.run-state-surface h3 {
+  margin-top: 0;
+  margin-bottom: 0.6rem;
+}
+.run-state-surface p {
+  margin: 0.35rem 0;
+}
 .result-good { color: var(--good); }
 .result-warn { color: var(--warn); }
 .result-bad { color: var(--bad); }
