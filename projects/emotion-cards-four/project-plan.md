@@ -30,7 +30,7 @@
 | DEV-001B | Define card schema / content integration requirements based on initial card taxonomy and prototype card list | John (Developer) | DEV-001A, DES-002 | Y | Completed |
 | DEV-002 | Implement minimum playable prototype slice in `projects/emotion-cards-four/src/`: draw/play/discard loop, encounter state transitions, resolution handling, opposition behavior, and basic progression/save behavior | John (Developer) | DEV-001B | Y | In Progress |
 | QA-001 | Create prototype validation plan for comprehension, replay intent, audience fit, readability, and tone acceptance | Sakura (QA) | MKT-002, MKT-003, DES-001 | Y | Completed |
-| QA-002 | Create state-transition, usability, and validation test cases for the prototype loop and task status readiness checks | Sakura (QA) | DEV-001B, QA-001 | Y | In Progress |
+| QA-002 | Create state-transition, usability, and validation test cases for the prototype loop and task status readiness checks | Sakura (QA) | DEV-001B, QA-001 | Y | Completed |
 | PROD-001 | Consolidate approved planning inputs into v1 planning baseline | Shig (Producer) | MKT-002, MKT-003, DES-001, ART-001, DEV-001A, QA-001 | Y | In Progress |
 | PROD-002 | Assign implementation tasks for prototype build | Shig (Producer) | PROD-001 | Y | Pending |
 | PROD-003 | Review project critical path and update plan after first planning submissions | Shig (Producer) | PROD-001 | Y | Pending |
@@ -95,3 +95,4 @@ Tasks intentionally parallelized to reduce waiting:
 - DEV-001A completed on 2026-03-25; DEV-001B unlocked and activated immediately after architecture-baseline check-in. PROD-001 is now active because all required planning inputs are complete.
 - ART-004 completed on 2026-03-25; the art planning lane is fully complete for the current planning baseline.
 - DEV-001B completed on 2026-03-25; DEV-002 and QA-002 unlocked and activated immediately after schema/integration check-in.
+- QA-002 completed on 2026-03-25; executable prototype test cases are now in place for implementation follow-up and readiness checks.
