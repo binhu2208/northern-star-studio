@@ -20,7 +20,7 @@
 | QA-002 | Validate prototype against tactical clarity, fast state recognition, likely gameplay impact recognition, readability, and onboarding criteria | Sakura | DEV-002, QA-001, ART-001 | Y | 🟢 Completed |
 | FIX-001 | Address prototype validation findings and tighten scope/handoff gaps before greenlight review | John | QA-002, DES-002 | Y | 🟢 Completed |
 | MKT-005 | Prepare one-line pitch, screenshot hook target, and short combat clip criteria using readability outputs | Gabe | MKT-004, ART-001, DES-002 | N | 🟢 Completed |
-| PROD-001 | Consolidate prototype findings, critical path, and greenlight recommendation | Shig | FIX-001, MKT-005 | Y | ⚪ Ready |
+| PROD-001 | Consolidate prototype findings, critical path, and greenlight recommendation | Shig | FIX-001, MKT-005 | Y | 🟡 In Progress |
 
 ## Critical Path Notes
 Current longest dependency chain:
