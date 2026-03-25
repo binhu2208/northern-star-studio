@@ -19,7 +19,7 @@
 | ID | Task | Owner | Dependencies | Critical | Status |
 |----|------|------|--------------|----------|--------|
 | MKT-002 | Refine audience framing, flagship mode messaging, validation criteria, and product positioning into a short market brief | Gabe (Analyst) | None | Y | Completed |
-| MKT-003 | Define audience-fit testing, message testing, and pitch/hook refinement deliverables for prototype validation | Gabe (Analyst) | MKT-002 | Y | In Progress |
+| MKT-003 | Define audience-fit testing, message testing, and pitch/hook refinement deliverables for prototype validation | Gabe (Analyst) | MKT-002 | Y | Completed |
 | DES-001 | Define flagship mode rules, turn structure, scoring / resolution states, and sample session flow | Hideo (Designer) | None | Y | Completed |
 | DES-002 | Create initial card taxonomy and first 20-30 card prototype list | Hideo (Designer) | DES-001 | Y | Completed |
 | ART-001 | Create art scope sheet covering unique art count, portrait states, UI targets, VFX scope, localization constraints, and production assumptions | Yoshi (Artist) | DES-001, DES-002 | Y | In Progress |
@@ -29,7 +29,7 @@
 | DEV-001A | Define prototype architecture baseline: encounter/opposition behavior, state flow, save assumptions, instrumentation needs, and implementation boundaries from flagship mode rules | John (Developer) | DES-001 | Y | In Progress |
 | DEV-001B | Define card schema / content integration requirements based on initial card taxonomy and prototype card list | John (Developer) | DEV-001A, DES-002 | Y | Pending |
 | DEV-002 | Implement minimum playable prototype slice in `projects/emotion-cards-four/src/`: draw/play/discard loop, encounter state transitions, resolution handling, opposition behavior, and basic progression/save behavior | John (Developer) | DEV-001B | Y | Pending |
-| QA-001 | Create prototype validation plan for comprehension, replay intent, audience fit, readability, and tone acceptance | Sakura (QA) | MKT-002, MKT-003, DES-001 | Y | Pending |
+| QA-001 | Create prototype validation plan for comprehension, replay intent, audience fit, readability, and tone acceptance | Sakura (QA) | MKT-002, MKT-003, DES-001 | Y | In Progress |
 | QA-002 | Create state-transition, usability, and validation test cases for the prototype loop and task status readiness checks | Sakura (QA) | DEV-001B, QA-001 | Y | Pending |
 | PROD-001 | Consolidate approved planning inputs into v1 planning baseline | Shig (Producer) | MKT-002, MKT-003, DES-001, ART-001, DEV-001A, QA-001 | Y | Pending |
 | PROD-002 | Assign implementation tasks for prototype build | Shig (Producer) | PROD-001 | Y | Pending |
@@ -87,3 +87,4 @@ Tasks intentionally parallelized to reduce waiting:
 - MKT-002 completed on 2026-03-25; MKT-003 unlocked and activated immediately after market brief check-in.
 - DES-001 completed on 2026-03-25; DES-002 and DEV-001A unlocked and activated immediately after rules doc check-in.
 - DES-002 completed on 2026-03-25; ART-001 unlocked and activated immediately after taxonomy check-in. ART-003 remains pending on ART-001.
+- MKT-003 completed on 2026-03-25; QA-001 unlocked and activated immediately after messaging-plan check-in.
