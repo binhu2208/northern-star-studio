@@ -35,7 +35,7 @@
 | PROD-001 | Consolidate approved planning inputs into v1 planning baseline | Shig (Producer) | MKT-002, MKT-003, DES-001, ART-001, DEV-001A, QA-001 | Y | Completed |
 | PROD-002 | Assign implementation tasks for prototype build | Shig (Producer) | PROD-001 | Y | Completed |
 | PROD-003 | Review project critical path and update plan after first planning submissions | Shig (Producer) | PROD-001 | Y | Completed |
-| DEV-V1-003 | Implement BreakthroughManager: real condition evaluation against live encounter state, unlock conditions checked during resolution not at draw | John (Developer) | DEV-V1-002 | Y | In Progress |
+| DEV-V1-003 | Implement BreakthroughManager: real condition evaluation against live encounter state, unlock conditions checked during resolution not at draw | John (Developer) | DEV-V1-002 | Y | Completed | |
 | DEV-V1-004 | Create vocabulary.ts with all canonical constants + startup validation pass on card definitions and encounter templates | John (Developer) | DEV-V1-002 | Y | In Progress |
 | DEV-V1-005 | Implement encounter carry-forward with per-encounter rules, carry_forward effect type with encounter context, narrative flag hooks, reward choice UI support | John (Developer) | DEV-V1-003, DEV-V1-004 | Y | Pending |
 | DEV-V1-006 | Build RunSummaryGenerator: structured report from event log (result dist, avg turns/encounter, collapse freq, card play freq, poor-fit rate) for validation teams | John (Developer) | DEV-V1-003 | Y | Pending |
