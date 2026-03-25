@@ -63,6 +63,14 @@ The emotional system must create decisions players actually feel:
 - whether to build around volatility, restraint, empathy, conflict, etc.
 - whether narrative choices support short-term tactical value or long-term progression
 
+### Concrete gameplay example
+To make the hook legible, the proposal should be understood through at least one simple example loop:
+- **Anger** increases attack output and makes aggressive cards stronger, but weakens defensive consistency
+- **Calm** improves control, card draw, and stability, but lowers burst damage potential
+- the player chooses whether to spike damage by leaning into Anger or stabilize the run by shifting back toward Calm
+
+This kind of loop is important because it shows that emotions are not just labels — they are tactical state changes that reshape deck value, risk, and player decisions.
+
 ---
 
 ## 5. Online Market Analysis
@@ -97,6 +105,9 @@ The emotional system must create decisions players actually feel:
 - emotional strategy is a clearer differentiator than “more cards” or “more content”
 - the concept has strong store-page and trailer language potential
 - franchise naming gives returning players an immediate reason to look
+
+### Franchise naming caution
+The sequel framing only helps if prior Emotion Cards entries have enough recognition to add trust and clarity. If previous entries do not have meaningful market pull, "Emotion Cards Three" may create confusion instead of momentum. This should be pressure-tested in store-page copy, pitch language, and first-impression mockups.
 
 ### Major market caution
 The genre is saturated. If Emotion Cards Three cannot communicate its hook in one sentence and one screenshot, it risks being ignored regardless of system quality.
@@ -143,6 +154,8 @@ For the project to be greenlight-worthy, it should aim to satisfy these requirem
 - emotional states must be readable at a glance
 - card text must remain understandable under stacked modifiers
 - the first run must teach the core system quickly
+- card frames, icons, and state UI must remain readable in screenshots, clips, and live play
+- first-session comprehension should be explicitly tested, not assumed
 
 ### Production requirements
 - PC-first scope
@@ -204,11 +217,15 @@ For the project to be greenlight-worthy, it should aim to satisfy these requirem
 - starter card pool
 - placeholder UI for emotional states
 - first branching encounter structure
+- explicit success criteria for first-session comprehension and readability
 
 ### Phase 3 — Vertical slice (6-10 weeks)
 - one polished character path
+- one tactically meaningful emotional loop proven in play
 - stronger art direction and readability pass
 - short marketing-ready footage
+- one screenshot that explains the hook quickly
+- one short combat clip that reads without extra explanation
 - enough content to test player comprehension and pitch clarity
 
 ### Phase 4 — Production planning (2-3 weeks)
@@ -251,6 +268,12 @@ The project should move forward only if early testing proves three things:
 1. emotions create meaningful strategic decisions
 2. the game is immediately readable and pitchable
 3. the production plan stays disciplined enough to avoid content overload
+
+Before full greenlight, the team should also require a short prototype brief that proves:
+1. one emotional mechanic is tactically meaningful
+2. one screenshot explains the hook clearly
+3. one short combat clip looks readable without extra explanation
+4. first-session usability goals and scope guardrails are defined up front
 
 If those checks land, Emotion Cards Three has a credible chance to stand out as a distinctive narrative deckbuilder rather than another interchangeable indie card game.
 
