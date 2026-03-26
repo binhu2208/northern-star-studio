@@ -2,7 +2,7 @@
 
 **Status:** In Progress  
 **Last updated:** 2026-03-25  
-**Will update after DEV-V1-005 lands if `rewardChoices` expands the signal set**
+**Updated: `rewardChoices` added from DEV-V1-005 — signal set is now complete.**
 
 ---
 
@@ -31,9 +31,9 @@ The Next-Action Cue has 4 visual states:
 
 ---
 
-## Pending from DEV-V1-005
+| `rewardChoices` | array | Cards available to choose from as a carry-forward reward. Appears when `rewardChoicesRemaining > 0` after an encounter resolves. |
 
-- `rewardChoices` — array of card IDs the player can choose between encounters. Will add to this doc after 005 lands.
+- `rewardChoices` — added from DEV-V1-005. `rewardChoicesRemaining` and `pendingRewards` are tracked in carry-forward state.
 
 ---
 
