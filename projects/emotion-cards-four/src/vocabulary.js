@@ -94,15 +94,34 @@ export const DECK_ROLE_LIST = Object.freeze(Object.values(DECK_ROLES))
 // ---------------------------------------------------------------------------
 
 export const CARD_TAGS = Object.freeze({
-  TRUST_GAIN:         'trust_gain',
-  CLARITY_GAIN:       'clarity_gain',
-  MOMENTUM_GAIN:      'momentum_gain',
-  COLLAPSE_GUARD:     'collapse_guard',
-  MISREAD_CLEAR:      'misread_clear',
-  REACTION_SKIP:      'reaction_skip',
-  TENSION_DROP:       'tension_drop',
-  BREAKTHROUGH_ENABLE:'breakthrough_enable',
-  KEYWORD_REMOVE:     'keyword_remove',
+  TRUST_GAIN:          'trust_gain',
+  CLARITY_GAIN:        'clarity_gain',
+  MOMENTUM_GAIN:       'momentum_gain',
+  COLLAPSE_GUARD:      'collapse_guard',
+  MISREAD_CLEAR:       'misread_clear',
+  REACTION_SKIP:       'reaction_skip',
+  TENSION_DROP:        'tension_drop',
+  BREAKTHROUGH_ENABLE: 'breakthrough_enable',
+  KEYWORD_REMOVE:      'keyword_remove',
+  SHIFT:               'shift',
+  STABILIZE:           'stabilize',
+  GUARDED:             'guarded',
+  BREAKTHROUGH:        'breakthrough',
+  CONNECT:             'connect',
+  RECOVER:             'recover',
+  REVEAL:              'reveal',
+  REACTION:            'reaction',
+  OPEN:                'open',
+  PROTECT:             'protect',
+  ASSERTIVE:           'assertive',
+  REFRAME:             'reframe',
+  WARM:                'warm',
+  DEFENSIVE:           'defensive',
+  EMOTION:             'emotion',
+  HEAVY:               'heavy',
+  VULNERABLE:          'vulnerable',
+  MEMORY:              'memory',
+  REPAIR:              'repair',
 })
 
 export const CARD_TAG_LIST = Object.freeze(Object.values(CARD_TAGS))
@@ -188,6 +207,12 @@ export const MODIFIERS = Object.freeze({
 })
 
 export const MODIFIER_LIST = Object.freeze(Object.values(MODIFIERS))
+
+// Alias for code that imports MODIFIER_IDS
+export { MODIFIERS as MODIFIER_IDS }
+
+// Alias for code that imports OUTCOME_RESULT
+export { OUTCOMES as OUTCOME_RESULT }
 
 // ---------------------------------------------------------------------------
 // Outcome Types

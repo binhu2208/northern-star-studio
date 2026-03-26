@@ -38,6 +38,8 @@ import {
   DECK_ROLE_LIST,
   CARD_TAGS,
   ENCOUNTER_KEYWORDS,
+  ENCOUNTER_KEYWORD_LIST,
+  RESPONSE_WINDOW_LIST,
   PHASES,
   STATS,
   OUTCOME_RESULT,
@@ -99,11 +101,11 @@ function validateConditionBlock(path, condition, errors, ctx) {
         addError('error', `primaryToneTagIn[${i}]`, `Invalid tone tag "${condition.primaryToneTagIn[i]}"`)
     }
   }
-  if (condition.encounterHasKeyword && !ENCOUNTER_KEYWORDS.includes(condition.encounterHasKeyword))
+  if (condition.encounterHasKeyword && !ENCOUNTER_KEYWORD_LIST.includes(condition.encounterHasKeyword))
     addError('error', 'encounterHasKeyword', `Invalid keyword "${condition.encounterHasKeyword}"`)
   if (condition.encounterHasKeywordIn) {
     for (let i = 0; i < condition.encounterHasKeywordIn.length; i++) {
-      if (!ENCOUNTER_KEYWORDS.includes(condition.encounterHasKeywordIn[i]))
+      if (!ENCOUNTER_KEYWORD_LIST.includes(condition.encounterHasKeywordIn[i]))
         addError('error', `encounterHasKeywordIn[${i}]`, `Invalid keyword "${condition.encounterHasKeywordIn[i]}"`)
     }
   }
@@ -154,11 +156,11 @@ export function validateVocabulary() {
   for (const enc of ENCOUNTER_TEMPLATES) {
     const ctx = { encounterId: enc.id }
     for (const keyword of (enc.keywords || [])) {
-      if (!ENCOUNTER_KEYWORDS.includes(keyword))
+      if (!ENCOUNTER_KEYWORD_LIST.includes(keyword))
         addError('warning', `${enc.id}.keywords`, `Unknown keyword "${keyword}"`, null, enc.id)
     }
     for (const window of (enc.startingWindows || [])) {
-      if (!RESPONSE_WINDOWS.includes(window))
+      if (!RESPONSE_WINDOW_LIST.includes(window))
         addError('error', `${enc.id}.startingWindows`, `Invalid window "${window}"`, null, enc.id)
     }
     for (const rule of (enc.reactionRules || [])) {
@@ -898,7 +900,7 @@ function createEncounterInstance(encounterId, carryForward) {
     result: null,
     keywords: [...template.keywords],
     stats,
-    responseWindows: RESPONSE_WINDOWS.map((windowId) => ({
+    responseWindows: RESPONSE_WINDOW_LIST.map((windowId) => ({
       windowId,
       open: template.startingWindows.includes(windowId) && !carryForward.blockedResponseTags.includes(windowId),
     })),
