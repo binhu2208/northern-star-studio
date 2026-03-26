@@ -191,6 +191,193 @@ const encounterMap = new Map(ENCOUNTER_TEMPLATES.map((enc) => [enc.id, enc]))
 const breakthroughCardIds = CARD_DEFINITIONS.filter((c) => c.deckRole === 'breakthrough').map((c) => c.id)
 
 // ---------------------------------------------------------------------------
+// CarryForwardManager
+// ---------------------------------------------------------------------------
+
+export class CarryForwardManager {
+  static applyToEncounter(carryForward, startingStats) {
+    const stats = { ...startingStats }
+    stats.trust = clamp(stats.trust + (carryForward.trustModifier || 0), 0, 10)
+    stats.tension = clamp(stats.tension + (carryForward.tensionModifier || 0), 0, 10)
+    stats.clarity = clamp(stats.clarity + (carryForward.clarityModifier || 0), 0, 10)
+    stats.momentum = clamp(stats.momentum + (carryForward.momentumModifier || 0), -5, 5)
+    return stats
+  }
+
+  static evaluateEncounter(run, encounter) {
+    const carry = run.carryForward
+    const template = encounterMap.get(encounter.templateId)
+
+    carry.trustModifier = 0
+    carry.tensionModifier = 0
+    carry.clarityModifier = 0
+    carry.momentumModifier = 0
+    carry.blockedResponseTags = []
+    carry.pendingRewards = []
+
+    this.applyBaseResult(carry, encounter)
+    this.applyEncounterRules(carry, run, encounter, template)
+    this.applyCardTriggeredEffects(carry, encounter)
+
+    return this.getSnapshot(run)
+  }
+
+  static applyBaseResult(carry, encounter) {
+    if (encounter.result === 'breakthrough') {
+      carry.trustModifier += 1
+      carry.momentumModifier += 1
+      carry.rewardChoicesRemaining = Math.max(carry.rewardChoicesRemaining || 0, 1)
+      carry.pendingRewards.push({
+        rewardId: `reward-${encounter.encounterId}-${encounter.turn}`,
+        source: 'breakthrough',
+        encounterId: encounter.encounterId,
+        type: 'card_choice',
+        count: 1,
+      })
+    } else if (encounter.result === 'partial') {
+      carry.clarityModifier += 1
+    } else if (encounter.result === 'stalemate') {
+      carry.momentumModifier -= 1
+    } else if (encounter.result === 'collapse') {
+      carry.trustModifier -= 1
+      carry.tensionModifier += 1
+      carry.blockedResponseTags = ['connect']
+    }
+  }
+
+  static applyEncounterRules(carry, run, encounter, template) {
+    const rules = this.getEncounterRules(template, encounter)
+    for (const rule of rules) {
+      if (rule.stat && typeof rule.amount === 'number') {
+        carry[`${rule.stat}Modifier`] = (carry[`${rule.stat}Modifier`] || 0) + rule.amount
+      }
+      if (rule.blockResponseTag && !carry.blockedResponseTags.includes(rule.blockResponseTag)) {
+        carry.blockedResponseTags.push(rule.blockResponseTag)
+      }
+      if (rule.narrativeFlag) {
+        carry.narrativeFlags[rule.narrativeFlag] = rule.value ?? true
+      }
+      if (rule.reward) {
+        carry.pendingRewards.push({
+          rewardId: rule.id || `reward-${encounter.encounterId}-${carry.pendingRewards.length + 1}`,
+          encounterId: encounter.encounterId,
+          source: 'encounter_rule',
+          ...rule.reward,
+        })
+        carry.rewardChoicesRemaining = Math.max(carry.rewardChoicesRemaining || 0, rule.reward.count || 1)
+      }
+    }
+  }
+
+  static getEncounterRules(template, encounter) {
+    if (Array.isArray(template?.carryForwardRules) && template.carryForwardRules.length) {
+      return template.carryForwardRules.filter((rule) => this.matchesRule(encounter, rule.if || {}))
+    }
+
+    const defaults = {
+      missed_signal: [
+        { id: 'ms_partial_repair_memory', if: { result: 'partial', clarityGte: 5 }, stat: 'clarity', amount: 1, narrativeFlag: 'missed_signal_reframed' },
+      ],
+      public_embarrassment: [
+        { id: 'pe_breakthrough_public_recovery', if: { result: 'breakthrough' }, stat: 'trust', amount: 1, reward: { type: 'card_choice', poolTag: 'stabilize_or_protect', count: 1 } },
+        { id: 'pe_collapse_public_scar', if: { result: 'collapse' }, blockResponseTag: 'reveal', narrativeFlag: 'public_shame_lingers' },
+      ],
+      quiet_repair: [
+        { id: 'qr_breakthrough_stable_repair', if: { result: 'breakthrough' }, stat: 'trust', amount: 1, narrativeFlag: 'repair_made_progress' },
+        { id: 'qr_partial_repair', if: { result: 'partial' }, stat: 'clarity', amount: 1 },
+      ],
+      old_grudge: [
+        { id: 'og_breakthrough_truth', if: { result: 'breakthrough', clarityGte: 7 }, stat: 'clarity', amount: 1, narrativeFlag: 'old_grudge_softened' },
+        { id: 'og_collapse_baggage', if: { result: 'collapse' }, stat: 'tension', amount: 1, narrativeFlag: 'old_grudge_intensified' },
+      ],
+      breakthrough_moment: [
+        { id: 'bm_breakthrough_reward', if: { result: 'breakthrough' }, reward: { type: 'card_choice', poolTag: 'premium', count: 1 }, narrativeFlag: 'breakthrough_arc_completed' },
+      ],
+    }
+    return (defaults[encounter.encounterId] || []).filter((rule) => this.matchesRule(encounter, rule.if || {}))
+  }
+
+  static matchesRule(encounter, condition = {}) {
+    if (condition.result && encounter.result !== condition.result) return false
+    if (condition.clarityGte != null && encounter.stats.clarity < condition.clarityGte) return false
+    if (condition.trustGte != null && encounter.stats.trust < condition.trustGte) return false
+    if (condition.tensionGte != null && encounter.stats.tension < condition.tensionGte) return false
+    if (condition.momentumGte != null && encounter.stats.momentum < condition.momentumGte) return false
+    if (condition.encounterHasKeyword && !encounter.keywords.includes(condition.encounterHasKeyword)) return false
+    return true
+  }
+
+  static applyCardTriggeredEffects(carry, encounter) {
+    for (const effect of encounter.pendingCarryForwardEffects || []) {
+      if (effect.stat && typeof effect.amount === 'number') {
+        carry[`${effect.stat}Modifier`] = (carry[`${effect.stat}Modifier`] || 0) + effect.amount
+      }
+      if (effect.blockResponseTag && !carry.blockedResponseTags.includes(effect.blockResponseTag)) {
+        carry.blockedResponseTags.push(effect.blockResponseTag)
+      }
+      if (effect.narrativeFlag) {
+        carry.narrativeFlags[effect.narrativeFlag] = effect.value ?? true
+      }
+      if (effect.reward) {
+        carry.pendingRewards.push({
+          rewardId: effect.id || `reward-${encounter.encounterId}-card-${carry.pendingRewards.length + 1}`,
+          encounterId: encounter.encounterId,
+          source: 'card_effect',
+          ...effect.reward,
+        })
+        carry.rewardChoicesRemaining = Math.max(carry.rewardChoicesRemaining || 0, effect.reward.count || 1)
+      }
+    }
+  }
+
+  static getPendingRewards(run) {
+    return {
+      choicesRemaining: run.carryForward.rewardChoicesRemaining || 0,
+      pendingRewards: [...(run.carryForward.pendingRewards || [])],
+    }
+  }
+
+  static claimReward(run, rewardId, options = {}) {
+    const reward = (run.carryForward.pendingRewards || []).find((entry) => entry.rewardId === rewardId)
+    if (!reward) return { ok: false, feedback: 'Reward not found.' }
+    if ((run.carryForward.rewardChoicesRemaining || 0) <= 0) return { ok: false, feedback: 'No reward choices remaining.' }
+
+    if (options.addCardId) {
+      run.deckState.discardPile.push(createCardInstance(options.addCardId))
+    }
+    if (options.removeCardId) {
+      const zones = [run.deckState.hand, run.deckState.drawPile, run.deckState.discardPile]
+      for (const zone of zones) {
+        const idx = zone.findIndex((card) => card.definitionId === options.removeCardId)
+        if (idx >= 0) {
+          zone.splice(idx, 1)
+          break
+        }
+      }
+    }
+
+    run.carryForward.rewardChoicesRemaining = Math.max(0, (run.carryForward.rewardChoicesRemaining || 0) - 1)
+    run.carryForward.pendingRewards = (run.carryForward.pendingRewards || []).filter((entry) => entry.rewardId !== rewardId)
+    logEvent(run, 'reward_claimed', { rewardId, options })
+    return { ok: true, feedback: null, reward }
+  }
+
+  static getSnapshot(run) {
+    return {
+      trustModifier: run.carryForward.trustModifier || 0,
+      tensionModifier: run.carryForward.tensionModifier || 0,
+      clarityModifier: run.carryForward.clarityModifier || 0,
+      momentumModifier: run.carryForward.momentumModifier || 0,
+      blockedResponseTags: [...(run.carryForward.blockedResponseTags || [])],
+      narrativeFlags: { ...(run.carryForward.narrativeFlags || {}) },
+      rewardChoicesRemaining: run.carryForward.rewardChoicesRemaining || 0,
+      pendingRewards: [...(run.carryForward.pendingRewards || [])],
+      unlockedBreakthroughCards: [...(run.carryForward.unlockedBreakthroughCards || [])],
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
 // BreakthroughManager
 // ---------------------------------------------------------------------------
 
@@ -457,6 +644,9 @@ export class GameEngine {
         blockedResponseTags: [],
         unlockedBreakthroughCards: [],
         rewardChoicesRemaining: 0,
+        narrativeFlags: {},
+        cardTriggeredCarryForward: [],
+        pendingRewards: [],
       },
       eventLog: [],
       createdAt: new Date().toISOString(),
@@ -483,6 +673,19 @@ export class GameEngine {
     try {
       const run = JSON.parse(raw)
       run.metrics.resumes = (run.metrics.resumes || 0) + 1
+      run.carryForward = {
+        trustModifier: 0,
+        tensionModifier: 0,
+        clarityModifier: 0,
+        momentumModifier: 0,
+        blockedResponseTags: [],
+        unlockedBreakthroughCards: [],
+        rewardChoicesRemaining: 0,
+        narrativeFlags: {},
+        cardTriggeredCarryForward: [],
+        pendingRewards: [],
+        ...(run.carryForward || {}),
+      }
       logEvent(run, 'save_loaded', { runId: run.runId })
       this._currentRun = run
       this._emit('run_loaded', run)
@@ -610,6 +813,25 @@ export class GameEngine {
     return getRunHealthLabel(encounter)
   }
 
+  /** Return current carry-forward snapshot for UI surfaces. */
+  getCarryForwardState() {
+    return this._currentRun ? CarryForwardManager.getSnapshot(this._currentRun) : null
+  }
+
+  /** Return any pending reward choices between encounters. */
+  getPendingRewards() {
+    return this._currentRun ? CarryForwardManager.getPendingRewards(this._currentRun) : { choicesRemaining: 0, pendingRewards: [] }
+  }
+
+  /** Claim a pending reward choice. */
+  claimReward(rewardId, options = {}) {
+    const run = this._currentRun
+    if (!run) return { ok: false, feedback: 'No active run.' }
+    const result = CarryForwardManager.claimReward(run, rewardId, options)
+    if (result.ok) this._emit('reward_claimed', { run, rewardId, options })
+    return result
+  }
+
   /**
    * Generate a structured summary of the current run.
    * Returns the raw summary object.
@@ -662,11 +884,7 @@ export class GameEngine {
 
 function createEncounterInstance(encounterId, carryForward) {
   const template = encounterMap.get(encounterId)
-  const stats = { ...template.startingStats }
-  stats.trust = clamp(stats.trust + carryForward.trustModifier, 0, 10)
-  stats.tension = clamp(stats.tension + carryForward.tensionModifier, 0, 10)
-  stats.clarity = clamp(stats.clarity + carryForward.clarityModifier, 0, 10)
-  stats.momentum = clamp(stats.momentum + carryForward.momentumModifier, -5, 5)
+  const stats = CarryForwardManager.applyToEncounter(carryForward, template.startingStats)
   return {
     encounterId: template.id,
     templateId: template.id,
@@ -693,6 +911,17 @@ function createEncounterInstance(encounterId, carryForward) {
     lastOppositionAction: null,
     surfacedBreakthroughId: null,
     breakthroughSurfaceTurn: null,
+    pendingCarryForwardEffects: [],
+    carryForwardContext: {
+      trustModifier: carryForward.trustModifier || 0,
+      tensionModifier: carryForward.tensionModifier || 0,
+      clarityModifier: carryForward.clarityModifier || 0,
+      momentumModifier: carryForward.momentumModifier || 0,
+      blockedResponseTags: [...(carryForward.blockedResponseTags || [])],
+      narrativeFlags: { ...(carryForward.narrativeFlags || {}) },
+      pendingRewards: [...(carryForward.pendingRewards || [])],
+      rewardChoicesRemaining: carryForward.rewardChoicesRemaining || 0,
+    },
   }
 }
 
@@ -871,12 +1100,12 @@ function resolvePlayerEffects(run, encounter, packageContext) {
   const triggeredRiskRuleIds = []
 
   for (const def of packageContext.defs) {
-    applyEffects(encounter, def.effects || [], explanation)
+    applyEffects(run, encounter, def.effects || [], explanation, def.id)
   }
   for (const def of packageContext.defs) {
     for (const block of def.conditionalEffects || []) {
       if (matchesCondition(encounter, packageContext, block.if)) {
-        applyEffects(encounter, block.then, explanation)
+        applyEffects(run, encounter, block.then, explanation, def.id)
       }
     }
   }
@@ -884,7 +1113,7 @@ function resolvePlayerEffects(run, encounter, packageContext) {
     for (const rule of def.synergyRules || []) {
       if (matchesCondition(encounter, packageContext, rule.if)) {
         triggeredSynergyRuleIds.push(rule.id)
-        applyEffects(encounter, rule.bonusEffects, explanation)
+        applyEffects(run, encounter, rule.bonusEffects, explanation, def.id)
       }
     }
   }
@@ -892,7 +1121,7 @@ function resolvePlayerEffects(run, encounter, packageContext) {
     for (const rule of def.riskRules || []) {
       if (matchesCondition(encounter, packageContext, rule.if)) {
         triggeredRiskRuleIds.push(rule.id)
-        applyEffects(encounter, rule.penaltyEffects, explanation)
+        applyEffects(run, encounter, rule.penaltyEffects, explanation, def.id)
         encounter.failedPlayCount += 1
         run.metrics.poorFitPlays += 1
       }
@@ -936,7 +1165,7 @@ function buildSummaryLines(packageContext, synergyIds, riskIds) {
 // Effect application
 // ---------------------------------------------------------------------------
 
-function applyEffects(encounter, effects, explanation) {
+function applyEffects(run, encounter, effects, explanation, sourceCardId = null) {
   for (const effect of effects) {
     explanation.push(effect.type + (effect.stat ? `:${effect.stat}` : effect.windowId ? `:${effect.windowId}` : effect.modifierId ? `:${effect.modifierId}` : ''))
     switch (effect.type) {
@@ -966,7 +1195,13 @@ function applyEffects(encounter, effects, explanation) {
         if (encounter.result === effect.from || encounter.result === null) encounter.result = effect.to
         break
       case 'carry_forward':
-        // Handled at finishEncounter level; no-op here
+        if (!encounter.pendingCarryForwardEffects) encounter.pendingCarryForwardEffects = []
+        encounter.pendingCarryForwardEffects.push({
+          ...effect,
+          sourceCardId,
+          encounterId: encounter.encounterId,
+          result: encounter.result,
+        })
         break
       default:
         break
@@ -990,7 +1225,7 @@ function resolveOpposition(run, encounter, packageContext) {
     logEvent(run, 'opposition_rule_triggered', { encounterId: encounter.encounterId, turn: encounter.turn, ruleId: 'reaction_shielded', preState, postState: snapshotEncounter(encounter) })
     return
   }
-  applyEffects(encounter, triggeredRule.effects || [], [])
+  applyEffects(run, encounter, triggeredRule.effects || [], [], null)
   encounter.visibleCues = [triggeredRule.cue]
   encounter.lastOppositionAction = { ruleId: triggeredRule.id, cue: triggeredRule.cue }
   updateEncounterFlags(encounter)
@@ -1057,32 +1292,13 @@ function finishEncounter(run, encounter) {
   }
   run.encounterIndex += 1
   run.currentEncounter = createEncounterInstance(run.encounterOrder[run.encounterIndex], run.carryForward)
-  logEvent(run, 'carry_forward_applied', { carryForward: run.carryForward })
+  logEvent(run, 'carry_forward_applied', { carryForward: CarryForwardManager.getSnapshot(run) })
   logEvent(run, 'encounter_started', { encounterId: run.currentEncounter.encounterId, prompt: run.currentEncounter.prompt })
   enterPhase(run, 'state_refresh')
 }
 
 function applyCarryForward(run, encounter) {
-  const carry = run.carryForward
-  carry.trustModifier = 0
-  carry.tensionModifier = 0
-  carry.clarityModifier = 0
-  carry.momentumModifier = 0
-  carry.blockedResponseTags = []
-
-  if (encounter.result === 'breakthrough') {
-    carry.trustModifier += 1
-    carry.momentumModifier += 1
-    if (encounter.surfacedBreakthroughId === 'B-002') carry.trustModifier += 1
-  } else if (encounter.result === 'partial') {
-    carry.clarityModifier += 1
-  } else if (encounter.result === 'stalemate') {
-    carry.momentumModifier -= 1
-  } else if (encounter.result === 'collapse') {
-    carry.trustModifier -= 1
-    carry.tensionModifier += 1
-    carry.blockedResponseTags = ['connect']
-  }
+  CarryForwardManager.evaluateEncounter(run, encounter)
 }
 
 // ---------------------------------------------------------------------------
