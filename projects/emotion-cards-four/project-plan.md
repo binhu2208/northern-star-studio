@@ -39,7 +39,7 @@
 | DEV-V1-004 | Create vocabulary.ts with all canonical constants + startup validation pass | John (Developer) | DEV-V1-002 | Y | Completed | |
 | DEV-V1-005 | Implement carry-forward with per-encounter rules, carry_forward effect type, narrative flag hooks, reward choice UI support | John (Developer) | DEV-V1-003, DEV-V1-004 | Y | Completed | |
 | DEV-V1-006 | Build RunSummaryGenerator: structured report from event log | John (Developer) | DEV-V1-003 | Y | Completed | |
-| DEV-V1-007 | Full UI integration: wire breakthrough/NAC/carry-forward to production UI, HUD refresh, save/resume pass | John (Developer) | DEV-V1-003, DEV-V1-004, DEV-V1-006, ART-V1-002 | Y | In Progress |
+| DEV-V1-007 | Full UI integration: wire breakthrough/NAC/carry-forward to production UI, HUD refresh, save/resume pass | John (Developer) | DEV-V1-003, DEV-V1-004, DEV-V1-006, ART-V1-002 | Y | Completed |
 | DES-V1-003 | Encounter template review: verify 5 templates from DES-V1-002 translate correctly to implementation | Hideo (Designer) | DEV-V1-005 | Y | Completed | |
 | DES-V1-003a | v1 card pool review: verify 16-card starter deck covers all 5 encounters adequately | Hideo (Designer) | DES-V1-002 | N | Completed | |
 | DES-V1-004a | Card balance pass (design doc): 35-card review against DES-V1-002 taxonomy | Hideo (Designer) | DES-V1-003, DES-V1-003a | N | Completed | |
