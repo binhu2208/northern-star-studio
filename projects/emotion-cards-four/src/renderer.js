@@ -51,7 +51,7 @@ export class UIRenderer {
     const saveKey = 'emotion-cards-four-prototype-save-v1'
     this._button('newRunBtn').disabled = !!run
     this._button('resumeRunBtn').disabled = !localStorage.getItem(saveKey)
-    this._button('submitPlayBtn').disabled = !run || run.status !== 'active' || !['read_situation', 'play_response'].includes(encounter?.phase)
+    this._button('submitPlayBtn').disabled = !run || run.status !== 'active' || !['read_situation', 'play_response'].includes(encounter?.phase) || !selection?.primary
     this._button('advanceBtn').disabled = !run || run.status !== 'active' || !['read_situation'].includes(encounter?.phase)
 
     // --- Empty / no-run state ---
