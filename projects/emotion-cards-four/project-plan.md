@@ -44,7 +44,7 @@
 | DES-V1-003a | v1 card pool review: verify 16-card starter deck covers all 5 encounters adequately | Hideo (Designer) | DES-V1-002 | N | Completed | |
 | DES-V1-004a | Card balance pass (design doc): 35-card review against DES-V1-002 taxonomy | Hideo (Designer) | DES-V1-003, DES-V1-003a | N | Completed | |
 | DES-V1-002b | Draft encounter templates for Old Grudge and Breakthrough Moment encounter types | Hideo (Designer) | DES-V1-002 | N | Completed |
-| DES-V1-004b | Card balance pass (post-implementation): confirm balance holds against actual engine behavior, only if needed after DES-V1-004a findings | Hideo (Designer) | DEV-V1-005 | N | Pending |
+| DES-V1-004b | Card balance pass (post-implementation): confirm balance holds against actual engine behavior, only if needed after DES-V1-004a findings | Hideo (Designer) | DEV-V1-005 | N | 🔵 Deferred to v1.1 |
 | ART-V1-002 | NAC component: 4 states (active rec, neutral, no signal, locked), signal-to-text mapping, run-state surface integration | Yoshi (Artist) | DEV-V1-007, Joint NAC Signal Spec | Y | Completed | | |
 | ART-V1-003 | Card frame variant expansion: v1 frame families beyond prototype, portrait/emotion overlay rollout | Yoshi (Artist) | ART-V1-002 | N | Completed |
 | ART-V1-004 | Icon library expansion: new keyword/encounter state icons, consistent shape-first system | Yoshi (Artist) | ART-V1-003 | N | Completed |
