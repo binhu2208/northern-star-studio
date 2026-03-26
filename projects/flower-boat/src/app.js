@@ -50,7 +50,7 @@ function flowerKeyword(id) {
 }
 
 function getCustomerForStop(stopId) {
-  return customers.find((c) => c.stop === stopId)
+  return customers.find((c) => c.stop === stopId && (c.weather === state.selectedWeather || c.weather === 'both'))
 }
 
 function getStopName(stopId) {
@@ -353,13 +353,34 @@ function suggestFlower(flowerId) {
   if (!customer) { advanceEncounter(); return }
 
   state.selectedFlower = flowerId
+
+  // Determine outcome based on weather-affinity
   let fit = 'literal'
-  if (flowerId === customer.rightFlower) fit = 'right'
-  else if (flowerId !== null) fit = 'wrong'
+  let reaction = ''
 
-  const reaction = customer.reactions[fit]
+  if (flowerId === null) {
+    fit = 'literal'
+    reaction = customer.reactions.literal
+  } else if (flowerId === customer.weatherRightFlower) {
+    // Perfect match for this weather
+    fit = 'right'
+    reaction = customer.reactions.right
+  } else {
+    // Check affinity of suggested flower in this weather
+    const f = flowers.find((fl) => fl.id === flowerId)
+    const affinity = f ? f.affinities[state.selectedWeather] : 1
+    if (affinity === 3) {
+      // High affinity but not the primary — still "right" but weaker
+      fit = 'rightLow'
+      reaction = customer.reactions.rightLow
+    } else {
+      // Low affinity — wrong fit
+      fit = 'wrong'
+      reaction = customer.reactions.wrong
+    }
+  }
+
   const outcome = { stop: stopId, customerId: customer.id, suggested: flowerId, fit }
-
   state.outcomes.push(outcome)
   state.encounterState = 'outcome'
 
@@ -395,7 +416,7 @@ function renderEndSummary() {
   h2.textContent = 'Back to Dock'
   el('screen-content').appendChild(h2)
 
-  const helped = state.outcomes.filter((o) => o.fit === 'right').length
+  const helped = state.outcomes.filter((o) => o.fit === 'right' || o.fit === 'rightLow').length
   const total = state.outcomes.length
 
   const stats = document.createElement('div')
@@ -410,9 +431,11 @@ function renderEndSummary() {
   state.outcomes.forEach((o) => {
     const customer = customers.find((c) => c.id === o.customerId)
     const div = document.createElement('div')
-    div.className = `history-item history-${o.fit}`
+    const fitClass = o.fit === 'rightLow' ? 'right' : o.fit
+    const fitLabel = o.fit === 'rightLow' ? 'right*' : o.fit
+    div.className = `history-item history-${fitClass}`
     const suggestedName = o.suggested ? flowerName(o.suggested) : 'let them choose'
-    div.innerHTML = `<strong>${getStopName(o.stop)}</strong>: ${suggestedName} — ${o.fit}`
+    div.innerHTML = `<strong>${getStopName(o.stop)}</strong>: ${suggestedName} — ${fitLabel}`
     history.appendChild(div)
   })
   el('screen-content').appendChild(history)

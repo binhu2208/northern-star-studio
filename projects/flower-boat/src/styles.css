@@ -393,7 +393,8 @@ h2 {
   border: 1px solid transparent;
 }
 
-.outcome-card.outcome-right {
+.outcome-card.outcome-right,
+.outcome-card.outcome-rightLow {
   background: #f0f7f0;
   border-color: #a0c0a0;
 }
@@ -450,7 +451,8 @@ h2 {
 
 .history-item strong { font-weight: normal; margin-right: 0.5rem; }
 
-.history-right   { background: #f0f7f0; color: #4a6a4a; }
+.history-right    { background: #f0f7f0; color: #4a6a4a; }
+.history-rightLow { background: #f4f9f4; color: #5a7a5a; font-style: italic; }
 .history-literal { background: var(--surface); color: var(--text-muted); border: 1px solid var(--border); }
 .history-wrong   { background: #faf5f0; color: #7a4a3a; }
 
