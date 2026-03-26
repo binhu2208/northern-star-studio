@@ -59,6 +59,7 @@ const renderer = new UIRenderer(engine, {
   eventLog: 'event-log',
   stateDump: 'state-dump',
   saveOutput: 'save-output',
+  rewardChoices: 'reward-choices',
 })
 
 // ---------------------------------------------------------------------------
@@ -113,6 +114,39 @@ document.getElementById('hand-cards').addEventListener('click', (event) => {
   const button = event.target.closest('.pick-card-btn')
   if (!button) return
   engine.toggleSelection(button.dataset.instanceId)
+  renderer.render()
+})
+
+// Delegated reward choice click (reward choices panel)
+document.getElementById('reward-choices').addEventListener('click', (event) => {
+  const button = event.target.closest('.claim-reward-btn')
+  if (!button) return
+
+  const rewardId = button.dataset.rewardId
+  const action = button.dataset.action
+
+  if (!rewardId || !action) return
+
+  if (action === 'pass') {
+    // Claim reward with no card added (pass)
+    const result = engine.claimReward(rewardId, {})
+    if (!result.ok) {
+      renderer.setFeedback(result.feedback, true)
+    } else {
+      renderer.setFeedback('Reward passed.')
+    }
+  } else if (action === 'add_starter') {
+    // Claim reward and add a starter card to hand
+    // For now, use a default card from the starter deck as the added card.
+    // A full implementation would show a card picker UI.
+    const result = engine.claimReward(rewardId, { addCardId: 'E-001' })
+    if (!result.ok) {
+      renderer.setFeedback(result.feedback, true)
+    } else {
+      renderer.setFeedback(`Reward claimed: added E-001 to hand.`)
+    }
+  }
+
   renderer.render()
 })
 

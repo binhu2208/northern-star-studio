@@ -27,6 +27,7 @@ export class UIRenderer {
     engine.on('selection_changed', this._boundRender)
     engine.on('phase_changed', this._boundRender)
     engine.on('saved', this._boundRender)
+    engine.on('reward_claimed', this._boundRender)
   }
 
   /** Remove all event listeners and clean up. */
@@ -37,6 +38,7 @@ export class UIRenderer {
     this._engine.off('selection_changed', this._boundRender)
     this._engine.off('phase_changed', this._boundRender)
     this._engine.off('saved', this._boundRender)
+    this._engine.off('reward_claimed', this._boundRender)
   }
 
   /** Force a full re-render. Call this after any engine action that doesn't emit a event. */
@@ -70,6 +72,7 @@ export class UIRenderer {
       this._el('stateDump').textContent = ''
       this._el('saveOutput').value = ''
       this._el('handMeta').textContent = '0 cards'
+      this._el('rewardChoices').innerHTML = ''
       return
     }
 
@@ -89,7 +92,7 @@ export class UIRenderer {
         <div class="mini-card"><span>Phase</span><strong>${encounter.phase}</strong></div>
       </div>`
 
-    // --- Run state surface ---
+    // --- Run state surface (includes NAC + breakthrough state) ---
     this._renderRunStateSurface(run, encounter)
 
     // --- Carry forward ---
@@ -130,7 +133,8 @@ export class UIRenderer {
         </div>
         <p>Turn ${encounter.turn} • Failed plays ${encounter.failedPlayCount} • Breakthrough ready: ${encounter.breakthroughReady ? 'yes' : 'no'} • Collapse armed: ${encounter.collapseArmed ? 'yes' : 'no'}</p>
         <p>Keywords: ${encounter.keywords.join(', ') || 'none'}</p>
-        ${btDef ? `<p>Surfaced breakthrough: ${btDef.id} — ${btDef.name}</p>` : ''}
+        ${btDef ? `<p>Surfaced breakthrough: ${btDef.id} — ${btDef.name} ${encounter.breakthroughPlayable ? '🔓 playable' : '🔒 next turn'}</p>` : ''}
+        ${encounter.surfacedBreakthroughId && !encounter.breakthroughPlayable ? `<p class="hint">Breakthrough playable from turn ${encounter.breakthroughSurfaceTurn + 1}.</p>` : ''}
       </div>`
 
     // --- Visible cues ---
@@ -174,12 +178,137 @@ export class UIRenderer {
         </article>`
     }).join('')
 
+    // --- Reward choices (carry-forward reward panel) ---
+    this._renderRewardChoices(run)
+
     // --- Event log ---
     this._el('eventLog').innerHTML = [...run.eventLog].reverse().map((entry) => `<div class="log-entry"><strong>${entry.type}</strong><div>${entry.timestamp}</div><pre>${JSON.stringify(entry.payload, null, 2)}</pre></div>`).join('')
 
     // --- State dump ---
     this._el('stateDump').textContent = JSON.stringify(run, null, 2)
   }
+
+  // -------------------------------------------------------------------------
+  // NAC — Next-Action Cue
+  // -------------------------------------------------------------------------
+
+  /**
+   * Determine the NAC state from current encounter signals.
+   * Returns { state: 'active'|'neutral'|'noSignal'|'locked', label, hint, icon }
+   *
+   * NAC states (ART-V1-002):
+   * - locked:      encounter is resolving / player cannot act
+   * - active:      clear specific next action to recommend
+   * - neutral:     readable state, no dominant recommendation
+   * - noSignal:    cannot generate useful recommendation (suppressed)
+   */
+  _getNACState(encounter) {
+    const phase = encounter?.phase
+
+    // Locked phases — player cannot act
+    const lockedPhases = ['state_refresh', 'draw_prepare', 'resolve_effects', 'encounter_reaction', 'check_outcome', 'cleanup']
+    if (!phase || lockedPhases.includes(phase)) {
+      return { state: 'locked', label: 'Wait', hint: 'the encounter is resolving', icon: '⏳' }
+    }
+
+    const openWindows = encounter.responseWindows.filter((w) => w.open).map((w) => w.windowId)
+    const { breakthroughReady, breakthroughPlayable, collapseArmed, stats } = encounter
+
+    // Active recommendation: collapse armed — suggest caution/de-escalation
+    if (collapseArmed) {
+      if (openWindows.includes('protect')) {
+        return { state: 'active', label: 'Protect', hint: 'collapse is armed — a protect card could help', icon: '🛡️' }
+      }
+      if (openWindows.includes('connect')) {
+        return { state: 'active', label: 'Connect', hint: 'collapse is armed — building trust may help', icon: '🤝' }
+      }
+      return { state: 'active', label: 'Be cautious', hint: 'collapse is armed — consider a protect or stabilize card', icon: '⚠️' }
+    }
+
+    // Active recommendation: breakthrough ready and playable
+    if (breakthroughReady && breakthroughPlayable) {
+      return { state: 'active', label: 'Breakthrough', hint: 'a breakthrough path is open — consider playing it', icon: '✨' }
+    }
+
+    // Active recommendation: breakthrough surfaced but not yet playable (next-turn rule)
+    if (breakthroughReady && !breakthroughPlayable && encounter.surfacedBreakthroughId) {
+      const btDef = getDefinition(encounter.surfacedBreakthroughId)
+      return { state: 'neutral', label: 'Breakthrough incoming', hint: `${btDef?.name ?? 'Breakthrough'} unlocked — playable next turn`, icon: '🔓' }
+    }
+
+    // Active recommendation: open windows available — suggest based on window type
+    if (openWindows.length > 0) {
+      if (openWindows.includes('connect') && stats.trust < 6) {
+        return { state: 'active', label: 'Open a trust window', hint: 'a connect card fits here and trust is still building', icon: '🤝' }
+      }
+      if (openWindows.includes('reveal') && stats.clarity < 5) {
+        return { state: 'active', label: 'Reveal to clarify', hint: 'a reveal card could help build clarity here', icon: '💡' }
+      }
+      if (openWindows.includes('repair') && stats.clarity < 5) {
+        return { state: 'active', label: 'Repair and clarify', hint: 'a repair card could help here', icon: '🔧' }
+      }
+      if (openWindows.includes('protect') && stats.tension >= 7) {
+        return { state: 'active', label: 'Protect', hint: 'tension is high — a protect card could help de-escalate', icon: '🛡️' }
+      }
+      if (openWindows.includes('breakthrough')) {
+        return { state: 'active', label: 'Breakthrough window open', hint: 'a breakthrough card can be played this turn', icon: '✨' }
+      }
+      // Generic open window — pick first open
+      return { state: 'neutral', label: `${openWindows[0]} available`, hint: 'your turn — choose a card that fits an open window', icon: '🎴' }
+    }
+
+    // No signal: no open windows and no urgent state
+    return { state: 'noSignal', label: '', hint: '', icon: '' }
+  }
+
+  _renderNAC(encounter) {
+    const nac = this._getNACState(encounter)
+    const stateClass = `nac-${nac.state}`
+    const icon = nac.icon ? `<span class="nac-icon">${nac.icon}</span>` : ''
+    const label = nac.label ? `<strong class="nac-label">${nac.label}</strong>` : ''
+    const hint = nac.hint ? `<span class="nac-hint">${nac.hint}</span>` : ''
+
+    return `
+      <div class="nac-component ${stateClass}" aria-label="Next-Action Cue: ${nac.state}">
+        ${icon}${label}${hint}
+      </div>`
+  }
+
+  // -------------------------------------------------------------------------
+  // Reward Choices (carry-forward)
+  // -------------------------------------------------------------------------
+
+  _renderRewardChoices(run) {
+    const rewardData = this._engine.getPendingRewards()
+    const { choicesRemaining, pendingRewards } = rewardData
+
+    if (choicesRemaining <= 0) {
+      this._el('rewardChoices').innerHTML = ''
+      return
+    }
+
+    const rewardsHtml = pendingRewards.map((reward) => `
+      <div class="reward-item" data-reward-id="${reward.rewardId}">
+        <strong>${reward.type}</strong> — ${reward.source}
+        ${reward.poolTag ? `<span class="tag">pool: ${reward.poolTag}</span>` : ''}
+        <p>Choose ${reward.count} card${reward.count > 1 ? 's' : ''}</p>
+        <div class="reward-actions">
+          <button class="secondary claim-reward-btn" data-reward-id="${reward.rewardId}" data-action="add_starter">Add starter card</button>
+          <button class="secondary claim-reward-btn" data-reward-id="${reward.rewardId}" data-action="pass">Pass (no card)</button>
+        </div>
+      </div>`).join('')
+
+    this._el('rewardChoices').innerHTML = `
+      <div class="info-block reward-choices-panel">
+        <h3>⚡ Carry-Forward Rewards <span class="badge">${choicesRemaining} choice${choicesRemaining > 1 ? 's' : ''} remaining</span></h3>
+        <p class="hint">These rewards were earned from your last encounter result. Choose now before the next encounter begins.</p>
+        <div class="reward-list">${rewardsHtml}</div>
+      </div>`
+  }
+
+  // -------------------------------------------------------------------------
+  // Run state surface
+  // -------------------------------------------------------------------------
 
   _renderRunStateSurface(run, encounter) {
     const health = getRunHealthLabel(encounter)
@@ -190,9 +319,29 @@ export class UIRenderer {
       ? run.resultHistory.map((item) => `${item.name}: ${item.result}`).join(' • ')
       : 'No encounters resolved yet.'
 
+    // NAC block
+    const nacHtml = this._renderNAC(encounter)
+
+    // Breakthrough status strip
+    let btStrip = ''
+    if (encounter.surfacedBreakthroughId) {
+      const btDef = getDefinition(encounter.surfacedBreakthroughId)
+      const playableNow = encounter.breakthroughPlayable
+      btStrip = `
+        <div class="bt-strip ${playableNow ? 'bt-playable' : 'bt-waiting'}">
+          <span class="bt-icon">${playableNow ? '✨' : '🔓'}</span>
+          <span><strong>Breakthrough:</strong> ${btDef?.name ?? encounter.surfacedBreakthroughId}</span>
+          <span class="bt-status">${playableNow ? 'playable now' : `unlocks turn ${encounter.breakthroughSurfaceTurn + 1}`}</span>
+        </div>`
+    } else if (encounter.breakthroughReady) {
+      btStrip = `<div class="bt-strip bt-ready"><span>🔓</span><span>Breakthrough ready — conditions met, awaiting surfacing</span></div>`
+    }
+
     this._el('runStateSurface').innerHTML = `
       <div class="info-block run-state-surface ${health.tone}">
         <h3>Readable Run State</h3>
+        ${nacHtml}
+        ${btStrip}
         <div class="next-action-callout">
           <span class="next-action-label">Do this next</span>
           <strong>${nextStep}</strong>

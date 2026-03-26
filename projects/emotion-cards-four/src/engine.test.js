@@ -308,6 +308,160 @@ test('run encounters advance when encounter result is set', () => {
   assertEqual(run.encounterOrder.length, 3)
 })
 
+// --- Test 18: getCarryForwardState returns snapshot of carry-forward modifiers ---
+test('getCarryForwardState() returns modifiers and flags from current run', () => {
+  const store = makeMemStore()
+  const engine = new GameEngine({ storageAdapter: store })
+  engine.createRun()
+  const cf = engine.getCarryForwardState()
+  assertTrue(typeof cf.trustModifier === 'number', 'trustModifier should be a number')
+  assertTrue(typeof cf.tensionModifier === 'number', 'tensionModifier should be a number')
+  assertTrue(typeof cf.clarityModifier === 'number', 'clarityModifier should be a number')
+  assertTrue(typeof cf.momentumModifier === 'number', 'momentumModifier should be a number')
+  assertTrue(Array.isArray(cf.blockedResponseTags), 'blockedResponseTags should be an array')
+  assertTrue(Array.isArray(cf.unlockedBreakthroughCards), 'unlockedBreakthroughCards should be an array')
+  assertTrue(typeof cf.rewardChoicesRemaining === 'number', 'rewardChoicesRemaining should be a number')
+  assertTrue(Array.isArray(cf.pendingRewards), 'pendingRewards should be an array')
+})
+
+// --- Test 19: getCarryForwardState returns null when no run is active ---
+test('getCarryForwardState() returns null when no run is active', () => {
+  const store = makeMemStore()
+  const engine = new GameEngine({ storageAdapter: store })
+  const cf = engine.getCarryForwardState()
+  assertEqual(cf, null, 'should return null without an active run')
+})
+
+// --- Test 20: getPendingRewards returns correct structure ---
+test('getPendingRewards() returns { choicesRemaining, pendingRewards }', () => {
+  const store = makeMemStore()
+  const engine = new GameEngine({ storageAdapter: store })
+  engine.createRun()
+  const rewards = engine.getPendingRewards()
+  assertTrue('choicesRemaining' in rewards, 'should have choicesRemaining key')
+  assertTrue('pendingRewards' in rewards, 'should have pendingRewards key')
+  assertTrue(Array.isArray(rewards.pendingRewards), 'pendingRewards should be an array')
+  assertTrue(typeof rewards.choicesRemaining === 'number', 'choicesRemaining should be a number')
+})
+
+// --- Test 21: getPendingRewards returns null when no run is active ---
+test('getPendingRewards() returns null-payload when no run is active', () => {
+  const store = makeMemStore()
+  const engine = new GameEngine({ storageAdapter: store })
+  const rewards = engine.getPendingRewards()
+  assertEqual(rewards.choicesRemaining, 0, 'choicesRemaining should be 0')
+  assertTrue(Array.isArray(rewards.pendingRewards), 'pendingRewards should be an array')
+})
+
+// --- Test 22: claimReward fails gracefully with invalid rewardId ---
+test('claimReward() returns error for unknown rewardId', () => {
+  const store = makeMemStore()
+  const engine = new GameEngine({ storageAdapter: store })
+  engine.createRun()
+  const result = engine.claimReward('nonexistent-reward-id', {})
+  assertEqual(result.ok, false, 'should return ok:false')
+  assertTrue(!!result.feedback, 'should provide error feedback')
+})
+
+// --- Test 23: claimReward fails when no reward choices remain ---
+test('claimReward() returns error when no reward choices remaining', () => {
+  const store = makeMemStore()
+  const engine = new GameEngine({ storageAdapter: store })
+  engine.createRun()
+  // Manually inject a pending reward with 0 choicesRemaining to test guard
+  const run = engine.getRun()
+  run.carryForward.rewardChoicesRemaining = 0
+  run.carryForward.pendingRewards = [{ rewardId: 'test-reward', count: 1, type: 'card_choice' }]
+  const result = engine.claimReward('test-reward', {})
+  assertEqual(result.ok, false, 'should return ok:false when no choices remain')
+  assertTrue(result.feedback.includes('No reward choices'), 'feedback should mention no choices')
+})
+
+// --- Test 24: BreakthroughManager.canPlayBreakthrough enforces next-turn rule ---
+test('BreakthroughManager.canPlayBreakthrough blocks same-turn play', () => {
+  const store = makeMemStore()
+  const engine = new GameEngine({ storageAdapter: store })
+  engine.createRun()
+  const run = engine.getRun()
+  const enc = run.currentEncounter
+
+  // Surface a breakthrough
+  enc.surfacedBreakthroughId = 'B-001'
+  enc.breakthroughSurfaceTurn = enc.turn
+  enc.breakthroughPlayable = false
+
+  // Same turn — should NOT be playable yet
+  const canPlay = enc.turn <= enc.breakthroughSurfaceTurn
+  assertTrue(!canPlay, 'breakthrough should not be playable on the surface turn')
+
+  // Next turn — should be playable
+  enc.turn = enc.breakthroughSurfaceTurn + 1
+  enc.breakthroughPlayable = true
+  assertTrue(enc.turn > enc.breakthroughSurfaceTurn, 'breakthrough should be playable on next turn')
+})
+
+// --- Test 25: getPhaseInstruction handles all phase values ---
+test('getPhaseInstruction() returns readable strings for all phases', () => {
+  const phases = ['state_refresh', 'draw_prepare', 'read_situation', 'play_response', 'resolve_effects', 'encounter_reaction', 'check_outcome', 'cleanup', 'unknown_phase']
+  for (const phase of phases) {
+    const result = getPhaseInstruction({ phase })
+    assertTrue(typeof result === 'string' && result.length > 0, `phase "${phase}" should return a non-empty string`)
+  }
+})
+
+// --- Test 26: getRunHealthLabel covers all health condition branches ---
+test('getRunHealthLabel() returns correct tone for each health condition', () => {
+  const cases = [
+    { encounter: { result: 'collapse', stats: { tension: 10, trust: 5, clarity: 5, momentum: 0 }, collapseArmed: false, breakthroughReady: false }, expectedTone: 'good' },
+    { encounter: { result: 'breakthrough', stats: { tension: 5, trust: 5, clarity: 5, momentum: 0 }, collapseArmed: false, breakthroughReady: true }, expectedTone: 'good' },
+    { encounter: { result: null, stats: { tension: 10, trust: 1, clarity: 5, momentum: 0 }, collapseArmed: true, breakthroughReady: false }, expectedTone: 'bad' },
+    { encounter: { result: null, stats: { tension: 7, trust: 5, clarity: 5, momentum: 0 }, collapseArmed: false, breakthroughReady: false }, expectedTone: 'warn' },
+    { encounter: { result: null, stats: { tension: 5, trust: 6, clarity: 5, momentum: 0 }, collapseArmed: false, breakthroughReady: false }, expectedTone: 'good' },
+    { encounter: { result: null, stats: { tension: 3, trust: 3, clarity: 3, momentum: 0 }, collapseArmed: false, breakthroughReady: false }, expectedTone: 'neutral' },
+  ]
+  for (const { encounter, expectedTone } of cases) {
+    const label = getRunHealthLabel(encounter)
+    assertEqual(label.tone, expectedTone, `stats ${JSON.stringify(encounter.stats)} should give tone "${expectedTone}"`)
+  }
+})
+
+// --- Test 27: generateRunSummary returns structured summary object ---
+test('generateRunSummary() returns a non-null summary when run is active', () => {
+  const store = makeMemStore()
+  const engine = new GameEngine({ storageAdapter: store })
+  engine.createRun()
+  const summary = engine.generateRunSummary()
+  assertTrue(summary !== null, 'summary should not be null for active run')
+  assertTrue(typeof summary === 'object', 'summary should be an object')
+})
+
+// --- Test 28: generateRunSummary returns null when no run is active ---
+test('generateRunSummary() returns null when no run is active', () => {
+  const store = makeMemStore()
+  const engine = new GameEngine({ storageAdapter: store })
+  const summary = engine.generateRunSummary()
+  assertEqual(summary, null, 'summary should be null without an active run')
+})
+
+// --- Test 29: generateRunSummaryMarkdown returns a string ---
+test('generateRunSummaryMarkdown() returns a markdown string when run is active', () => {
+  const store = makeMemStore()
+  const engine = new GameEngine({ storageAdapter: store })
+  engine.createRun()
+  const md = engine.generateRunSummaryMarkdown()
+  assertTrue(typeof md === 'string' && md.length > 0, 'markdown should be a non-empty string')
+})
+
+// --- Test 30: generateRunSummaryJSON returns a string ---
+test('generateRunSummaryJSON() returns a JSON string when run is active', () => {
+  const store = makeMemStore()
+  const engine = new GameEngine({ storageAdapter: store })
+  engine.createRun()
+  const json = engine.generateRunSummaryJSON()
+  assertTrue(typeof json === 'string' && json.length > 0, 'JSON string should be non-empty')
+  assertTrue(() => { try { JSON.parse(json); return true } catch { return false } }, 'JSON string should be valid JSON')
+})
+
 // ---------------------------------------------------------------------------
 // Summary
 // ---------------------------------------------------------------------------
