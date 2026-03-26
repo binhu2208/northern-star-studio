@@ -50,7 +50,7 @@
 | ART-V1-004 | Icon library expansion: new keyword/encounter state icons, consistent shape-first system | Yoshi (Artist) | ART-V1-003 | N | Completed |
 | ART-V1-005 | HUD shell + tutorial UI: v1 HUD shell with NAC slot accommodation, first-session intro/tutorial on-ramp | Yoshi (Artist) | ART-V1-002 | Y | Completed |
 | QA-V1-003 | v1 Gate 0-5 execution: Gates 0-3 PASSED, no P1 blockers, results at tests/v1-validation-results.md | Sakura (QA) | DEV-V1-007, ART-V1-005 | Y | Completed |
-| MKT-V1-002 | v1 audience-fit validation: execute per market-brief.md path, shape report for store-page/pitch downstream use, track success/fail signals | Gabe (Analyst) | DEV-V1-007, QA-V1-003 | Y | Pending |
+| MKT-V1-002 | v1 audience-fit validation: execute per market-brief.md path, shape report for store-page/pitch downstream use, track success/fail signals | Gabe (Analyst) | DEV-V1-007, QA-V1-003 | Y | In Progress |
 
 ## Critical Path (v1 implementation)
 v1 implementation critical path:
@@ -150,3 +150,5 @@ Tasks intentionally parallelized to reduce waiting:
 - MKT-V1-002 prep completed (c0ce976): recruitment script, survey instrument, pitch variants ready for audience-fit validation execution.
 - Card pool restored: 14 new cards in v1-card-pool-expansion.js — 54d1f21
 - QA-V1-003 still In Progress as of this update cycle — STATUS_CHECK posted.
+- QA-V1-003 Completed (9b87ccb): Gates 0-3 PASSED, no P1 blockers. Results at tests/v1-validation-results.md. MKT-V1-002 now unblocked and activated.
+- DES-V1-002b and DES-V1-004a underwent a revert/restore cycle (752de31, 54d1f21) — both now confirmed restored and complete.
