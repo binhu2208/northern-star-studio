@@ -774,6 +774,10 @@ export class GameEngine {
     if (!run || run.status !== 'active') return { ok: false, feedback: 'No active run.' }
     const encounter = getCurrentEncounter(run)
     if (encounter.phase === 'read_situation') {
+      const primary = run.deckState.hand.find((card) => card.instanceId === this._selection.primary)
+      if (!primary) {
+        return { ok: false, feedback: 'Select a primary card first.' }
+      }
       enterPhase(run, 'play_response')
     } else if (encounter.phase !== 'play_response') {
       return { ok: false, feedback: 'You can only play cards during the play response phase.' }
