@@ -14,8 +14,8 @@
 
 | ID | Task | Owner | Dependencies | Critical | Status |
 |----|------|-------|--------------|----------|--------|
-| FB-P001 | Paper prototype: 1 route, 4 customers, 3-slot stock, 1 weather state | Hideo (Design) | None | Y | Pending |
-| FB-P002 | Paper prototype test with target players | Sakura (QA) | FB-P001 | Y | Pending |
+| FB-P001 | Paper prototype: 1 route, 4 customers, 3-slot stock, 1 weather state | Hideo (Design) | None | Y | Completed |
+| FB-P002 | Paper prototype test with target players | Sakura (QA) | FB-P001 | Y | Pending — Sakura needs test script + observable behaviors |
 | FB-P003 | Prototype brief writeup (merged design + market) | Shig (Producer) | FB-P001, FB-P002 | Y | Completed |
 
 ## Notes
