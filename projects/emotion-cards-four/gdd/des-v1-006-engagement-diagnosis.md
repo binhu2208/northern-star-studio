@@ -4,7 +4,15 @@
 DES-V1-006
 
 ## Status
-Active — blocking MKT-V1-002
+**All sub-tasks complete ✅**
+
+| Sub-task | Status | Commit |
+|---|---|---|
+| DES-V1-006a — Encounter prompts | ✅ Done | `des-v1-006a-encounter-prompts.md` |
+| DES-V1-006b — Card resolution language | ✅ Done | `des-v1-006b-card-resolution-language.md` |
+| DES-V1-006c — Carry-forward visibility | ✅ Done | `des-v1-006c-carry-forward-visibility.md` |
+
+**Next step:** Bin plays revised prototype — bar is "fun and challenging without coaching."
 
 ## Source
 Bin played the prototype with live coaching during a walkthrough. After seeing the full encounter loop with explanation, Bin's direct feedback was: **"I neither feel fun and challenging."** This is a pre-MKT finding — if the studio lead doesn't feel engagement even with coaching, external recruitment should not proceed.
