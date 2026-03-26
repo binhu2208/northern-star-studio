@@ -2,7 +2,7 @@
 
 ## Project Overview
 - **Project:** Flower Boat
-- **Status:** Pre-production — concept approved, prototype pending
+- **Status:** Pre-production — core loop validated, building weather mechanic
 - **Concept brief:** Gabe (Market) + Hideo (Design) approved by Bin 2026-03-26
 
 ## Project Overview
@@ -20,14 +20,18 @@
 | FB-P004 | Digital prototype UX spec | Hideo (Design) | None | Y | Completed — `16b6e83` |
 | FB-P005 | Digital prototype dev (shell + state machine) | John (Dev) | FB-P004 (parallel) | Y | Completed — `513e7e`, port 8766 |
 | FB-P006 | Design review (spec + shell merge) | Hideo + John | FB-P004, FB-P005 | Y | Completed — data bugs fixed |
-| FB-P007 | Bin playtest | Bin | FB-P006 | Y | In Progress — http://localhost:8766 |
+| FB-P007 | Bin playtest | Bin | FB-P006 | Y | Completed — clean run, no P0 bugs |
+| FB-P008 | Weather-affinity mechanic: spec + implement | Hideo (Design) + John (Dev) | FB-P007 | Y | In Progress — design brief updated `60cbbd7` |
+| FB-P009 | Expand flower pool (4 → 6-8) | Hideo (Design) | FB-P007 | Y | Pending |
 
 ## Notes
 
 - Bin approved proceeding 2026-03-26
-- Design brief: `projects/flower-boat/flower-boat-design-brief.md`
-- Market brief: `projects/flower-boat/market-brief.md`
-- Success criterion: Player feels like they were helping people find something they actually needed
+- Core loop confirmed working — Bin's playtest: clean run, no P0 bugs
+- Bin feedback: flowers need weather associations, more variety needed
+- Weather mechanic promoted from deferred → core feature
+- Design brief updated: `60cbbd7`
+- Prototype URL: http://localhost:8766 (port 8766)
 
 ## Validation Approach (Gabe)
 
