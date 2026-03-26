@@ -9,6 +9,7 @@
  */
 
 import { getPhaseInstruction, getRunHealthLabel, getDefinition } from './engine.js'
+import { OUTCOME_VISERAL } from './vocabulary.js'
 
 export class UIRenderer {
   /**
@@ -97,14 +98,20 @@ export class UIRenderer {
 
     // --- Carry forward ---
     const cf = run.carryForward
+    const trustEmoji = cf.trustModifier > 0 ? '🔵' : cf.trustModifier < 0 ? '🔴' : ''
+    const tensionEmoji = cf.tensionModifier > 0 ? '🔴' : cf.tensionModifier < 0 ? '🟢' : ''
+    const trustLine = cf.trustModifier > 0 ? 'You built something.' : cf.trustModifier < 0 ? 'Something shut down between you.' : ''
+    const tensionLine = cf.tensionModifier > 0 ? 'The air is still thick.' : cf.tensionModifier < 0 ? 'The pressure has eased.' : ''
+    const clarityLine = cf.clarityModifier > 0 ? 'You see more clearly now.' : cf.clarityModifier < 0 ? 'The picture is foggier than before.' : ''
+    const momentumLine = cf.momentumModifier > 0 ? 'You\'re gaining ground.' : cf.momentumModifier < 0 ? 'You\'re sliding backward.' : ''
     this._el('carryForward').innerHTML = `
       <div class="info-block">
         <h3>Carry Forward</h3>
         <div class="mini-grid">
-          <div class="mini-card"><span>Trust</span><strong>${cf.trustModifier >= 0 ? '+' : ''}${cf.trustModifier}</strong></div>
-          <div class="mini-card"><span>Tension</span><strong>${cf.tensionModifier >= 0 ? '+' : ''}${cf.tensionModifier}</strong></div>
-          <div class="mini-card"><span>Clarity</span><strong>${cf.clarityModifier >= 0 ? '+' : ''}${cf.clarityModifier}</strong></div>
-          <div class="mini-card"><span>Momentum</span><strong>${cf.momentumModifier >= 0 ? '+' : ''}${cf.momentumModifier}</strong></div>
+          <div class="mini-card"><span>Trust</span><strong>${cf.trustModifier >= 0 ? '+' : ''}${cf.trustModifier}</strong>${trustEmoji ? ` <span class="carry-emotion">${trustEmoji} ${trustLine}</span>` : ''}</div>
+          <div class="mini-card"><span>Tension</span><strong>${cf.tensionModifier >= 0 ? '+' : ''}${cf.tensionModifier}</strong>${tensionEmoji ? ` <span class="carry-emotion">${tensionEmoji} ${tensionLine}</span>` : ''}</div>
+          <div class="mini-card"><span>Clarity</span><strong>${cf.clarityModifier >= 0 ? '+' : ''}${cf.clarityModifier}</strong>${cf.clarityModifier !== 0 ? ` <span class="carry-emotion">${clarityLine}</span>` : ''}</div>
+          <div class="mini-card"><span>Momentum</span><strong>${cf.momentumModifier >= 0 ? '+' : ''}${cf.momentumModifier}</strong>${cf.momentumModifier !== 0 ? ` <span class="carry-emotion">${momentumLine}</span>` : ''}</div>
         </div>
         <p>Blocked windows: ${cf.blockedResponseTags.join(', ') || 'none'}</p>
         <p>Unlocked breakthroughs: ${cf.unlockedBreakthroughCards.join(', ') || 'none'}</p>
@@ -115,7 +122,7 @@ export class UIRenderer {
       <div class="info-block">
         <h3>Result History</h3>
         <div class="history-list">${run.resultHistory.length
-          ? run.resultHistory.map((item) => `<span class="history-item">${item.name}: ${item.result}</span>`).join('')
+          ? run.resultHistory.map((item) => `<span class="history-item">${item.name}: ${OUTCOME_VISERAL[item.result] || item.result}</span>`).join('')
           : '<span class="history-item">No encounters resolved yet</span>'}</div>
       </div>`
 
@@ -124,6 +131,7 @@ export class UIRenderer {
     this._el('encounterOverview').innerHTML = `
       <div class="info-block">
         <h3>${encounter.name}</h3>
+        ${run.resultHistory.length > 0 ? `<p class="last-time"><em>Last time: ${OUTCOME_VISERAL[run.resultHistory[run.resultHistory.length - 1].result] || run.resultHistory[run.resultHistory.length - 1].result}</em></p>` : ''}
         <p>${encounter.prompt}</p>
         <div class="stat-grid">
           <div class="stat-card"><span>Tension</span><strong>${encounter.stats.tension}</strong></div>
@@ -151,7 +159,7 @@ export class UIRenderer {
         <h3>Last resolution</h3>
         <p>${lastPlayer ? lastPlayer.summaryLines.join(' ') : 'No play resolved yet.'}</p>
         <p>${lastOpposition ? `Opposition: ${lastOpposition.ruleId} — ${lastOpposition.cue}` : 'No opposition reaction yet.'}</p>
-        <p>${encounter.result ? `Current result state: ${encounter.result}` : 'Encounter continues.'}</p>
+        <p>${encounter.result ? OUTCOME_VISERAL[encounter.result] || encounter.result : 'Encounter continues.'}</p>
       </div>`
 
     // --- Selection state ---

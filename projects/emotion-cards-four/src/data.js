@@ -52,7 +52,7 @@ export const CARD_DEFINITIONS = [
     riskTag: RISK_TAGS.WEAK_IF_TENSION_HIGH,
     tags: [CATEGORIES.EMOTION, INTENT_TAGS.CONNECT, TONE_TAGS.OPEN, CARD_TAGS.TRUST_GAIN],
     summaryText: '+1 trust. Better with memory support.',
-    rulesText: 'Gain 1 trust. If paired with Memory, gain 1 clarity. In high tension, lose 1 momentum.',
+    rulesText: "You reach out carefully — not fixing, just present. They don't pull away. That's something. (+1 trust. Memory support adds clarity; high tension costs momentum.)",
     effects: [{ type: 'modify_stat', stat: STATS.TRUST, amount: 1 }],
     synergyRules: [
       {
@@ -80,7 +80,7 @@ export const CARD_DEFINITIONS = [
     riskTag: RISK_TAGS.ESCALATES_IF_TRUST_LOW,
     tags: [CATEGORIES.EMOTION, INTENT_TAGS.REVEAL, TONE_TAGS.HEAVY, CARD_TAGS.CLARITY_GAIN],
     summaryText: '+1 clarity, -1 momentum. Safer with support.',
-    rulesText: 'Gain 1 clarity and lose 1 momentum. If paired with Quiet Support, gain 1 trust. At low trust, tension rises.',
+    rulesText: "You say it out loud. The weight doesn't lift — but they move closer to understanding. Clarity costs something. (+1 clarity, -1 momentum. Quiet Support softens the fall; low trust heats the air.)",
     effects: [
       { type: 'modify_stat', stat: STATS.CLARITY, amount: 1 },
       { type: 'modify_stat', stat: STATS.MOMENTUM, amount: -1 },
@@ -111,7 +111,7 @@ export const CARD_DEFINITIONS = [
     riskTag: RISK_TAGS.FAILS_IF_CLARITY_LOW,
     tags: [CATEGORIES.EMOTION, INTENT_TAGS.RECOVER, TONE_TAGS.VULNERABLE, CARD_TAGS.MOMENTUM_GAIN],
     summaryText: '+1 momentum. At decent clarity, also gain trust.',
-    rulesText: 'Gain 1 momentum. If clarity is 5+, gain 1 trust. If clarity is 2 or less, lose 1 trust.',
+    rulesText: "You let yourself believe it could be different. The needle moves. (+1 momentum. High clarity means the hope lands; low clarity means it rings hollow.)",
     effects: [{ type: 'modify_stat', stat: STATS.MOMENTUM, amount: 1 }],
     conditionalEffects: [
       {
@@ -214,7 +214,7 @@ export const CARD_DEFINITIONS = [
     riskTag: RISK_TAGS.FAILS_IF_CLARITY_LOW,
     tags: [CATEGORIES.REACTION, INTENT_TAGS.REVEAL, TONE_TAGS.GUARDED, CARD_TAGS.CLARITY_GAIN],
     summaryText: '+1 clarity and -1 tension. Memory support opens repair.',
-    rulesText: 'Gain 1 clarity and reduce tension by 1. If paired with Memory, open repair.',
+    rulesText: "You answer — but not all the way. Enough to stay in the room, not enough to hand over the knife. (+1 clarity, -1 tension. Memory support opens a repair window.)",
     effects: [
       { type: 'modify_stat', stat: STATS.CLARITY, amount: 1 },
       { type: 'modify_stat', stat: STATS.TENSION, amount: -1 },
@@ -255,7 +255,7 @@ export const CARD_DEFINITIONS = [
     riskTag: RISK_TAGS.WEAK_IF_TENSION_HIGH,
     tags: [CATEGORIES.REACTION, INTENT_TAGS.STABILIZE, TONE_TAGS.OPEN, CARD_TAGS.TENSION_DROP],
     summaryText: 'Strong tension control in heated scenes.',
-    rulesText: 'Reduce tension by 1, or by 2 if the encounter is heated or fragile. If momentum is negative, move it toward neutral.',
+    rulesText: "The air shifts. Not fixed — but lighter. You can breathe again. (+1 tension drop, or +2 in heated/fragile moments. Negative momentum drifts back toward zero.)",
     effects: [{ type: 'modify_stat', stat: STATS.TENSION, amount: -1 }],
     conditionalEffects: [
       {
@@ -301,7 +301,7 @@ export const CARD_DEFINITIONS = [
     riskTag: RISK_TAGS.FAILS_IF_CLARITY_LOW,
     tags: [CATEGORIES.REACTION, INTENT_TAGS.REFRAME, TONE_TAGS.OPEN, CARD_TAGS.MISREAD_CLEAR],
     summaryText: 'Improve clarity and soften bad momentum.',
-    rulesText: 'Gain 1 clarity. If momentum is negative, gain 1 momentum. In misread encounters, open connect.',
+    rulesText: "You find another angle. Suddenly the wall isn't so solid. (+1 clarity, +1 momentum if negative. Misread encounters get a connect window.)",
     effects: [{ type: 'modify_stat', stat: STATS.CLARITY, amount: 1 }],
     conditionalEffects: [
       {
@@ -367,7 +367,7 @@ export const CARD_DEFINITIONS = [
     riskTag: RISK_TAGS.REQUIRES_OPEN_WINDOW,
     tags: [CATEGORIES.BREAKTHROUGH, INTENT_TAGS.CONNECT, CARD_TAGS.BREAKTHROUGH_ENABLE],
     summaryText: 'Resolve as breakthrough when trust and clarity are high.',
-    rulesText: 'If trust and clarity are both high and breakthrough is open, this seals the encounter.',
+    rulesText: "They see you. You see them. Both things, at once — not as an exchange, but as a fact. (Breakthrough only: seals when trust and clarity are high.)",
     effects: [{ type: 'upgrade_outcome', from: 'partial', to: 'breakthrough' }],
     unlockRules: [
       {
@@ -388,7 +388,7 @@ export const CARD_DEFINITIONS = [
     riskTag: RISK_TAGS.FAILS_IF_CLARITY_LOW,
     tags: [CATEGORIES.BREAKTHROUGH, INTENT_TAGS.RECOVER, CARD_TAGS.BREAKTHROUGH_ENABLE],
     summaryText: 'Turn a calm partial into a breakthrough and carry trust forward.',
-    rulesText: 'If tension is low and momentum is positive, promote partial to breakthrough and grant next-encounter trust.',
+    rulesText: "This is what it looks like when something actually heals. No drama, no collapse — just a thing made solid again. (Breakthrough only: promotes partial to breakthrough; carries trust forward.)",
     effects: [
       { type: 'upgrade_outcome', from: 'partial', to: 'breakthrough' },
       { type: 'carry_forward', stat: 'trustModifier', amount: 1 },
@@ -412,7 +412,7 @@ export const CARD_DEFINITIONS = [
     riskTag: RISK_TAGS.ESCALATES_IF_TRUST_LOW,
     tags: [CATEGORIES.BREAKTHROUGH, INTENT_TAGS.REVEAL, CARD_TAGS.BREAKTHROUGH_ENABLE],
     summaryText: 'Reward a high-clarity, high-risk honesty line.',
-    rulesText: 'If clarity is high and trust did not collapse, convert the encounter to breakthrough.',
+    rulesText: "You say the thing that could end this — and it doesn't. The door stays open. (Breakthrough only: high clarity + intact trust converts to breakthrough.)",
     effects: [{ type: 'upgrade_outcome', from: 'partial', to: 'breakthrough' }],
     unlockRules: [
       {

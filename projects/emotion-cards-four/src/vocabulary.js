@@ -227,6 +227,22 @@ export const OUTCOMES = Object.freeze({
 
 export const OUTCOME_LIST = Object.freeze(Object.values(OUTCOMES))
 
+/** Visceral one-liners shown when an encounter resolves */
+export const OUTCOME_VISERAL = Object.freeze({
+  [OUTCOMES.BREAKTHROUGH]: "You broke through. The wall came down.",
+  [OUTCOMES.PARTIAL]:      "Something shifted — but not all the way.",
+  [OUTCOMES.STALEMATE]:    "Nothing moves. You're both still standing in the same place.",
+  [OUTCOMES.COLLAPSE]:     "It went wrong. The gap is wider now.",
+})
+
+/** Visceral feedback lines for stat changes */
+export const STATE_CHANGE_VISERAL = Object.freeze({
+  TRUST_GUARD_ACTIVATED:   "A wall goes up — for now.",
+  REACTION_SHIELD_ACTIVATED: "You duck the blow. Barely.",
+  COLLAPSE_GUARD_ACTIVATED: "You hold. Somehow.",
+  MOMENTUM_SNAP_ZERO:      "You hit bottom and stopped digging.",
+})
+
 // ---------------------------------------------------------------------------
 // Run Status
 // ---------------------------------------------------------------------------

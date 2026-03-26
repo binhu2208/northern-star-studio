@@ -218,3 +218,16 @@ textarea, pre {
   .hero, .layout { grid-template-columns: 1fr; display: grid; }
   .header-actions { width: 100%; }
 }
+
+/* DES-V1-006 emotional legibility */
+.last-time {
+  color: var(--accent);
+  font-style: italic;
+  margin-bottom: 0.25rem;
+}
+.carry-emotion {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
