@@ -146,7 +146,7 @@ Tasks intentionally parallelized to reduce waiting:
 - ART slip risk: ART-V1-002/ART-V1-005 on QA critical path — monitor closely.
 - QA-V1-003 activated by producer on 2026-03-25 after ART-V1-005 completion confirmed (410c26b).
 - Issue #13 (Play button primary selection validation) fixed and closed across commits e806ae1, 25e7b79, 935e4c5.
-- DES-V1-002b (Old Grudge + Breakthrough Moment draft templates) submitted by Hideo — 6308e5b. Task added to plan.
+- DES-V1-002b (Old Grudge + Breakthrough Moment templates) restored on main — 752de31
 - MKT-V1-002 prep completed (c0ce976): recruitment script, survey instrument, pitch variants ready for audience-fit validation execution.
-- Card pool now at 29 cards (b9b4a21) — 14 new cards added in DES-V1-004a expansion.
+- Card pool restored: 14 new cards in v1-card-pool-expansion.js — 54d1f21
 - QA-V1-003 still In Progress as of this update cycle — STATUS_CHECK posted.
