@@ -114,6 +114,14 @@ document.getElementById('hand-cards').addEventListener('click', (event) => {
   const button = event.target.closest('.pick-card-btn')
   if (!button) return
   engine.toggleSelection(button.dataset.instanceId)
+  // Force immediate button state update to avoid render timing issues
+  const run = engine.getRun()
+  const encounter = run ? run.encounters[run.encounterIndex] : null
+  const sel = engine.getSelection()
+  const btn = document.getElementById('submit-play-btn')
+  if (btn) {
+    btn.disabled = !run || run.status !== 'active' || !['read_situation', 'play_response'].includes(encounter?.phase) || !sel?.primary
+  }
   renderer.render()
 })
 
