@@ -48,7 +48,7 @@
 | ART-V1-003 | Card frame variant expansion: v1 frame families beyond prototype, portrait/emotion overlay rollout | Yoshi (Artist) | ART-V1-002 | N | Completed |
 | ART-V1-004 | Icon library expansion: new keyword/encounter state icons, consistent shape-first system | Yoshi (Artist) | ART-V1-003 | N | Completed |
 | ART-V1-005 | HUD shell + tutorial UI: v1 HUD shell with NAC slot accommodation, first-session intro/tutorial on-ramp | Yoshi (Artist) | ART-V1-002 | Y | Completed |
-| QA-V1-003 | v1 Gate 0-5 execution: browser-level validation mandatory, Issue #12 as named Gate 2 + Gate 4 pre-req, headless engine tests via GameEngine, evidence-based closure | Sakura (QA) | DEV-V1-007, ART-V1-005 | Y | Pending |
+| QA-V1-003 | v1 Gate 0-5 execution: browser-level validation mandatory, Issue #12 as named Gate 2 + Gate 4 pre-req, headless engine tests via GameEngine, evidence-based closure | Sakura (QA) | DEV-V1-007, ART-V1-005 | Y | In Progress |
 | MKT-V1-002 | v1 audience-fit validation: execute per market-brief.md path, shape report for store-page/pitch downstream use, track success/fail signals | Gabe (Analyst) | DEV-V1-007, QA-V1-003 | Y | Pending |
 
 ## Critical Path (v1 implementation)
@@ -142,3 +142,5 @@ Tasks intentionally parallelized to reduce waiting:
 - MKT-V1-002 output format: validation report shaped for store-page/pitch downstream use per Gabe.
 - QA-V1-003 scope: browser-level + headless engine tests via GameEngine; tooling needs to confirm with John before execution.
 - ART slip risk: ART-V1-002/ART-V1-005 on QA critical path — monitor closely.
+- QA-V1-003 activated by producer on 2026-03-25 after ART-V1-005 completion confirmed (410c26b).
+- Issue #13 (Play button primary selection validation) fixed and closed across commits e806ae1, 25e7b79, 935e4c5.
