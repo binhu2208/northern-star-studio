@@ -15,7 +15,7 @@
 | ID | Task | Owner | Dependencies | Critical | Status |
 |----|------|-------|--------------|----------|--------|
 | FB-P001 | Paper prototype: 1 route, 4 customers, 3-slot stock, 1 weather state | Hideo (Design) | None | Y | Completed |
-| FB-P002 | Paper prototype test with target players | Sakura (QA) | FB-P001 | Y | Pending — recruiting target players (5-8 sessions, 30-40 min each) |
+| FB-P002 | Paper prototype test with target players | Sakura (QA) | FB-P001 | Y | Superseded — moving to next phase without formal player test. Bin confirmed 2026-03-26. |
 | FB-P003 | Prototype brief writeup (merged design + market) | Shig (Producer) | FB-P001, FB-P002 | Y | Completed |
 
 ## Notes
