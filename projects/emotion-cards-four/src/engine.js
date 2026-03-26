@@ -24,6 +24,8 @@ import {
   STARTER_DECK,
 } from './data.js'
 
+import { generate as buildRunSummary, generateMarkdown, generateJSON } from './run-summary.js'
+
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // Vocabulary validation
@@ -606,6 +608,31 @@ export class GameEngine {
   /** Return health/readability label for the current encounter. */
   getRunHealthLabel(encounter) {
     return getRunHealthLabel(encounter)
+  }
+
+  /**
+   * Generate a structured summary of the current run.
+   * Returns the raw summary object.
+   * @returns {object|null} RunSummary or null if no active run.
+   */
+  generateRunSummary() {
+    return buildRunSummary(this._currentRun)
+  }
+
+  /**
+   * Generate a markdown-formatted run summary for human readability.
+   * @returns {string|null}
+   */
+  generateRunSummaryMarkdown() {
+    return generateMarkdown(this._currentRun)
+  }
+
+  /**
+   * Generate a JSON string run summary.
+   * @returns {string|null}
+   */
+  generateRunSummaryJSON() {
+    return generateJSON(this._currentRun)
   }
 
   // -------------------------------------------------------------------------
@@ -1222,3 +1249,4 @@ function clamp(value, min, max) {
 // ---------------------------------------------------------------------------
 
 export { getPhaseInstruction, getRunHealthLabel, clamp, shuffleDeterministic, getDefinition, snapshotEncounter }
+export { RunSummaryGenerator, generate, generateMarkdown, generateJSON } from './run-summary.js'
