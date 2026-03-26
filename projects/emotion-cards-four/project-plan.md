@@ -46,8 +46,8 @@
 | DES-V1-004b | Card balance pass (post-implementation): confirm balance holds against actual engine behavior, only if needed after DES-V1-004a findings | Hideo (Designer) | DEV-V1-005 | N | Pending |
 | ART-V1-002 | NAC component: 4 states (active rec, neutral, no signal, locked), signal-to-text mapping, run-state surface integration | Yoshi (Artist) | DEV-V1-007, Joint NAC Signal Spec | Y | Completed | | |
 | ART-V1-003 | Card frame variant expansion: v1 frame families beyond prototype, portrait/emotion overlay rollout | Yoshi (Artist) | ART-V1-002 | N | Completed |
-| ART-V1-004 | Icon library expansion: new keyword/encounter state icons, consistent shape-first system | Yoshi (Artist) | ART-V1-003 | N | In Progress |
-| ART-V1-005 | HUD shell + tutorial UI: v1 HUD shell with NAC slot accommodation, first-session intro/tutorial on-ramp | Yoshi (Artist) | ART-V1-002 | Y | Pending |
+| ART-V1-004 | Icon library expansion: new keyword/encounter state icons, consistent shape-first system | Yoshi (Artist) | ART-V1-003 | N | Completed |
+| ART-V1-005 | HUD shell + tutorial UI: v1 HUD shell with NAC slot accommodation, first-session intro/tutorial on-ramp | Yoshi (Artist) | ART-V1-002 | Y | In Progress |
 | QA-V1-003 | v1 Gate 0-5 execution: browser-level validation mandatory, Issue #12 as named Gate 2 + Gate 4 pre-req, headless engine tests via GameEngine, evidence-based closure | Sakura (QA) | DEV-V1-007, ART-V1-005 | Y | Pending |
 | MKT-V1-002 | v1 audience-fit validation: execute per market-brief.md path, shape report for store-page/pitch downstream use, track success/fail signals | Gabe (Analyst) | DEV-V1-007, QA-V1-003 | Y | Pending |
 
