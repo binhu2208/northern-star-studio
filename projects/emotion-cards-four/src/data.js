@@ -270,6 +270,28 @@ export const CARD_DEFINITIONS = [
   },
 
   {
+    id: 'R-005',
+    name: 'Stand Ground',
+    category: CATEGORIES.REACTION,
+    deckRole: DECK_ROLES.PRIMARY,
+    intentTag: INTENT_TAGS.PROTECT,
+    toneTag: TONE_TAGS.ASSERTIVE,
+    riskTag: null,
+    tags: [CATEGORIES.REACTION, INTENT_TAGS.PROTECT, TONE_TAGS.ASSERTIVE, 'collapse_guard'],
+    summaryText: 'Hold the line without collapsing.',
+    rulesText: 'Prevent collapse this turn regardless of tension or failed play count. If trust is 5 or higher, gain 1 momentum.',
+    effects: [
+      { type: 'add_modifier', modifierId: 'collapse_guard', duration: 'turn' },
+    ],
+    conditionalEffects: [
+      {
+        if: { statGte: { stat: STATS.TRUST, value: 5 } },
+        then: [{ type: 'modify_stat', stat: STATS.MOMENTUM, amount: 1 }],
+      },
+    ],
+  },
+
+  {
     id: 'R-007',
     name: 'Reframe Gently',
     category: CATEGORIES.REACTION,

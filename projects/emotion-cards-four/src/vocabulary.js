@@ -184,6 +184,7 @@ export const MODIFIERS = Object.freeze({
   REACTION_SHIELD:     'reaction_shield',
   DEFLECTED_LAST_TURN: 'deflected_last_turn',
   NO_TENSION_INCREASE: 'no_tension_increase',
+  COLLAPSE_GUARD:      'collapse_guard',
 })
 
 export const MODIFIER_LIST = Object.freeze(Object.values(MODIFIERS))

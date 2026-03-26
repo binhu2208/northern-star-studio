@@ -65,6 +65,9 @@ const CONDITION_KEYS = new Set([
   'primaryToneTagIn',
   'statGte',
   'statLte',
+  'statEq',
+  'encounterId',
+  'result',
   'encounterHasKeyword',
   'encounterHasKeywordIn',
   'breakthroughReady',
@@ -1345,6 +1348,8 @@ function updateEncounterFlags(encounter) {
   encounter.stats.clarity = clamp(encounter.stats.clarity, 0, 10)
   encounter.stats.momentum = clamp(encounter.stats.momentum, -5, 5)
   encounter.collapseArmed = encounter.stats.tension >= 8 || encounter.failedPlayCount >= 2
+  // collapse_guard modifier prevents collapse regardless of tension/failed play count
+  if (hasModifier(encounter, 'collapse_guard')) encounter.collapseArmed = false
 }
 
 // ---------------------------------------------------------------------------
