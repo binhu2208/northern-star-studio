@@ -41,7 +41,7 @@
 | DEV-V1-006 | Build RunSummaryGenerator: structured report from event log (result dist, avg turns/encounter, collapse freq, card play freq, poor-fit rate) for validation teams | John (Developer) | DEV-V1-003 | Y | Pending |
 | DEV-V1-007 | Full UI integration: wire breakthrough/NAC/carry-forward to production UI, HUD refresh with NAC slot, save/resume stability pass | John (Developer) | DEV-V1-003, DEV-V1-004, DEV-V1-006, ART-V1-002 | Y | Pending |
 | DES-V1-003 | Encounter template review: verify 5 templates from DES-V1-002 translate correctly to implementation, outcome evaluation logic verification | Hideo (Designer) | DEV-V1-005 | Y | Pending |
-| DES-V1-003a | v1 card pool review: verify 16-card starter deck covers all 5 encounters adequately — fast early check before full balance pass | Hideo (Designer) | DES-V1-002 | N | In Progress |
+| DES-V1-003a | v1 card pool review: verify 16-card starter deck covers all 5 encounters adequately | Hideo (Designer) | DES-V1-002 | N | Completed | |
 | DES-V1-004a | Card balance pass (design doc): 35-card review against DES-V1-002 taxonomy, runs parallel to DEV implementation | Hideo (Designer) | DES-V1-003, DES-V1-003a | N | Pending |
 | DES-V1-004b | Card balance pass (post-implementation): confirm balance holds against actual engine behavior, only if needed after DES-V1-004a findings | Hideo (Designer) | DEV-V1-005 | N | Pending |
 | ART-V1-002 | NAC component: Next-Action Cue with 4 states (active rec, neutral, no signal, locked), Calm Diagnostic style, HUD placement below state meters | Yoshi (Artist) | DEV-V1-007, Joint NAC Signal Spec with @John | Y | Pending |
