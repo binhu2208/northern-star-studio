@@ -148,7 +148,17 @@ Return: Your dock
 
 ## Stock Selection Sheet
 
-**Choose 3 flowers to carry. Cross out 1 flower — you cannot stock everything.**
+**Step 1 — Plan before you stock.**
+Look at the route. You know 4 customers will be waiting. Before you see them individually:
+
+**Who do you expect at each stop? (write 1-2 words each)**
+- Stop 1 — The Quiet Pier: _______________
+- Stop 2 — The Corner House: _______________
+- Stop 3 — The Café Dock: _______________
+- Stop 4 — The Old Bridge: _______________
+
+**Step 2 — Choose your stock.**
+Now choose 3 flowers to carry. Cross out 1 flower — you cannot stock everything.
 
 My stock for this run:
 - [ ] Sunflower
@@ -158,6 +168,9 @@ My stock for this run:
 
 **Why did you choose these 3?** (write 1-2 sentences)
 
+_____________________________________________
+
+**Did your plan match the actual customers?** (answer after the session)
 _____________________________________________
 
 ---
@@ -214,6 +227,15 @@ Yes / Somewhat / No
 **Did stock constraints affect your suggestions?**
 Yes / No
 If yes, how? _______________
+
+**Did you stick to your plan, or adapt on the fly?**
+Stuck to plan / Adapted / Mix
+Describe: _______________
+
+**Planned vs. happened — add to the test debrief:**
+- Did you sell what you expected to sell?
+- Did the customer take your suggestion or pick something else?
+- If your plan was wrong, how did that feel — frustrating or interesting?
 
 **Would you play again with different stock?**
 Yes / No
