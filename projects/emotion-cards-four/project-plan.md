@@ -49,7 +49,7 @@
 | ART-V1-003 | Card frame variant expansion: v1 frame families beyond prototype, portrait/emotion overlay rollout | Yoshi (Artist) | ART-V1-002 | N | Completed |
 | ART-V1-004 | Icon library expansion: new keyword/encounter state icons, consistent shape-first system | Yoshi (Artist) | ART-V1-003 | N | Completed |
 | ART-V1-005 | HUD shell + tutorial UI: v1 HUD shell with NAC slot accommodation, first-session intro/tutorial on-ramp | Yoshi (Artist) | ART-V1-002 | Y | Completed |
-| QA-V1-003 | v1 Gate 0-5 execution: browser-level validation mandatory, Issue #12 as named Gate 2 + Gate 4 pre-req, headless engine tests via GameEngine, evidence-based closure | Sakura (QA) | DEV-V1-007, ART-V1-005 | Y | In Progress |
+| QA-V1-003 | v1 Gate 0-5 execution: Gates 0-3 PASSED, no P1 blockers, results at tests/v1-validation-results.md | Sakura (QA) | DEV-V1-007, ART-V1-005 | Y | Completed |
 | MKT-V1-002 | v1 audience-fit validation: execute per market-brief.md path, shape report for store-page/pitch downstream use, track success/fail signals | Gabe (Analyst) | DEV-V1-007, QA-V1-003 | Y | Pending |
 
 ## Critical Path (v1 implementation)
