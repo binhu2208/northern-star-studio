@@ -22,7 +22,7 @@
 | FB-P006 | Design review (spec + shell merge) | Hideo + John | FB-P004, FB-P005 | Y | Completed — data bugs fixed |
 | FB-P007 | Bin playtest | Bin | FB-P006 | Y | Completed — clean run, no P0 bugs |
 | FB-P008 | Weather-affinity mechanic: spec + implement | Hideo (Design) + John (Dev) | FB-P007 | Y | Completed — `a6f732b`, port 8766 |
-| FB-P009 | Expand flower pool (4 → 6-8) | Hideo (Design) | FB-P007 | Y | Pending |
+| FB-P009 | Expand flower pool (4 → 7) | Hideo (Design) + John (Dev) | FB-P007 | Y | Spec complete — `43386ba`, John implementing |
 
 ## Notes
 
