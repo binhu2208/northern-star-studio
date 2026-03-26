@@ -176,10 +176,12 @@ function renderStockSelection() {
   const cardsRow = document.createElement('div')
   cardsRow.className = 'flower-cards-row'
   flowers.forEach((f) => {
+    const sunIcon = f.affinities.sunshine >= 3 ? ' ☀️' : ''
+    const rainIcon = f.affinities.rain >= 3 ? ' 🌧️' : ''
     const card = document.createElement('div')
     card.className = 'flower-card'
     card.dataset.flowerId = f.id
-    card.innerHTML = `<strong>${f.name}</strong><span class="flower-keyword">${f.keyword}</span><span class="flower-assoc">${f.association}</span>`
+    card.innerHTML = `<strong>${f.name}</strong><span class="flower-keyword">${f.keyword}${sunIcon}${rainIcon}</span><span class="flower-assoc">${f.association}</span>`
     card.addEventListener('click', () => toggleFlower(f.id))
     cardsRow.appendChild(card)
   })

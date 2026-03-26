@@ -196,8 +196,8 @@ h2 {
 
 .flower-cards-row {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.75rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.6rem;
 }
 
 .flower-card {

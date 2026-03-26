@@ -2,10 +2,13 @@
 // All flower, route, weather, and customer content
 
 export const flowers = [
-  { id: 'sunflower',    name: 'Sunflower',       keyword: 'Warmth',   association: 'Warmth, joy, celebration',   affinities: { sunshine: 3, rain: 1 } },
-  { id: 'lavender',     name: 'Lavender',        keyword: 'Calm',     association: 'Calm, relaxation, comfort',   affinities: { sunshine: 1, rain: 3 } },
-  { id: 'wildflower',   name: 'Wildflower Mix',  keyword: 'Surprise', association: 'Nostalgia, freedom, surprise', affinities: { sunshine: 3, rain: 1 } },
-  { id: 'lily',         name: 'White Lily',      keyword: 'Renewal',  association: 'Renewal, sincerity, grief',   affinities: { sunshine: 1, rain: 3 } },
+  { id: 'sunflower',    name: 'Sunflower',        keyword: 'Warmth',     association: 'Warmth, joy, celebration',       affinities: { sunshine: 3, rain: 1 } },
+  { id: 'lavender',     name: 'Lavender',         keyword: 'Calm',       association: 'Calm, relaxation, comfort',   affinities: { sunshine: 1, rain: 3 } },
+  { id: 'wildflower',   name: 'Wildflower Mix',    keyword: 'Surprise',   association: 'Nostalgia, freedom, surprise', affinities: { sunshine: 3, rain: 1 } },
+  { id: 'lily',         name: 'White Lily',        keyword: 'Renewal',    association: 'Renewal, sincerity, grief',   affinities: { sunshine: 1, rain: 3 } },
+  { id: 'rose',         name: 'Rose',              keyword: 'Love',       association: 'Deep affection, gratitude, apology', affinities: { sunshine: 2, rain: 2 } },
+  { id: 'chrysanthemum',name: 'Chrysanthemum',     keyword: 'Longevity',  association: 'Recovery, rest, getting better', affinities: { sunshine: 2, rain: 2 } },
+  { id: 'freesia',      name: 'Freesia',           keyword: 'Innocence', association: 'New beginnings, lightness, trust', affinities: { sunshine: 2, rain: 1 } },
 ]
 
 export const routes = [
