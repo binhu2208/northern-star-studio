@@ -152,3 +152,4 @@ Tasks intentionally parallelized to reduce waiting:
 - QA-V1-003 still In Progress as of this update cycle — STATUS_CHECK posted.
 - QA-V1-003 Completed (9b87ccb): Gates 0-3 PASSED, no P1 blockers. Results at tests/v1-validation-results.md. MKT-V1-002 now unblocked and activated.
 - DES-V1-002b and DES-V1-004a underwent a revert/restore cycle (752de31, 54d1f21) — both now confirmed restored and complete.
+- DES-V1-005 identified (2026-03-26): Starter deck composition can produce opening hands with 0 valid primary-slot cards (2 Memories always support-only + only 2 Emotions/Reactions in 12-card deck). Walkthrough confirmed this is reproducible. Fix: add first-draw mulligan rule or adjust starter to guarantee 2 primary-slot cards in opening hand. Deferred to v1.1 — Hideo to write brief note and check in.
