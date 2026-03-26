@@ -25,7 +25,9 @@ One session = one run on the canals. You depart from your dock, visit 3-5 stops,
 4. **See consequences** — the customer's reaction, and whether what you suggested actually fit
 
 ### The Meaningful Choice
-The core tension is **stock + reading**: you can't carry everything, and you can't read everyone perfectly. The skill is in noticing what people need before they say it, and having the right thing when they do.
+The core tension is **plan → execute → compare**: you choose flowers, weather, and route based on what you expect — and then you see if your plan worked. The skill is in reading customers AND in making a plan that accounts for what you might not know yet.
+
+Stock, weather, and route are all planning variables. Each one changes which flowers make sense for a given run. The challenge is not just "what does this person need" — it's "what did I bet on, and did it pay off?"
 
 ---
 
@@ -140,23 +142,25 @@ If all four, the core loop holds.
 ## What Can Be Thin in Prototype
 - Art: flat illustration, warm palette, no animation needed
 - Sound: optional ambient (canal sounds, birds)
-- Route variety: fixed order, single weather state
+- Route variety: fixed order (route planning deferred to post-prototype)
+- Weather choice: fixed to sunshine (weather planning deferred to post-prototype)
 - Customer variety: 4 types, no randomization
 
 ## What Must Work in Prototype
 - Stock constraint must feel real
 - Customer reading must be legible but not obvious
 - Right/wrong suggestions must feel distinguishable
+- Planning layer — player forms expectations before seeing customers, then compares results
 - Emotional feedback on consequences must land
 
 ---
 
 ## Next Steps After Prototype
 If the prototype succeeds:
-- Expand to multiple routes and weather states
-- Add season progression
-- Add "boat decoration" layer as optional depth
-- Test whether the route planning mechanic adds or distracts
+- **Add weather choice** — player picks weather state before departure. Different weather changes which flowers feel right and which customers show up. Rain makes people want comfort flowers; sunshine brings celebration customers.
+- **Add route planning** — player chooses which stops to visit and in what order. Different routes have different customer profiles.
+- **Add season progression** — spring, summer, fall, winter each shift which flowers are available and which emotional needs are present.
+- Test whether weather and route planning add meaningful depth or just complexity.
 
 If the prototype fails:
 - Redesign the reading mechanic (maybe customers say what they need more directly)
