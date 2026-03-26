@@ -18,9 +18,9 @@
 | FB-P002 | Paper prototype test with target players | Sakura (QA) | FB-P001 | Y | Superseded — moving to next phase without formal player test. Bin confirmed 2026-03-26. |
 | FB-P003 | Prototype brief writeup (merged design + market) | Shig (Producer) | FB-P001, FB-P002 | Y | Completed |
 | FB-P004 | Digital prototype UX spec | Hideo (Design) | None | Y | Completed — `16b6e83` |
-| FB-P005 | Digital prototype dev (shell + state machine) | John (Dev) | FB-P004 (parallel) | Y | In Progress — shell started |
-| FB-P006 | Design review (spec + shell merge) | Hideo + John | FB-P004, FB-P005 | Y | Pending |
-| FB-P007 | Bin playtest | Bin | FB-P006 | Y | Pending |
+| FB-P005 | Digital prototype dev (shell + state machine) | John (Dev) | FB-P004 (parallel) | Y | Completed — `513e7e`, port 8766 |
+| FB-P006 | Design review (spec + shell merge) | Hideo + John | FB-P004, FB-P005 | Y | Completed — data bugs fixed |
+| FB-P007 | Bin playtest | Bin | FB-P006 | Y | In Progress — http://localhost:8766 |
 
 ## Notes
 
