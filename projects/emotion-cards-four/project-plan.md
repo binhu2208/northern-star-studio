@@ -37,7 +37,7 @@
 | PROD-003 | Review project critical path and update plan after first planning submissions | Shig (Producer) | PROD-001 | Y | Completed |
 | DEV-V1-003 | Implement BreakthroughManager: real condition evaluation against live encounter state, unlock conditions checked during resolution not at draw | John (Developer) | DEV-V1-002 | Y | Completed | |
 | DEV-V1-004 | Create vocabulary.ts with all canonical constants + startup validation pass | John (Developer) | DEV-V1-002 | Y | Completed | |
-| DEV-V1-005 | Implement encounter carry-forward with per-encounter rules, carry_forward effect type with encounter context, narrative flag hooks, reward choice UI support | John (Developer) | DEV-V1-003, DEV-V1-004 | Y | Pending |
+| DEV-V1-005 | Implement carry-forward with per-encounter rules, carry_forward effect type, narrative flag hooks, reward choice UI support | John (Developer) | DEV-V1-003, DEV-V1-004 | Y | Completed | |
 | DEV-V1-006 | Build RunSummaryGenerator: structured report from event log | John (Developer) | DEV-V1-003 | Y | Completed | |
 | DEV-V1-007 | Full UI integration: wire breakthrough/NAC/carry-forward to production UI, HUD refresh with NAC slot, save/resume stability pass | John (Developer) | DEV-V1-003, DEV-V1-004, DEV-V1-006, ART-V1-002 | Y | Pending |
 | DES-V1-003 | Encounter template review: verify 5 templates from DES-V1-002 translate correctly to implementation, outcome evaluation logic verification | Hideo (Designer) | DEV-V1-005 | Y | Pending |
