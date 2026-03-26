@@ -47,6 +47,14 @@ A player completes one session and can answer: "Did you feel like you were helpi
 If yes — the core loop works.
 If no — we redesign the reading mechanic before anything else.
 
+### Prototype Playtest Findings (Bin, 2026-03-26)
+✅ **Core loop confirmed:** No technical issues, run felt good.
+✅ **Planning layer confirmed:** Player formed expectations, made stock choices with intent.
+⚠️ **More flowers wanted:** 4 options feels limiting. Expand pool in next iteration.
+⚠️ **Weather association missing:** Bin flagged that flowers should be weather-contextual. Rain changes which flowers make sense — this is the disruption layer moving forward.
+
+**Implication:** Weather is no longer deferred. It moves to the next design phase as a core feature, not an optional layer.
+
 ---
 
 ## Core Mechanics
@@ -157,10 +165,11 @@ If all four, the core loop holds.
 
 ## Next Steps After Prototype
 If the prototype succeeds:
-- **Add weather choice** — player picks weather state before departure. Different weather changes which flowers feel right and which customers show up. Rain makes people want comfort flowers; sunshine brings celebration customers.
+- **Add flower variety** — expand from 4 to 6-8 flower types. More options = more interesting stock decisions.
+- **Weather as core feature** — weather is no longer deferred. Rain and sunshine each shift which flowers feel "right" for a given customer. This is the disruption layer and it's now a core requirement for the next iteration, not optional depth.
+- **Weather-flower association matrix** — define which flowers work best in which weather. Rain customers need different things; sunshine customers need different things.
 - **Add route planning** — player chooses which stops to visit and in what order. Different routes have different customer profiles.
-- **Add season progression** — spring, summer, fall, winter each shift which flowers are available and which emotional needs are present.
-- Test whether weather and route planning add meaningful depth or just complexity.
+- Test whether expanded flowers + weather association creates the planned-vs-disrupted tension Bin described.
 
 If the prototype fails:
 - Redesign the reading mechanic (maybe customers say what they need more directly)
