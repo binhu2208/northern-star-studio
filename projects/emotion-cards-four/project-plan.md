@@ -44,7 +44,7 @@
 | DES-V1-003a | v1 card pool review: verify 16-card starter deck covers all 5 encounters adequately | Hideo (Designer) | DES-V1-002 | N | Completed | |
 | DES-V1-004a | Card balance pass (design doc): 35-card review against DES-V1-002 taxonomy, runs parallel to DEV implementation | Hideo (Designer) | DES-V1-003, DES-V1-003a | N | Pending |
 | DES-V1-004b | Card balance pass (post-implementation): confirm balance holds against actual engine behavior, only if needed after DES-V1-004a findings | Hideo (Designer) | DEV-V1-005 | N | Pending |
-| ART-V1-002 | NAC component: Next-Action Cue with 4 states (active rec, neutral, no signal, locked), Calm Diagnostic style, HUD placement below state meters | Yoshi (Artist) | DEV-V1-007, Joint NAC Signal Spec with @John | Y | Pending |
+| ART-V1-002 | NAC component: Next-Action Cue with 4 states (active rec, neutral, no signal, locked), Calm Diagnostic style, HUD placement below state meters | Yoshi (Artist) | DEV-V1-007, Joint NAC Signal Spec with @John | Y | In Progress | |
 | ART-V1-003 | Card frame variant expansion: v1 frame families beyond prototype, portrait/emotion overlay system rollout | Yoshi (Artist) | ART-V1-002 | N | Pending |
 | ART-V1-004 | Icon library expansion: new keyword/encounter state icons, consistent shape-first system | Yoshi (Artist) | ART-V1-003 | N | Pending |
 | ART-V1-005 | HUD shell + tutorial UI: v1 HUD shell with NAC slot accommodation, first-session intro/tutorial on-ramp | Yoshi (Artist) | ART-V1-002 | Y | Pending |
