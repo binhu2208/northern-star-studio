@@ -181,6 +181,7 @@ function renderStockSelection() {
     const card = document.createElement('div')
     card.className = 'flower-card'
     card.dataset.flowerId = f.id
+    card.title = `${f.name}: ${f.association}`
     card.innerHTML = `<strong>${f.name}</strong><span class="flower-keyword">${f.keyword}${sunIcon}${rainIcon}</span><span class="flower-assoc">${f.association}</span>`
     card.addEventListener('click', () => toggleFlower(f.id))
     cardsRow.appendChild(card)
@@ -335,6 +336,7 @@ function renderEncounter() {
     btn.className = 'suggest-btn'
     btn.dataset.flowerId = fid
     btn.textContent = f.name
+    btn.title = `${f.name}: ${f.association}`
     btn.addEventListener('click', () => suggestFlower(fid))
     flowerRow.appendChild(btn)
   })

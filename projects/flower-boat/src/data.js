@@ -50,7 +50,7 @@ export const customers = [
   {
     id: 'hurry',
     stop: 'quiet_pier',
-    weather: 'sunshine',
+    weather: 'both',
     whatTheySay: '"I just need something quick. I\'m running late."',
     subtext: 'They feel guilty for not putting more thought into it.',
     cue: 'Checking their watch. Standing on one foot.',
@@ -66,7 +66,7 @@ export const customers = [
   {
     id: 'griever',
     stop: 'corner_house',
-    weather: 'rain',
+    weather: 'both',
     whatTheySay: '"I don\'t know what I\'m looking for. Just... something."',
     subtext: 'They are not really looking for flowers. They are looking for a reason to pause.',
     cue: 'Standing very still. Not scanning the display.',
