@@ -421,14 +421,6 @@ function suggestFlower(flowerId) {
     // Check affinity of suggested flower in this weather
     const f = flowers.find((fl) => fl.id === flowerId)
     const affinity = f ? f.affinities[state.selectedWeather] : 1
-    console.log('[DEBUG] suggestFlower:', {
-      suggested: flowerId,
-      weather: state.selectedWeather,
-      rightFlower: customer.weatherRightFlower,
-      flowerAffinities: f?.affinities,
-      affinity,
-      outcome: affinity === 3 ? 'rightLow' : 'wrong',
-    })
     if (affinity === 3) {
       // High affinity but not the primary — still "right" but weaker
       fit = 'rightLow'
