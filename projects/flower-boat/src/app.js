@@ -324,13 +324,8 @@ function renderPlanning() {
   const confirmBtn = document.createElement('button')
   confirmBtn.className = 'action-btn'
   confirmBtn.textContent = 'Set Sail with These Flowers'
-  confirmBtn.addEventListener('click', goToStockSelection)
+  confirmBtn.addEventListener('click', startEncounters)
   el('screen-content').appendChild(confirmBtn)
-}
-
-function goToStockSelection() {
-  state.phase = PHASES.STOCK_SELECTION
-  renderStockSelection()
 }
 
 function startEncounters() {
