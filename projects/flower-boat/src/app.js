@@ -7,8 +7,9 @@ import { flowers, routes, weather, stopDescriptions, customers } from './data.js
 
 const PHASES = Object.freeze({
   DEPARTURE:      'departure',
-  STOCK_SELECTION:'stock_selection',
   ROUTE_MAP:      'route_map',
+  PLANNING:       'planning',
+  STOCK_SELECTION:'stock_selection',
   ENCOUNTER:      'encounter',
   END_SUMMARY:    'end_summary',
 })
@@ -18,6 +19,7 @@ const state = {
   selectedWeather: null,
   selectedRoute:  null,
   stock:          [],          // array of flower ids (max 3)
+  plannedExpectations: {},     // stopId → customerId expected
   currentStop:    0,           // 0-3 index into route.stops
   encounterState: 'reading',   // 'reading' | 'outcome'
   selectedFlower: null,        // flower id chosen this encounter
@@ -280,9 +282,55 @@ function renderRouteMap() {
 
   const beginBtn = document.createElement('button')
   beginBtn.className = 'action-btn'
-  beginBtn.textContent = 'Begin Run'
-  beginBtn.addEventListener('click', startEncounters)
+  beginBtn.textContent = 'Plan Your Run'
+  beginBtn.addEventListener('click', goToPlanning)
   el('screen-content').appendChild(beginBtn)
+}
+
+function goToPlanning() {
+  state.phase = PHASES.PLANNING
+  state.plannedExpectations = {}
+  renderPlanning()
+}
+
+function renderPlanning() {
+  clear('screen-content')
+
+  const h2 = document.createElement('h2')
+  h2.textContent = 'Before You Sail'
+  el('screen-content').appendChild(h2)
+
+  const p = document.createElement('p')
+  p.className = 'section-label'
+  p.textContent = 'What do you expect at each stop? (optional — write it down, then confirm)'
+  el('screen-content').appendChild(p)
+
+  currentRoute.stops.forEach((stopId) => {
+    const row = document.createElement('div')
+    row.className = 'plan-row'
+    row.innerHTML = `<span class="plan-stop">${getStopName(stopId)}</span>`
+    const input = document.createElement('input')
+    input.type = 'text'
+    input.className = 'plan-input'
+    input.placeholder = 'who do you expect?'
+    input.dataset.stopId = stopId
+    input.addEventListener('input', (e) => {
+      state.plannedExpectations[e.target.dataset.stopId] = e.target.value
+    })
+    row.appendChild(input)
+    el('screen-content').appendChild(row)
+  })
+
+  const confirmBtn = document.createElement('button')
+  confirmBtn.className = 'action-btn'
+  confirmBtn.textContent = 'Set Sail with These Flowers'
+  confirmBtn.addEventListener('click', goToStockSelection)
+  el('screen-content').appendChild(confirmBtn)
+}
+
+function goToStockSelection() {
+  state.phase = PHASES.STOCK_SELECTION
+  renderStockSelection()
 }
 
 function startEncounters() {
@@ -373,6 +421,14 @@ function suggestFlower(flowerId) {
     // Check affinity of suggested flower in this weather
     const f = flowers.find((fl) => fl.id === flowerId)
     const affinity = f ? f.affinities[state.selectedWeather] : 1
+    console.log('[DEBUG] suggestFlower:', {
+      suggested: flowerId,
+      weather: state.selectedWeather,
+      rightFlower: customer.weatherRightFlower,
+      flowerAffinities: f?.affinities,
+      affinity,
+      outcome: affinity === 3 ? 'rightLow' : 'wrong',
+    })
     if (affinity === 3) {
       // High affinity but not the primary — still "right" but weaker
       fit = 'rightLow'
@@ -457,6 +513,7 @@ function renderEndSummary() {
   againBtn.textContent = 'Play Again (same route)'
   againBtn.addEventListener('click', () => {
     state.stock = []
+    state.plannedExpectations = {}
     state.currentStop = 0
     state.encounterIndex = 1
     state.outcomes = []
@@ -472,6 +529,7 @@ function renderEndSummary() {
     state.selectedWeather = null
     state.selectedRoute = null
     state.stock = []
+    state.plannedExpectations = {}
     state.currentStop = 0
     state.encounterIndex = 1
     state.outcomes = []
@@ -489,10 +547,11 @@ function renderEndSummary() {
 function render() {
   switch (state.phase) {
     case PHASES.DEPARTURE:       renderDeparture();       break
-    case PHASES.STOCK_SELECTION: renderStockSelection();  break
     case PHASES.ROUTE_MAP:       renderRouteMap();        break
-    case PHASES.ENCOUNTER:       renderEncounter();       break
-    case PHASES.END_SUMMARY:     renderEndSummary();      break
+    case PHASES.PLANNING:        renderPlanning();         break
+    case PHASES.STOCK_SELECTION: renderStockSelection();   break
+    case PHASES.ENCOUNTER:       renderEncounter();        break
+    case PHASES.END_SUMMARY:     renderEndSummary();       break
   }
 }
 
