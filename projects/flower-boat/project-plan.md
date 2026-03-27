@@ -23,7 +23,8 @@
 | FB-P007 | Bin playtest | Bin | FB-P006 | Y | Completed — clean run, no P0 bugs |
 | FB-P008 | Weather-affinity mechanic: spec + implement | Hideo (Design) + John (Dev) | FB-P007 | Y | Completed — `a6f732b`, port 8766 |
 | FB-P009 | Expand flower pool (4 → 7) | Hideo (Design) + John (Dev) | FB-P007 | Y | Completed — `d808efb`, 7 flowers live |
-| FB-P010 | Fix weather mechanic legibility + add planning step | John (Dev) | FB-P009 | Y | Completed — `3debc57` |
+| FB-P010 | Fix weather mechanic legibility + add planning step | John (Dev) | FB-P009 | Y | Completed — `6025aec` |
+| FB-D001 | Internal QA recheck (navigation + weather + planning) | Sakura (QA) | FB-P010 | Y | Completed — `360b868` |
 
 ## Notes
 
