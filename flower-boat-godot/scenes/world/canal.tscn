@@ -1,14 +1,17 @@
 [gd_scene format=3 uid="uid://canal_scene"]
 
 [ext_resource type="Script" path="res://scripts/water_shimmer.gd" id="1_water"]
-[ext_resource type="Texture2D" uid="uid://cozy_grass_1" path="res://sprites/cozy_mapped/grass_Slice 1.png" id="2_grass"]
-[ext_resource type="Texture2D" uid="uid://cozy_path_1" path="res://sprites/cozy_mapped/path_Slice 1.png" id="3_path"]
+[ext_resource type="Texture2D" path="res://sprites/environment/sky_sunny.png" id="2_sky_sunny"]
+[ext_resource type="Texture2D" path="res://sprites/environment/sky_rain.png" id="3_sky_rain"]
+[ext_resource type="Texture2D" path="res://sprites/environment/sky_fog.png" id="4_sky_fog"]
+[ext_resource type="Texture2D" path="res://sprites/environment/sky_golden.png" id="5_sky_golden"]
 
 [node name="CanalScene" type="Node2D"]
 
-# Sky layer — full width gradient
-[node name="Sky" type="Sprite2D" parent="."]
-position = Vector2(640, 180)
+# Sky background — 1280x720 canvas, 4 weather variants
+[node name="SkyLayer" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+texture = ExtResource("2_sky_sunny")
 z_index = -10
 
 # Water layer — shimmer effect behind canal
