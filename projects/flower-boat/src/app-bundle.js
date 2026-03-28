@@ -8,9 +8,9 @@ const flowers = [
   { id: 'lavender', name: 'Lavender', affinities: { sunshine: 2, rain: 4 } },
   { id: 'wildflower', name: 'Wildflower', affinities: { sunshine: 3, rain: 3 } },
   { id: 'whitelily', name: 'White Lily', affinities: { sunshine: 2, rain: 4 } },
-  { id: 'rose', name: 'Rose', affinities: { sunshine: 4, rain: 2 } },
-  { id: 'chrysanthemum', name: 'Chrysanthemum', affinities: { sunshine: 3, rain: 3 } },
-  { id: 'freesia', name: 'Freesia', affinities: { sunshine: 4, rain: 2 } },
+  { id: 'rose', name: 'Rose', affinities: { sunshine: 2, rain: 2 } },
+  { id: 'chrysanthemum', name: 'Chrysanthemum', affinities: { sunshine: 2, rain: 2 } },
+  { id: 'freesia', name: 'Freesia', affinities: { sunshine: 2, rain: 1 } },
 ]
 
 const weather = [
