@@ -2,7 +2,7 @@
 
 ## Project Overview
 - **Project:** Flower Boat
-- **Status:** Pre-production — core loop validated, moving to polish phase
+- **Status:** Pre-production — polish phase in progress
 - **Concept brief:** Gabe (Market) + Hideo (Design) approved by Bin 2026-03-26
 
 ## Project Overview
@@ -28,7 +28,7 @@
 | FB-P011 | Visual direction doc | Yoshi (Art) | None | Y | Completed — `2a81dd6`, visual-direction.md |
 | FB-P012 | UI polish against visual direction | John (Dev) | FB-P011 | Y | In Progress |
 | FB-P013 | React architecture proposal | Abec | None | Y | Pending |
-| FB-P014 | Player testing (1-3 informal sessions) | Sakura + Bin | FB-P011, FB-P012 | Y | Pending — Bin must recruit players |
+| FB-P014 | Player testing (1-3 informal sessions) | Sakura + Bin | FB-P011, FB-P012 | Y | Superseded — Bin confirmed skip at this stage |
 | FB-P015 | Content expansion roadmap | Hideo (Design) | None | Y | Completed — `265c1c0`, content-expansion-roadmap.md |
 
 ## Notes
@@ -40,7 +40,7 @@
 - Visual direction locked: flat illustration, Unpacking meets A Short Hike, warm natural palette — `2a81dd6`
 - Content expansion roadmap: flower pool, routes, customers, weather, seasons all specced — `265c1c0`
 - Sequence: Visual direction → UI polish → player testing → content expansion
-- Player testing blocked: only Bin can recruit external players
+- Player testing deferred — Bin confirmed skip at this stage
 - Abec joining as React consultant — proposal pending
 
 ## Validation Approach (Gabe)
