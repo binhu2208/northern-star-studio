@@ -56,6 +56,24 @@ Curated stock asset sources for Flower Boat. Based on the art pipeline spec — 
 
 ---
 
+## Specific Asset Sources (from John)
+
+### itch.io
+- `https://itch.io/game-assets/tag-gardening` — "FREE Pixel Art Flower Pack" + garden packs
+- `https://itch.io/game-assets/tag-flower` — "Garden & Flower Icons" (290+ sprites)
+- `https://itch.io/game-assets/free/tag-plants` — Tiny Ranch Asset Pack, flower sprites
+
+### OpenGameArt
+- `https://opengameart.org/content/cozy-asset-pack-10` — specifically "cozy and cute game" assets (2023, free/personal use)
+- `https://opengameart.org/content/flowers` — 78 pixel art plants, modular, db32 palette
+
+**Evaluation checklist for all candidates:**
+- [ ] Flower sprites identifiable at 64×64?
+- [ ] Warm, natural colors matching palette (canal blues, honey wood, sage greens)?
+- [ ] Customer/character sprites silhouette-friendly (no facial detail)?
+
+---
+
 ## Asset Store Giants (broader search)
 
 ### 7. itch.io — Free 2D Game Assets Thread
