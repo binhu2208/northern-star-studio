@@ -93,9 +93,11 @@ flower-boat-godot/sprites/
 
 ### Frame Layout (per sprite sheet)
 ```
-[Idle] [Shift] [React+] [React-]
+[Idle] [React+] [React-]
 ```
-Each frame: 128×128 px (2x), arranged horizontally.
+Each frame: 128×128 px (2x), arranged horizontally. 3 frames per customer (confirmed with John: no shift/walk frame needed).
+
+**Total sprite size per customer:** 384×128 px (2x)
 
 ---
 
