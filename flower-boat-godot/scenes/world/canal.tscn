@@ -1,33 +1,61 @@
 [gd_scene format=3 uid="uid://canal_scene"]
 
+[ext_resource type="Script" path="res://scripts/water_shimmer.gd" id="1_water"]
+[ext_resource type="Texture2D" uid="uid://cozy_grass_1" path="res://sprites/cozy_mapped/grass_Slice 1.png" id="2_grass"]
+[ext_resource type="Texture2D" uid="uid://cozy_path_1" path="res://sprites/cozy_mapped/path_Slice 1.png" id="3_path"]
+
 [node name="CanalScene" type="Node2D"]
 
+# Sky layer — full width gradient
 [node name="Sky" type="Sprite2D" parent="."]
 position = Vector2(640, 180)
-texture = ExtResource("res://sprites/environment/sky_sunny.png")
+z_index = -10
 
-[node name="Water" type="Sprite2D" parent="."]
-position = Vector2(640, 480)
-texture = ExtResource("res://sprites/environment/water_sunny.png")
+# Water layer — shimmer effect behind canal
+[node name="WaterShimmer" type="Node2D" parent="."]
+z_index = -5
+script = ExtResource("1_water")
 
+# Canal banks — left and right edges (placeholder colored rectangles)
+[node name="BankLeft" type="Sprite2D" parent="."]
+position = Vector2(80, 400)
+modulate = Color(0.55, 0.5, 0.4, 1.0)
+
+[node name="BankRight" type="Sprite2D" parent="."]
+position = Vector2(1200, 400)
+modulate = Color(0.55, 0.5, 0.4, 1.0)
+
+# Ground tiles — TileMap for canal path/grass area
+[node name="GroundTiles" type="TileMap" parent="."]
+format = 2
+layer_0/tile_data = PackedInt32Array()
+
+# Boat — player controlled element
 [node name="Boat" type="Sprite2D" parent="."]
 position = Vector2(200, 400)
-texture = ExtResource("res://sprites/boat/boat_body.png")
+z_index = 5
 
-[node name="DockMarker1" type="Sprite2D" parent="."]
+# Dock markers — 4 stops along the canal
+[node name="Docks" type="Node2D" parent="."]
+z_index = 10
+
+[node name="Dock1" type="Marker2D" parent="Docks"]
 position = Vector2(400, 450)
-texture = ExtResource("res://sprites/environment/sky_sunny.png")
 
-[node name="DockMarker2" type="Sprite2D" parent="."]
+[node name="Dock2" type="Marker2D" parent="Docks"]
 position = Vector2(600, 450)
-texture = ExtResource("res://sprites/environment/sky_sunny.png")
 
-[node name="DockMarker3" type="Sprite2D" parent="."]
+[node name="Dock3" type="Marker2D" parent="Docks"]
 position = Vector2(800, 450)
-texture = ExtResource("res://sprites/environment/sky_sunny.png")
 
-[node name="DockMarker4" type="Sprite2D" parent="."]
+[node name="Dock4" type="Marker2D" parent="Docks"]
 position = Vector2(1000, 450)
-texture = ExtResource("res://sprites/environment/sky_sunny.png")
 
+# Customer spawn point — appears at current dock
+[node name="CustomerSpawn" type="Marker2D" parent="."]
+position = Vector2(400, 350)
+visible = false
+
+# UI overlay — card encounters and menus
 [node name="UI" type="CanvasLayer" parent="."]
+layer = 100

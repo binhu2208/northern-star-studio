@@ -1,0 +1,9 @@
+[gd_scene format=3]
+
+[resource]
+resource_name = "Cozy Garden Tiles"
+texture_proposals = []
+runtime_uuid = "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+
+# TileSet configuration for Cozy Asset Pack 16x16 tiles
+# Organized by terrain type
