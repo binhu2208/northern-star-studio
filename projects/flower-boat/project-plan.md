@@ -38,6 +38,7 @@
 - Bin feedback: flowers need weather associations, more variety needed
 - Weather mechanic promoted from deferred → core feature
 - Visual direction locked: flat illustration, Unpacking meets A Short Hike, warm natural palette — `2a81dd6`
+- Content expansion roadmap: flower pool, routes, customers, weather, seasons all specced — `265c1c0`
 - Sequence: Visual direction → UI polish → player testing → content expansion
 - Player testing blocked: only Bin can recruit external players
 - Abec joining as React consultant — proposal pending
