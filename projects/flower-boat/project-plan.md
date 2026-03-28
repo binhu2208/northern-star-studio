@@ -2,7 +2,7 @@
 
 ## Project Overview
 - **Project:** Flower Boat
-- **Status:** Pre-production — core loop validated, building weather mechanic
+- **Status:** Pre-production — core loop validated, moving to polish phase
 - **Concept brief:** Gabe (Market) + Hideo (Design) approved by Bin 2026-03-26
 
 ## Project Overview
@@ -25,6 +25,10 @@
 | FB-P009 | Expand flower pool (4 → 7) | Hideo (Design) + John (Dev) | FB-P007 | Y | Completed — `d808efb`, 7 flowers live |
 | FB-P010 | Fix weather mechanic legibility + add planning step | John (Dev) | FB-P009 | Y | Completed — `6025aec` |
 | FB-D001 | Internal QA recheck (navigation + weather + planning) | Sakura (QA) | FB-P010 | Y | Completed — `360b868` |
+| FB-P011 | Visual direction doc | Yoshi (Art) | None | Y | Completed — `2a81dd6`, visual-direction.md |
+| FB-P012 | UI polish against visual direction | John (Dev) | FB-P011 | Y | In Progress |
+| FB-P013 | React architecture proposal | Abec | None | Y | Pending |
+| FB-P014 | Player testing (1-3 informal sessions) | Sakura + Bin | FB-P011, FB-P012 | Y | Pending — Bin must recruit players |
 
 ## Notes
 
@@ -32,8 +36,10 @@
 - Core loop confirmed working — Bin's playtest: clean run, no P0 bugs
 - Bin feedback: flowers need weather associations, more variety needed
 - Weather mechanic promoted from deferred → core feature
-- Design brief updated: `60cbbd7`
-- Prototype URL: http://localhost:8766 (port 8766)
+- Visual direction locked: flat illustration, Unpacking meets A Short Hike, warm natural palette — `2a81dd6`
+- Sequence: Visual direction → UI polish → player testing → content expansion
+- Player testing blocked: only Bin can recruit external players
+- Abec joining as React consultant — proposal pending
 
 ## Validation Approach (Gabe)
 
