@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://canal_scene"]
+
+[node name="CanalScene" type="Node2D"]
+
+[node name="Sky" type="Sprite2D" parent="."]
+position = Vector2(640, 180)
+texture = ExtResource("res://sprites/environment/sky_sunny.png")
+
+[node name="Water" type="Sprite2D" parent="."]
+position = Vector2(640, 480)
+texture = ExtResource("res://sprites/environment/water_sunny.png")
+
+[node name="Boat" type="Sprite2D" parent="."]
+position = Vector2(200, 400)
+texture = ExtResource("res://sprites/boat/boat_body.png")
+
+[node name="DockMarker1" type="Sprite2D" parent="."]
+position = Vector2(400, 450)
+texture = ExtResource("res://sprites/environment/sky_sunny.png")
+
+[node name="DockMarker2" type="Sprite2D" parent="."]
+position = Vector2(600, 450)
+texture = ExtResource("res://sprites/environment/sky_sunny.png")
+
+[node name="DockMarker3" type="Sprite2D" parent="."]
+position = Vector2(800, 450)
+texture = ExtResource("res://sprites/environment/sky_sunny.png")
+
+[node name="DockMarker4" type="Sprite2D" parent="."]
+position = Vector2(1000, 450)
+texture = ExtResource("res://sprites/environment/sky_sunny.png")
+
+[node name="UI" type="CanvasLayer" parent="."]

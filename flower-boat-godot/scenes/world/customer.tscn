@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://customer_sprite"]
+
+[node name="CustomerSprite" type="AnimatedSprite2D"]
+
+[node name="PositionMarker" type="Marker2D" parent="."]
+position = Vector2(640, 400)
