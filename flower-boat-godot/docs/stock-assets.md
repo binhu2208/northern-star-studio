@@ -106,11 +106,34 @@ If stock assets don't meet the quality bar, commissioning an illustrator is the 
 
 ---
 
+## Updated Assessment (2026-03-28)
+
+**Confirmed ready to download:**
+- **Kenney Garden Assets** — CC0, Godot-compatible, covers flowers/plants/environment. John recommends, Bin approved. Download immediately.
+
+**Still needs sourcing:**
+
+### Customer Silhouettes
+- LPC (Liberated Pixel Cup) character sprites on OpenGameArt — CC-BY-SA — could be recolored/reworked into silhouettes
+- Alternatively: commission a single sprite sheet (8 silhouettes, 4 frames each = relatively small job)
+- **Recommended:** Try LPC base sprites first, if quality doesn't match bar, commission
+
+### Boat Sprite
+- Harder to find as stock — boat designs are specific
+- **Recommended:** Commission single illustration — boat_body.png is one sprite
+
+### Weather Sky Panels
+- Just gradient backgrounds — could be made from hex values or found in any sky/background pack
+- **Recommended:** Produce in-house using gradient tools — no illustration needed
+
+---
+
 ## Recommendation
 
-1. **Search itch.io directly** for "cozy flower game sprites" — filter by price (free first, then paid)
-2. **Evaluate Pale Tale and LimeZu** as priority candidates — they have the right aesthetic direction
-3. **If stock fails**, budget for 1-2 commissioned pieces as proof-of-concept before full commission
+**Priority order:**
+1. Download Kenney Garden Assets NOW — covers flowers and environment
+2. Search LPC sprites for customer base — evaluate against silhouette spec
+3. Commission boat sprite and remaining customer silhouettes if LPC doesn't fit
 
 **Quality bar reminder:** Flowers must look genuinely good (not generic), boat must have character. Most stock assets will fail this bar — don't force a fit just to have something.
 
