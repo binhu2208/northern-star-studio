@@ -1,6 +1,19 @@
-[gd_scene format=3 uid="uid://customer_sprite"]
+[gd_scene format=3 uid="uid://customer_scene"]
 
-[node name="CustomerSprite" type="AnimatedSprite2D"]
+[node name="Customer" type="Node2D"]
 
-[node name="PositionMarker" type="Marker2D" parent="."]
-position = Vector2(640, 400)
+[node name="Body" type="Sprite2D" parent="."]
+position = Vector2(0, 0)
+
+[node name="Animation" type="AnimationPlayer" parent="."]
+
+[node name="ReactionPlayer" type="AnimationPlayer" parent="."]
+
+[node name="DialogueBubble" type="Sprite2D" parent="."]
+position = Vector2(40, -60)
+visible = false
+
+[node name="ReactionFlash" type="Sprite2D" parent="."]
+position = Vector2(0, -10)
+visible = false
+modulate = Color(1.0, 1.0, 0.8, 1.0)

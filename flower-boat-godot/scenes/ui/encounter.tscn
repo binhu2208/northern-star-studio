@@ -1,43 +1,66 @@
-[gd_scene format=3 uid="uid://encounter"]
+[gd_scene format=3 uid="uid://encounter_ui"]
 
-[node name="Encounter" type="CanvasLayer"]
+[ext_resource type="Script" path="res://scripts/encounter_system.gd" id="1_encounter"]
 
-[node name="VBox" type="VBoxContainer" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
+[node name="EncounterUI" type="CanvasLayer"]
+layer = 50
+script = ExtResource("1_encounter")
+
+[node name="BackgroundFade" type="ColorRect" parent="."]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0.0, 0.0, 0.0, 0.0)
+
+[node name="WeatherBackground" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+z_index = -1
+
+[node name="CustomerAnchor" type="Marker2D" parent="."]
+position = Vector2(640, 400)
+
+[node name="CardDisplay" type="VBoxContainer" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-alignment = 1
+offset_left = -150.0
+offset_top = -250.0
+offset_right = 150.0
+offset_bottom = -50.0
 
-[node name="EncounterHeader" type="HBoxContainer" parent="VBox"]
+[node name="FlowerCard" type="TextureRect" parent="CardDisplay"]
+custom_minimum_size = Vector2(100, 120)
+layout_mode = 2
 
-[node name="StopLabel" type="Label" parent="VBox/EncounterHeader"]
-text = "Stop 1"
-
-[node name="WeatherLabel" type="Label" parent="VBox/EncounterHeader"]
-text = "☀️"
-
-[node name="StopDesc" type="Label" parent="VBox"]
-text = "A quiet bend where the water narrows."
+[node name="ReactionLabel" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -200.0
+offset_right = 200.0
+offset_bottom = -150.0
+text = "?"
 horizontal_alignment = 1
 
-[node name="CustomerCard" type="PanelContainer" parent="VBox"]
-custom_minimum_size = Vector2(300, 180)
-
-[node name="CustomerName" type="Label" parent="VBox/CustomerCard"]
-text = "The Hurry"
-
-[node name="CustomerQuote" type="Label" parent="VBox/CustomerCard"]
-text = "\"I just need something quick.\""
+[node name="ResultLabel" type="Label" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -100.0
+offset_right = 200.0
+offset_bottom = -50.0
+text = " "
 horizontal_alignment = 1
 
-[node name="FlowerGrid" type="GridContainer" parent="VBox"]
-columns = 3
-
-[node name="NavRow" type="HBoxContainer" parent="VBox"]
-alignment = 1
-
-[node name="PrevBtn" type="Button" parent="VBox/NavRow"]
-text = "← Previous"
-
-[node name="NextBtn" type="Button" parent="VBox/NavRow"]
-text = "Next →"
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
