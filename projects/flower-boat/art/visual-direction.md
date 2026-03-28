@@ -175,7 +175,30 @@ These can be produced as a reference package for John to implement against.
 
 ---
 
-## 11. Summary
+## 11. Illustration Quality Bar
+
+Bin has set a clear bar: **flowers must look genuinely good, not generic. The boat must have character, not just be serviceable.**
+
+**Flowers:**
+- Each flower type must look like a specific, identifiable flower — not a generic colored blob
+- Petal shapes, leaf structure, stem character all need to be correct enough to feel real
+- Flowers should look *fresh* — not dried, not wilted, not clip-art flat
+- Color accuracy matters: lavender is purple-lilac, not just "any purple"
+
+**Boat:**
+- Worn wood with character — grain visible, paint history, signs of use
+- Not a generic brown rectangle — should feel like a boat someone maintains with care
+- Hand-painted signage feel for the flower shop branding
+- Scale and proportion should feel real — you could picture yourself standing on it
+
+**Overall:**
+- If it looks like it came from a free asset pack, it's not good enough
+- The bar is: "I want to look at this flower" — not "I can tell what flower it's supposed to be"
+- Fresh and warm, not sterile or generic
+
+---
+
+## 12. Summary
 
 Flower Boat is a **warm, quiet, observational game**. The visual direction should feel like:
 - Unpacking meets A Short Hike
@@ -183,3 +206,5 @@ Flower Boat is a **warm, quiet, observational game**. The visual direction shoul
 - The satisfaction of noticing something about someone
 
 The colors are warm and natural. The shapes are simple but intentional. The motion is gentle. The players should feel calm, not stimulated.
+
+**Non-negotiable bar:** flowers look genuinely good, boat has character. Everything serves that standard.
