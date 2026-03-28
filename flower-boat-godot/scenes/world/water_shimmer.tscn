@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://water_shimmer"]
+
+[node name="WaterShimmer" type="AnimatedSprite2D"]
+
+# Frames: 4-frame shimmer cycle for canal water
+# Generated programmatically from the base water color
+# Speed: ~0.5 seconds per frame = gentle, unhurried
+sprite_frames = SubResource("WaterShimmerFrames")
+
+[sub_resource type="SpriteFrames" id="WaterShimmerFrames"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"shimmer"
+}]
+
+animation = &"shimmer"
+frame_progress = 0.0
+speed_scale = 0.5

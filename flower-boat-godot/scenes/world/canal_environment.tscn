@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://canal"]
+
+[node name="CanalEnvironment" type="Node2D"]
+position = Vector2(0, 0)
+
+# Sky background — full width gradient panel
+[node name="SkyLayer" type="Sprite2D" parent="."]
+position = Vector2(640, 180)
+z_index = -10
+
+[node name="WaterLayer" type="Node2D" parent="."]
+z_index = -5
+
+[node name="WaterTile1" type="Sprite2D" parent="WaterLayer"]
+position = Vector2(320, 400)
+texture_repeat = 2
+
+[node name="WaterTile2" type="Sprite2D" parent="WaterLayer"]
+position = Vector2(960, 400)
+texture_repeat = 2
+
+# Canal banks — left and right edges
+[node name="BankLeft" type="Sprite2D" parent="."]
+position = Vector2(80, 400)
+modulate = Color(0.55, 0.5, 0.4, 1.0)  # warm brown bank
+
+[node name="BankRight" type="Sprite2D" parent="."]
+position = Vector2(1200, 400)
+modulate = Color(0.55, 0.5, 0.4, 1.0)
+
+# Boat — player controlled element
+[node name="Boat" type="Sprite2D" parent="."]
+position = Vector2(200, 400)
+z_index = 5
+
+# Dock markers — 4 stops along the canal
+[node name="Docks" type="Node2D" parent="."]
+z_index = 10
+
+[node name="Dock1" type="Marker2D" parent="Docks"]
+position = Vector2(400, 450)
+
+[node name="Dock2" type="Marker2D" parent="Docks"]
+position = Vector2(600, 450)
+
+[node name="Dock3" type="Marker2D" parent="Docks"]
+position = Vector2(800, 450)
+
+[node name="Dock4" type="Marker2D" parent="Docks"]
+position = Vector2(1000, 450)
+
+# Customer spawn point — appears at current dock
+[node name="CustomerSpawn" type="Marker2D" parent="."]
+position = Vector2(400, 350)
+visible = false
+
+# UI overlay — card encounters and menus
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 100
