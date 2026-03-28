@@ -1,32 +1,61 @@
 /* Flower Boat — Digital Prototype Styles */
-/* Calm, warm, unhurried — based on visual-direction.md */
+/* Based on: visual-direction.md + color-swatches.md + sample-card-mockups.md */
 
 :root {
-  /* Palette — warm natural tones (per Yoshi's visual-direction.md) */
-  --bg: #f7f3ec;                 /* soft cream / morning warmth */
-  --surface: #fffdf8;             /* card backgrounds */
-  --border: #e0d9cc;              /* muted dividers */
-  --text: #3a3228;                /* deep warm charcoal — not pure black */
-  --text-muted: #8a7d6e;          /* warm gray for secondary text */
-  --canal-water: #7a9ea8;         /* dusty canal blue-green */
-  --boat-wood: #c49a6c;          /* warm honey brown / teak */
-  --foliage: #8a9e7a;            /* sage green */
-  --flower-coral: #d4786a;       /* warm coral accent */
-  --flower-rose: #c47a8a;        /* dusty rose */
-  --flower-gold: #d4a84a;        /* soft gold */
-  --ui-terracotta: #b87060;      /* faded terracotta for UI accents */
-  /* Functional colors */
-  --accent: #b87060;             /* terracotta — UI anchoring color */
-  --accent-warm: #d4896a;        /* warm coral */
-  --accent-cool: #7a9ea8;        /* dusty blue-green */
+  /* Canal Water — muted grey-green */
+  --color-water-base: #8FA8A8;
+  --color-water-light: #A8BDBD;
+  --color-water-deep: #6B8484;
+
+  /* Sky / Atmosphere — warm cream to honey */
+  --color-sky-soft: #F5EDE0;
+  --color-honey: #F0DFC0;
+  --color-golden: #E8C890;
+
+  /* Wood — boat surfaces */
+  --color-wood: #A88B70;
+  --color-wood-dark: #7A6350;
+  --color-wood-light: #D4C4A8;
+
+  /* UI / Text — warm neutrals, never pure black */
+  --color-text-primary: #3A3028;
+  --color-text-secondary: #5C5048;
+  --color-surface: #FAF6F0;
+  --color-divider: #E8E0D4;
+  --color-bg: #F5EDE0;
+
+  /* Flowers — vibrant but warm */
+  --color-sunflower: #E8B830;
+  --color-lavender: #B890C0;
+  --color-wildflower: #D8A8C8;
+  --color-lily: #F0E8E0;
+  --color-rose: #D87880;
+  --color-chrysanthemum: #E0A830;
+  --color-freesia: #F0D040;
+
+  /* Functional aliases (for backward compat) */
+  --bg: var(--color-bg);
+  --surface: var(--color-surface);
+  --border: var(--color-divider);
+  --text: var(--color-text-primary);
+  --text-muted: var(--color-text-secondary);
+
+  /* Fit outcome colors */
+  --outcome-right: #7a9e7a;
+  --outcome-literal: #9e8a6a;
+  --outcome-wrong: #a87a6a;
+
+  /* Accent — UI anchoring (terracotta) */
+  --accent: #b87060;
+  --accent-warm: #d4896a;
+  --accent-cool: #8FA8A8;
   --slot-glow: rgba(184, 112, 96, 0.2);
-  --outcome-right: #7a9e7a;      /* sage green — good fit */
-  --outcome-literal: #9e8a6a;    /* warm brown — neutral */
-  --outcome-wrong: #a87a6a;      /* muted rust — poor fit */
-  --shadow: 0 2px 12px rgba(58, 50, 40, 0.08);
-  --radius: 12px;
-  --radius-sm: 8px;
-  /* Motion — gentle, slow (Yoshi: "slow fades, not snappy") */
+
+  /* Motion — gentle (Yoshi spec: 400-600ms ease) */
+  --shadow: 0 2px 8px rgba(58,48,40,0.12);
+  --shadow-card: 0 2px 8px rgba(58,48,40,0.12);
+  --radius: 8px;
+  --radius-sm: 6px;
   --transition: 0.4s ease;
   --transition-slow: 0.6s ease;
 }
@@ -34,8 +63,8 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  background: var(--bg);
-  color: var(--text);
+  background: var(--color-bg);
+  color: var(--color-text-primary);
   font-family: 'Source Sans Pro', 'Helvetica Neue', sans-serif;
   min-height: 100vh;
   display: flex;
@@ -45,10 +74,10 @@ body {
 }
 
 #app {
-  background: var(--surface);
-  border: 1px solid var(--border);
+  background: var(--color-surface);
+  border: 1px solid var(--color-divider);
   border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow-card);
   width: 100%;
   max-width: 680px;
   min-height: 520px;
@@ -61,10 +90,10 @@ body {
 /* ─── Typography ─────────────────────────────────────────────────────────── */
 
 h2 {
-  font-family: 'Fraunces', Georgia, serif;
+  font-family: 'Playfair Display', Georgia, serif;
   font-size: 1.5rem;
-  font-weight: normal;
-  color: var(--text);
+  font-weight: 600;
+  color: var(--color-text-primary);
   letter-spacing: 0.02em;
 }
 
@@ -72,7 +101,7 @@ h2 {
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: var(--text-muted);
+  color: var(--color-text-secondary);
   margin-bottom: 0.5rem;
 }
 
@@ -87,13 +116,13 @@ h2 {
 .choice-btn {
   flex: 1;
   min-width: 140px;
-  background: var(--surface);
-  border: 1.5px solid var(--border);
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-divider);
   border-radius: var(--radius);
   padding: 1rem;
   cursor: pointer;
   text-align: left;
-  color: var(--text);
+  color: var(--color-text-primary);
   transition: border-color var(--transition), background var(--transition), box-shadow var(--transition);
   display: flex;
   flex-direction: column;
