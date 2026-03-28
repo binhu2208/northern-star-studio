@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://summary"]
+
+[node name="Summary" type="CanvasLayer"]
+
+[node name="VBox" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+
+[node name="Label" type="Label" parent="VBox"]
+text = "Journey Complete"
+horizontal_alignment = 1
+
+[node name="OutcomesList" type="VBoxContainer" parent="VBox"]
+alignment = 1
+
+[node name="Btns" type="HBoxContainer" parent="VBox"]
+alignment = 1
+
+[node name="AgainBtn" type="Button" parent="VBox/Btns"]
+text = "Sail Again"
+
+[node name="MenuBtn" type="Button" parent="VBox/Btns"]
+text = "Main Menu"

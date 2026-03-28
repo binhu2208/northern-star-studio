@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://route_map"]
+
+[node name="RouteMap" type="CanvasLayer"]
+
+[node name="VBox" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+
+[node name="Label" type="Label" parent="VBox"]
+text = "Morning Route"
+horizontal_alignment = 1
+
+[node name="RouteList" type="VBoxContainer" parent="VBox"]
+alignment = 1
+
+[node name="SailBtn" type="Button" parent="VBox"]
+text = "Set Sail"

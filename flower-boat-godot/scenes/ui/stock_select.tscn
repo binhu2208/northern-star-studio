@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://stock_select"]
+
+[node name="StockSelect" type="CanvasLayer"]
+
+[node name="VBox" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+
+[node name="Label" type="Label" parent="VBox"]
+text = "Choose Your Flowers (3 max)"
+horizontal_alignment = 1
+
+[node name="FlowerGrid" type="GridContainer" parent="VBox"]
+columns = 4
+
+[node name="StockCount" type="Label" parent="VBox"]
+text = "0/3 selected"
+horizontal_alignment = 1
+
+[node name="ConfirmBtn" type="Button" parent="VBox"]
+text = "Confirm Stock"
+disabled = true

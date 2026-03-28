@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://weather_select"]
+
+[node name="WeatherSelect" type="CanvasLayer"]
+
+[node name="VBox" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+
+[node name="Label" type="Label" parent="VBox"]
+text = "Choose your weather"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="VBox"]
+
+[node name="WeatherRow" type="HBoxContainer" parent="VBox"]
+alignment = 1
+
+[node name="SunshineBtn" type="Button" parent="VBox/WeatherRow"]
+text = "☀️ Sunshine"
+
+[node name="RainBtn" type="Button" parent="VBox/WeatherRow"]
+text = "🌧️ Rain"

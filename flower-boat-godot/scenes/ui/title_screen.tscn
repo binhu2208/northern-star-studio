@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://title_screen"]
+
+[node name="TitleScreen" type="CanvasLayer"]
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBox" type="VBoxContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(400, 0)
+alignment = 1
+
+[node name="Title" type="Label" parent="CenterContainer/VBox"]
+text = "🌸 Flower Boat"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="CenterContainer/VBox"]
+text = "A canal-cruising flower delivery game"
+horizontal_alignment = 1
+
+[node name="StartButton" type="Button" parent="CenterContainer/VBox"]
+text = "Begin"
+
+[node name="Margin" type="MarginContainer" parent="CenterContainer/VBox"]
+custom_minimum_size = Vector2(0, 40)

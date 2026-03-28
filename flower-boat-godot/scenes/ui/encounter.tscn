@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://encounter"]
+
+[node name="Encounter" type="CanvasLayer"]
+
+[node name="VBox" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+
+[node name="EncounterHeader" type="HBoxContainer" parent="VBox"]
+
+[node name="StopLabel" type="Label" parent="VBox/EncounterHeader"]
+text = "Stop 1"
+
+[node name="WeatherLabel" type="Label" parent="VBox/EncounterHeader"]
+text = "☀️"
+
+[node name="StopDesc" type="Label" parent="VBox"]
+text = "A quiet bend where the water narrows."
+horizontal_alignment = 1
+
+[node name="CustomerCard" type="PanelContainer" parent="VBox"]
+custom_minimum_size = Vector2(300, 180)
+
+[node name="CustomerName" type="Label" parent="VBox/CustomerCard"]
+text = "The Hurry"
+
+[node name="CustomerQuote" type="Label" parent="VBox/CustomerCard"]
+text = "\"I just need something quick.\""
+horizontal_alignment = 1
+
+[node name="FlowerGrid" type="GridContainer" parent="VBox"]
+columns = 3
+
+[node name="NavRow" type="HBoxContainer" parent="VBox"]
+alignment = 1
+
+[node name="PrevBtn" type="Button" parent="VBox/NavRow"]
+text = "← Previous"
+
+[node name="NextBtn" type="Button" parent="VBox/NavRow"]
+text = "Next →"
