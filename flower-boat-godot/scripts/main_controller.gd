@@ -49,7 +49,18 @@ func _show_screen(screen_name: String) -> void:
 		current_screen.queue_free()
 		current_screen = null
 	
-	var scene_path := "res://scenes/ui/" + screen_name + ".tscn"
+	# Map phase/screen names to scene files
+	var scene_map: Dictionary = {
+		"title": "title_screen",
+		"weather_select": "weather_select",
+		"route_map": "route_map",
+		"stock_select": "stock_select",
+		"planning": "planning_phase",
+		"encounter": "encounter",
+		"summary": "summary",
+	}
+	var resolved_name: String = scene_map.get(screen_name, screen_name)
+	var scene_path: String = "res://scenes/ui/" + resolved_name + ".tscn"
 	if ResourceLoader.exists(scene_path):
 		var new_screen = load(scene_path).instantiate()
 		ui_layer.add_child(new_screen)
