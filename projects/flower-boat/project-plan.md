@@ -30,8 +30,9 @@
 | FB-P013 | React architecture proposal | Abec | None | Y | Pending |
 | FB-P014 | Player testing (1-3 informal sessions) | Sakura + Bin | FB-P011, FB-P012 | Y | Superseded — Bin confirmed skip at this stage |
 | FB-P015 | Content expansion roadmap | Hideo (Design) | None | Y | Completed — `265c1c0`, content-expansion-roadmap.md |
-| FB-P016 | Set up Godot project + architecture | John (Dev) | Godot installed | Y | Pending — blocked on Godot install |
-| FB-P017 | Godot 2D art pipeline spec (tile size, sprite layout, export) | Yoshi (Art) | FB-P016 | Y | Pending |
+| FB-P016 | Set up Godot project + architecture | John (Dev) | Godot installed | Y | In Progress — project structure committed, docs/architecture.md live |
+| FB-P017 | Godot 2D art pipeline spec (tile size, sprite layout, export) | Yoshi (Art) | FB-P016 | Y | Completed — art-pipeline.md committed |
+| FB-P018 | Stock asset sourcing (online assets) | John + Yoshi | None | Y | In Progress — stock-assets.md shortlist committed, vetting in progress |
 
 ## Notes
 
@@ -45,7 +46,10 @@
 - Player testing deferred — Bin confirmed skip at this stage
 - Abec joining as React consultant — proposal pending
 - **2026-03-28: Godot pivot confirmed by Bin** — web prototype validated mechanics, Flower Boat moves to Godot 2D game
-- **BLOCKER: Godot must be installed on a machine to compile builds**
+- **2026-03-28: Stock assets confirmed** — Bin wants playable game, imperfect stock art is fine
+- **Godot installed** — project compiling clean
+- **Placeholder sprites** — John committed colored rectangles to keep build testable
+- **Illustrator gap** — resolved via stock assets; Yoshi curates, John vets technical fit
 
 ## Validation Approach (Gabe)
 
