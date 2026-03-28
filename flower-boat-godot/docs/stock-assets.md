@@ -64,7 +64,7 @@ Curated stock asset sources for Flower Boat. Based on the art pipeline spec — 
 - `https://itch.io/game-assets/free/tag-plants` — Tiny Ranch Asset Pack, flower sprites
 
 ### OpenGameArt
-- `https://opengameart.org/content/cozy-asset-pack-10` — specifically "cozy and cute game" assets (2023, free/personal use)
+- `https://opengameart.org/content/cozy-asset-pack-10` — **COZY ASSET PACK 1.0** — 16×16 top-down tiles, 130+ tiles, cozy warm colors, cute characters. **Free for personal/commercial, credit appreciated.** By IshtarPixels.
 - `https://opengameart.org/content/flowers` — 78 pixel art plants, modular, db32 palette
 
 **Evaluation checklist for all candidates:**
