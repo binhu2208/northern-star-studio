@@ -114,9 +114,9 @@ If stock assets don't meet the quality bar, commissioning an illustrator is the 
 **Still needs sourcing:**
 
 ### Customer Silhouettes
-- LPC (Liberated Pixel Cup) character sprites on OpenGameArt — CC-BY-SA — could be recolored/reworked into silhouettes
-- Alternatively: commission a single sprite sheet (8 silhouettes, 4 frames each = relatively small job)
-- **Recommended:** Try LPC base sprites first, if quality doesn't match bar, commission
+- **Kenney character packs** (kenney.nl) — search "character pack" or "people pack" — CC0, consistent style, multiple character types
+- LPC (Liberated Pixel Cup) on OpenGameArt — CC-BY-SA — base sprites to recolor/rework into silhouettes
+- **Recommendation:** Check Kenney first (CC0, clean style), then LPC. If neither fit cozy warm aesthetic: commission 8 silhouettes as a small targeted job
 
 ### Boat Sprite
 - Harder to find as stock — boat designs are specific
