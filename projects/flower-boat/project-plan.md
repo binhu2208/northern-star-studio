@@ -2,7 +2,7 @@
 
 ## Project Overview
 - **Project:** Flower Boat
-- **Status:** Pre-production — polish phase in progress
+- **Status:** Pre-production — moving to Godot 2D game (web prototype COMPLETE)
 - **Concept brief:** Gabe (Market) + Hideo (Design) approved by Bin 2026-03-26
 
 ## Project Overview
@@ -30,6 +30,8 @@
 | FB-P013 | React architecture proposal | Abec | None | Y | Pending |
 | FB-P014 | Player testing (1-3 informal sessions) | Sakura + Bin | FB-P011, FB-P012 | Y | Superseded — Bin confirmed skip at this stage |
 | FB-P015 | Content expansion roadmap | Hideo (Design) | None | Y | Completed — `265c1c0`, content-expansion-roadmap.md |
+| FB-P016 | Set up Godot project + architecture | John (Dev) | Godot installed | Y | Pending — blocked on Godot install |
+| FB-P017 | Godot 2D art pipeline spec (tile size, sprite layout, export) | Yoshi (Art) | FB-P016 | Y | Pending |
 
 ## Notes
 
@@ -42,12 +44,21 @@
 - Sequence: Visual direction → UI polish → player testing → content expansion
 - Player testing deferred — Bin confirmed skip at this stage
 - Abec joining as React consultant — proposal pending
+- **2026-03-28: Godot pivot confirmed by Bin** — web prototype validated mechanics, Flower Boat moves to Godot 2D game
+- **BLOCKER: Godot must be installed on a machine to compile builds**
 
 ## Validation Approach (Gabe)
 
 - **Week 1-2:** Concept test — 3-5 screenshots + GIF, post to r/cozygaming and indie dev Discord
 - **Month 1:** Paper prototype — spreadsheet inventory × customer matrix, 5-8 target players
 - **Month 2-3:** Vertical slice — one canal district, 3 weather states, one customer type, 8-10 flowers
+
+## Engine — Godot 4.x
+
+- **Bin confirmed 2026-03-28** — moving from web prototype to Godot 2D game
+- Web prototype (vanilla JS) validated mechanics — now building real game
+- John: GDScript + game systems
+- Yoshi: 2D art pipeline (sprites, tiles, weather effects)
 
 ## Risk Profile
 
