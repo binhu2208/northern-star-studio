@@ -29,6 +29,7 @@
 | FB-P012 | UI polish against visual direction | John (Dev) | FB-P011 | Y | In Progress |
 | FB-P013 | React architecture proposal | Abec | None | Y | Pending |
 | FB-P014 | Player testing (1-3 informal sessions) | Sakura + Bin | FB-P011, FB-P012 | Y | Pending — Bin must recruit players |
+| FB-P015 | Content expansion roadmap | Hideo (Design) | None | Y | Completed — `265c1c0`, content-expansion-roadmap.md |
 
 ## Notes
 
