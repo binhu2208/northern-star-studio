@@ -3,10 +3,10 @@
 [ext_resource type="Script" path="res://scripts/boat_controller.gd" id="1_boat"]
 [ext_resource type="Script" path="res://scripts/water_shimmer.gd" id="2_water"]
 [ext_resource type="Script" path="res://scripts/encounter_system.gd" id="3_encounter"]
-[ext_resource type="Texture2D" path="res://sprites/environment/sky_sunny.png" id="4_sky_sunny"]
-[ext_resource type="Texture2D" path="res://sprites/environment/sky_rain.png" id="5_sky_rain"]
-[ext_resource type="Texture2D" path="res://sprites/environment/sky_fog.png" id="6_sky_fog"]
-[ext_resource type="Texture2D" path="res://sprites/environment/sky_golden.png" id="7_sky_golden"]
+[ext_resource type="Texture2D" path="res://sprites/environment/sky_sunny_new.png" id="4_sky_sunny"]
+[ext_resource type="Texture2D" path="res://sprites/environment/sky_rain_new.png" id="5_sky_rain"]
+[ext_resource type="Texture2D" path="res://sprites/environment/sky_fog_new.png" id="6_sky_fog"]
+[ext_resource type="Texture2D" path="res://sprites/environment/sky_golden_new.png" id="7_sky_golden"]
 
 [node name="Canal" type="Node2D"]
 
