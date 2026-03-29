@@ -1,6 +1,15 @@
 [gd_scene format=3 uid="uid://weather_select"]
 
+[ext_resource type="Script" path="res://scripts/weather_select.gd" id="1"]
+
 [node name="WeatherSelect" type="CanvasLayer"]
+script = ExtResource("1")
+
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.1, 0.12, 0.15, 1.0)
 
 [node name="VBox" type="VBoxContainer" parent="."]
 anchors_preset = 15
@@ -8,17 +17,38 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 alignment = 1
 
-[node name="Label" type="Label" parent="VBox"]
+[node name="TitleLabel" type="Label" parent="VBox"]
 text = "Choose your weather"
 horizontal_alignment = 1
 
 [node name="HSeparator" type="HSeparator" parent="VBox"]
 
-[node name="WeatherRow" type="HBoxContainer" parent="VBox"]
+[node name="WeatherRow1" type="HBoxContainer" parent="VBox"]
 alignment = 1
 
-[node name="SunshineBtn" type="Button" parent="VBox/WeatherRow"]
+[node name="SunshineBtn" type="Button" parent="VBox/WeatherRow1"]
 text = "☀️ Sunshine"
 
-[node name="RainBtn" type="Button" parent="VBox/WeatherRow"]
+[node name="Margin1" type="MarginContainer" parent="VBox"]
+custom_minimum_size = Vector2(0, 20)
+
+[node name="WeatherRow2" type="HBoxContainer" parent="VBox"]
+alignment = 1
+
+[node name="RainBtn" type="Button" parent="VBox/WeatherRow2"]
 text = "🌧️ Rain"
+
+[node name="FogBtn" type="Button" parent="VBox/WeatherRow2"]
+text = "🌫️ Fog"
+
+[node name="Margin2" type="MarginContainer" parent="VBox"]
+custom_minimum_size = Vector2(0, 20)
+
+[node name="WeatherRow3" type="HBoxContainer" parent="VBox"]
+alignment = 1
+
+[node name="GoldenBtn" type="Button" parent="VBox/WeatherRow3"]
+text = "🌅 Golden Hour"
+
+[node name="BackButton" type="Button" parent="VBox"]
+text = "← Back"
