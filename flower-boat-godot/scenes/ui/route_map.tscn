@@ -1,6 +1,15 @@
 [gd_scene format=3 uid="uid://route_map"]
 
+[ext_resource type="Script" path="res://scripts/route_map.gd" id="1"]
+
 [node name="RouteMap" type="CanvasLayer"]
+script = ExtResource("1")
+
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.1, 0.12, 0.15, 1.0)
 
 [node name="VBox" type="VBoxContainer" parent="."]
 anchors_preset = 15
@@ -8,12 +17,34 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 alignment = 1
 
-[node name="Label" type="Label" parent="VBox"]
+[node name="TitleLabel" type="Label" parent="VBox"]
 text = "Morning Route"
 horizontal_alignment = 1
 
 [node name="RouteList" type="VBoxContainer" parent="VBox"]
 alignment = 1
 
+[node name="Stop1" type="Label" parent="VBox/RouteList"]
+text = "1. Canal Entrance"
+horizontal_alignment = 1
+
+[node name="Stop2" type="Label" parent="VBox/RouteList"]
+text = "2. Garden District"
+horizontal_alignment = 1
+
+[node name="Stop3" type="Label" parent="VBox/RouteList"]
+text = "3. Market Square"
+horizontal_alignment = 1
+
+[node name="Stop4" type="Label" parent="VBox/RouteList"]
+text = "4. Temple Harbor"
+horizontal_alignment = 1
+
+[node name="Margin" type="MarginContainer" parent="VBox"]
+custom_minimum_size = Vector2(0, 30)
+
 [node name="SailBtn" type="Button" parent="VBox"]
-text = "Set Sail"
+text = "Set Sail →"
+
+[node name="BackButton" type="Button" parent="VBox"]
+text = "← Back"
