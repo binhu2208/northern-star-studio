@@ -1,6 +1,15 @@
 [gd_scene format=3 uid="uid://planning_phase"]
 
+[ext_resource type="Script" path="res://scripts/planning_phase.gd" id="1"]
+
 [node name="PlanningPhase" type="CanvasLayer"]
+script = ExtResource("1")
+
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.1, 0.12, 0.15, 1.0)
 
 [node name="VBox" type="VBoxContainer" parent="."]
 anchors_preset = 15
@@ -8,15 +17,58 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 alignment = 1
 
-[node name="Label" type="Label" parent="VBox"]
+[node name="TitleLabel" type="Label" parent="VBox"]
 text = "Before You Sail"
 horizontal_alignment = 1
 
 [node name="SubLabel" type="Label" parent="VBox"]
-text = "What do you expect at each stop?"
+text = "Choose flowers for each stop"
+horizontal_alignment = 1
 
-[node name="ExpectationsGrid" type="VBoxContainer" parent="VBox"]
+[node name="StopsContainer" type="VBoxContainer" parent="VBox"]
 alignment = 1
 
+[node name="Stop1Row" type="HBoxContainer" parent="VBox/StopsContainer"]
+alignment = 1
+
+[node name="Stop1Label" type="Label" parent="VBox/StopsContainer/Stop1Row"]
+text = "Stop 1:"
+size_flags_horizontal = 3
+
+[node name="Stop1Flower" type="OptionButton" parent="VBox/StopsContainer/Stop1Row"]
+
+[node name="Stop2Row" type="HBoxContainer" parent="VBox/StopsContainer"]
+alignment = 1
+
+[node name="Stop2Label" type="Label" parent="VBox/StopsContainer/Stop2Row"]
+text = "Stop 2:"
+size_flags_horizontal = 3
+
+[node name="Stop2Flower" type="OptionButton" parent="VBox/StopsContainer/Stop2Row"]
+
+[node name="Stop3Row" type="HBoxContainer" parent="VBox/StopsContainer"]
+alignment = 1
+
+[node name="Stop3Label" type="Label" parent="VBox/StopsContainer/Stop3Row"]
+text = "Stop 3:"
+size_flags_horizontal = 3
+
+[node name="Stop3Flower" type="OptionButton" parent="VBox/StopsContainer/Stop3Row"]
+
+[node name="Stop4Row" type="HBoxContainer" parent="VBox/StopsContainer"]
+alignment = 1
+
+[node name="Stop4Label" type="Label" parent="VBox/StopsContainer/Stop4Row"]
+text = "Stop 4:"
+size_flags_horizontal = 3
+
+[node name="Stop4Flower" type="OptionButton" parent="VBox/StopsContainer/Stop4Row"]
+
+[node name="Margin" type="MarginContainer" parent="VBox"]
+custom_minimum_size = Vector2(0, 20)
+
 [node name="ConfirmBtn" type="Button" parent="VBox"]
-text = "Set Sail with These Flowers"
+text = "Set Sail →"
+
+[node name="BackButton" type="Button" parent="VBox"]
+text = "← Back"

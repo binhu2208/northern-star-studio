@@ -61,3 +61,7 @@ func confirm_stock() -> bool:
 
 func get_flower_count() -> int:
 	return slots.filter(func(s): return s != "").size()
+
+func get_flower_list() -> Array:
+	# Returns all available flower IDs
+	return ["sunflower", "lavender", "wildflower", "lily", "rose", "chrysanthemum", "freesia"]
