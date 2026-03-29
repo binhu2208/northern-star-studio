@@ -61,6 +61,19 @@ func _process(delta: float) -> void:
             var t = ease(move_progress, 1.5)
             var start_pos = dock_positions[current_dock]
             global_position = start_pos.lerp(target_position, t)
+    else:
+        _handle_input()
+
+func _handle_input() -> void:
+    if state == State.MOVING:
+        return
+    
+    if Input.is_action_just_pressed("ui_right"):
+        if current_dock < dock_positions.size() - 1:
+            move_to_dock(current_dock + 1)
+    elif Input.is_action_just_pressed("ui_left"):
+        if current_dock > 0:
+            move_to_dock(current_dock - 1)
 
 func get_current_dock() -> int:
     return current_dock
