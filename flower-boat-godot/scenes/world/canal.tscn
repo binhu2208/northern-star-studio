@@ -1,25 +1,27 @@
 [gd_scene format=3 uid="uid://canal_scene"]
 
-[ext_resource type="Script" path="res://scripts/water_shimmer.gd" id="1_water"]
-[ext_resource type="Texture2D" path="res://sprites/environment/sky_sunny.png" id="2_sky_sunny"]
-[ext_resource type="Texture2D" path="res://sprites/environment/sky_rain.png" id="3_sky_rain"]
-[ext_resource type="Texture2D" path="res://sprites/environment/sky_fog.png" id="4_sky_fog"]
-[ext_resource type="Texture2D" path="res://sprites/environment/sky_golden.png" id="5_sky_golden"]
+[ext_resource type="Script" path="res://scripts/boat_controller.gd" id="1_boat"]
+[ext_resource type="Script" path="res://scripts/water_shimmer.gd" id="2_water"]
+[ext_resource type="Script" path="res://scripts/encounter_system.gd" id="3_encounter"]
+[ext_resource type="Texture2D" path="res://sprites/environment/sky_sunny.png" id="4_sky_sunny"]
+[ext_resource type="Texture2D" path="res://sprites/environment/sky_rain.png" id="5_sky_rain"]
+[ext_resource type="Texture2D" path="res://sprites/environment/sky_fog.png" id="6_sky_fog"]
+[ext_resource type="Texture2D" path="res://sprites/environment/sky_golden.png" id="7_sky_golden"]
 
-[node name="CanalScene" type="Node2D"]
+[node name="Canal" type="Node2D"]
 
-# Sky background — 1280x720 canvas, 4 weather variants
+# Sky background — switches based on weather
 [node name="SkyLayer" type="Sprite2D" parent="."]
 position = Vector2(640, 360)
-texture = ExtResource("2_sky_sunny")
 z_index = -10
+texture = ExtResource("4_sky_sunny")
 
-# Water layer — shimmer effect behind canal
+# Water layer with shimmer
 [node name="WaterShimmer" type="Node2D" parent="."]
 z_index = -5
-script = ExtResource("1_water")
+script = ExtResource("2_water")
 
-# Canal banks — left and right edges (placeholder colored rectangles)
+# Canal banks — left and right
 [node name="BankLeft" type="Sprite2D" parent="."]
 position = Vector2(80, 400)
 modulate = Color(0.55, 0.5, 0.4, 1.0)
@@ -28,37 +30,51 @@ modulate = Color(0.55, 0.5, 0.4, 1.0)
 position = Vector2(1200, 400)
 modulate = Color(0.55, 0.5, 0.4, 1.0)
 
-# Ground tiles — TileMap for canal path/grass area
-[node name="GroundTiles" type="TileMap" parent="."]
-format = 2
-layer_0/tile_data = PackedInt32Array()
-
-# Boat — player controlled element
+# Boat — player controlled
 [node name="Boat" type="Sprite2D" parent="."]
 position = Vector2(200, 400)
 z_index = 5
+script = ExtResource("1_boat")
 
-# Dock markers — 4 stops along the canal
+# 4 Dock markers
 [node name="Docks" type="Node2D" parent="."]
 z_index = 10
 
 [node name="Dock1" type="Marker2D" parent="Docks"]
-position = Vector2(400, 450)
+position = Vector2(400, 400)
 
 [node name="Dock2" type="Marker2D" parent="Docks"]
-position = Vector2(600, 450)
+position = Vector2(600, 400)
 
 [node name="Dock3" type="Marker2D" parent="Docks"]
-position = Vector2(800, 450)
+position = Vector2(800, 400)
 
 [node name="Dock4" type="Marker2D" parent="Docks"]
-position = Vector2(1000, 450)
+position = Vector2(1000, 400)
 
-# Customer spawn point — appears at current dock
+# Customer spawn
 [node name="CustomerSpawn" type="Marker2D" parent="."]
-position = Vector2(400, 350)
+position = Vector2(400, 300)
 visible = false
 
-# UI overlay — card encounters and menus
+# Encounter System (manages customer logic)
+[node name="EncounterSystem" type="Node" parent="."]
+script = ExtResource("3_encounter")
+
+# UI layer
 [node name="UI" type="CanvasLayer" parent="."]
 layer = 100
+
+# Navigation hints
+[node name="DockUI" type="Label" parent="UI"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -250.0
+offset_right = 100.0
+offset_bottom = -200.0
+text = "← → to move"
+horizontal_alignment = 1
