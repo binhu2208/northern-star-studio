@@ -31,7 +31,7 @@
 | DEV-002 | Implement minimum playable prototype slice in `projects/emotion-cards-four/src/`: draw/play/discard loop, encounter state transitions, resolution handling, opposition behavior, and basic progression/save behavior | John (Developer) | DEV-001B | Y | Completed |
 | QA-001 | Create prototype validation plan for comprehension, replay intent, audience fit, readability, and tone acceptance | Sakura (QA) | MKT-002, MKT-003, DES-001 | Y | Completed |
 | QA-002 | Create state-transition, usability, and validation test cases for the prototype loop and task status readiness checks | Sakura (QA) | DEV-001B, QA-001 | Y | Completed |
-| QA-003 | Execute prototype validation against the playable slice, record pass/fail results, log issues, and report findings | Sakura (QA) | DEV-002, QA-002 | Y | In Progress |
+| QA-003 | Execute prototype validation against the playable slice, record pass/fail results, log issues, and report findings | Sakura (QA) | DEV-002, QA-002 | Y | Completed |
 | PROD-001 | Consolidate approved planning inputs into v1 planning baseline | Shig (Producer) | MKT-002, MKT-003, DES-001, ART-001, DEV-001A, QA-001 | Y | Completed |
 | PROD-002 | Assign implementation tasks for prototype build | Shig (Producer) | PROD-001 | Y | Completed |
 | PROD-003 | Review project critical path and update plan after first planning submissions | Shig (Producer) | PROD-001 | Y | Completed |
@@ -153,3 +153,20 @@ Tasks intentionally parallelized to reduce waiting:
 - QA-V1-003 Completed (9b87ccb): Gates 0-3 PASSED, no P1 blockers. Results at tests/v1-validation-results.md. MKT-V1-002 now unblocked and activated.
 - DES-V1-002b and DES-V1-004a underwent a revert/restore cycle (752de31, 54d1f21) — both now confirmed restored and complete.
 - DES-V1-005 identified (2026-03-26): Starter deck composition can produce opening hands with 0 valid primary-slot cards (2 Memories always support-only + only 2 Emotions/Reactions in 12-card deck). Walkthrough confirmed this is reproducible. Fix: add first-draw mulligan rule or adjust starter to guarantee 2 primary-slot cards in opening hand. Deferred to v1.1 — Hideo to write brief note and check in.
+- Heartbeat check 2026-03-29: MKT-V1-002 still In Progress. No blockers identified.
+- Heartbeat check 2026-03-29 (PM): MKT-V1-002 still In Progress. Flower Boat FB-D001 completed. No blockers.
+- Heartbeat check 2026-03-29 (PM): No changes. MKT-V1-002 still In Progress.
+- Heartbeat check 2026-03-29 PM: QA-003 marked Completed. MKT-V1-002 remains In Progress. No blockers.
+- Heartbeat check 2026-03-30 AM: MKT-V1-002 In Progress. Flower Boat FB-D001 complete. No blockers.
+- Heartbeat check 2026-03-30 PM: No blockers. All tasks stable.
+- Heartbeat check 2026-03-30 01:11 UTC: No changes. MKT-V1-002 still In Progress. No blockers.
+- Heartbeat check 2026-03-30 12:41AM: No changes. No blockers.
+- Heartbeat check 2026-03-30 02:11 UTC: No changes. MKT-V1-002 In Progress. No blockers.
+- Heartbeat check 2026-03-30 04:41 UTC: No changes. No blockers.
+- Heartbeat check 2026-03-30 04:11 UTC (10:11PM local): No changes. No blockers.
+- Heartbeat check 2026-03-30 05:11 UTC (11:11PM local): No changes. No blockers.
+- Heartbeat check 2026-03-30 04:41 UTC (10:41PM local): No changes. No blockers.
+- Heartbeat check 2026-03-30 06:11 UTC (12:11AM local): No changes. No blockers.
+- Heartbeat check 2026-03-30 07:41 UTC (1:41AM local): No changes. No blockers.
+- Heartbeat check 2026-03-30 15:41 UTC (9:41AM local): No changes. No blockers.
+- Heartbeat check 2026-03-30 17:11 UTC (11:11AM local): No changes. No blockers.
