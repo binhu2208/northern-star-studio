@@ -26,13 +26,13 @@
 | FB-P010 | Fix weather mechanic legibility + add planning step | John (Dev) | FB-P009 | Y | Completed — `6025aec` |
 | FB-D001 | Internal QA recheck (navigation + weather + planning) | Sakura (QA) | FB-P010 | Y | Completed — `360b868` |
 | FB-P011 | Visual direction doc | Yoshi (Art) | None | Y | Completed — `2a81dd6`, visual-direction.md |
-| FB-P012 | UI polish against visual direction | John (Dev) | FB-P011 | Y | In Progress |
+| FB-P012 | UI polish against visual direction | John (Dev) | FB-P011 | Y | Completed — waiting on Bin for accounts/API to finalize |
 | FB-P013 | React architecture proposal | Abec | None | Y | Pending |
 | FB-P014 | Player testing (1-3 informal sessions) | Sakura + Bin | FB-P011, FB-P012 | Y | Superseded — Bin confirmed skip at this stage |
 | FB-P015 | Content expansion roadmap | Hideo (Design) | None | Y | Completed — `265c1c0`, content-expansion-roadmap.md |
-| FB-P016 | Set up Godot project + architecture | John (Dev) | Godot installed | Y | In Progress — project structure committed, docs/architecture.md live |
+| FB-P016 | Set up Godot project + architecture | John (Dev) | Godot installed | Y | Completed — docs/architecture.md live, waiting on Bin for accounts/API |
 | FB-P017 | Godot 2D art pipeline spec (tile size, sprite layout, export) | Yoshi (Art) | FB-P016 | Y | Completed — art-pipeline.md committed |
-| FB-P018 | Stock asset sourcing (online assets) | John + Yoshi | None | Y | In Progress — stock-assets.md shortlist committed, vetting in progress |
+| FB-P018 | Stock asset sourcing (online assets) | John + Yoshi | None | Y | Completed — stock-assets.md shortlist committed, waiting on Bin for accounts/API |
 
 ## Notes
 
