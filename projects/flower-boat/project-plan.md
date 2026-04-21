@@ -70,3 +70,12 @@
 - "Influencing customers" drifts into complex economics — low risk
 - Base loop feels thin without seasonal content — low-moderate risk
 - Overall: Low-to-moderate risk
+
+## Heartbeat Log
+
+- Heartbeat check 2026-04-20 15:07 UTC: No changes since 2026-04-08. Status unchanged — waiting on Bin for accounts/API to finalize FB-P012, FB-P016, FB-P018. No blockers.
+- Heartbeat check 2026-04-20 17:07 UTC (11:07AM local): No changes. Status unchanged. No blockers.
+- Heartbeat check 2026-04-21 07:37 UTC (1:37AM local): No changes. Status unchanged — still waiting on Bin for accounts/API. No blockers.
+- Heartbeat check 2026-04-21 13:37 UTC (7:37AM local): No changes. Status unchanged — still waiting on Bin for accounts/API. No blockers.
+- Heartbeat check 2026-04-21 20:07 UTC (2:07PM local): No changes. Status unchanged — still waiting on Bin for accounts/API. No blockers.
+- Heartbeat check 2026-04-21 21:37 UTC (3:37PM local): No changes. Last git commit `e9c8bd9` (2026-04-08). Status unchanged — waiting on Bin for accounts/API. No blockers.
